@@ -2,9 +2,9 @@
   "name": "enqueue-frontend",
   "version": "1.0.0",
   "scripts": {
-    "start": "vue-cli-service serve",
-    "build:prod": "vue-cli-service build",
-    "build:dev": "vue-cli-service build --mode development",
+    "start": "vue-cli-service serve NODE_OPTIONS=--openssl-legacy-provider",
+    "build:prod": "vue-cli-service build NODE_OPTIONS=--openssl-legacy-provider",
+    "build:dev": "vue-cli-service build --mode development NODE_OPTIONS=--openssl-legacy-provider",
     "build": "npm run build:dev",
     "lint": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix"
@@ -20,6 +20,9 @@
     "vuex": "^3.6.2",
     "webpack": "^5.70.0"
   },
+
+  "proxy": "http://localhost:8080",
+
   "author": "Martin Pola & Sandra Järkeborn",
   "repository": "https://github.com/pola/enqueue",
   "devDependencies": {
