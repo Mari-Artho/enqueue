@@ -5,7 +5,7 @@ const crypto = require('crypto')
 const setTimeoutAt = require('safe-timers').setTimeoutAt
 
 const kth = require('./kth-data-fetcher')
-const config = require('./config')
+const config = require('./config.example')
 
 var Queue, Room, Computer, Profile, Action, Booking, Token, Task, Event, QueueQueuing, QueueQueuingHandler = null
 
