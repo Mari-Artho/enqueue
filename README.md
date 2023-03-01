@@ -33,5 +33,10 @@ När de är igång bör du kunna nå frontenden i din webbläsare:
 http://localhost:8080
 
 ## Memo
-When you install npm, and if the following message appears, remove NODE_OPTIONS from the package.json file.
+⭐️ When you install npm, and if the following message appears, remove NODE_OPTIONS from the package.json file.
 node: --openssl-legacy-provider is not allowed in NODE_OPTIONS
+
+
+⭐️ Choose an icon from the link below
+
+https://fonts.google.com/icons?selected=Material+Icons
