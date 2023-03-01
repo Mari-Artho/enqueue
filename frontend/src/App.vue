@@ -2,7 +2,8 @@
   <md-app>
     <md-app-toolbar class="md-primary">
       <md-button to="/queues"> <md-icon>list</md-icon> Alla köer </md-button>
-      <h1>Hej! Mari is here 😃 at App.vue</h1>
+      <h3>Hej! Mari is here 😃 at App.vue</h3>
+      <md-button to="/bookings"><md-icon>menu_book</md-icon> Bookings</md-button>
 
       <md-button v-if="$store.state.profile !== null && $store.state.profile.teacher" to="/admin"> <md-icon>build</md-icon> Administration </md-button>
 
