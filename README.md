@@ -38,5 +38,4 @@ node: --openssl-legacy-provider is not allowed in NODE_OPTIONS
 
 
 ⭐️ Choose an icon from the link below
-
 https://fonts.google.com/icons?selected=Material+Icons

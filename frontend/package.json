@@ -20,7 +20,6 @@
     "vuex": "^3.6.2",
     "webpack": "^5.70.0"
   },
-
   "author": "Martin Pola & Sandra Järkeborn",
   "repository": "https://github.com/pola/enqueue",
   "devDependencies": {

@@ -5,6 +5,7 @@ import QueueListView from '../views/Queues.vue'
 import QueueSingleView from '../views/Queue.vue'
 import QueueEditView from '../views/QueueEdit.vue'
 import QueueHistoryView from '../views/QueueHistory.vue'
+import TestView from '../views/Test.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,7 @@ const routes = [
   { path: '/queues/:name', component: QueueSingleView },
   { path: '/queues/:name/edit', component: QueueEditView },
   { path: '/queues/:name/history', component: QueueHistoryView },
+  { path: '/test', component: TestView },
 ]
 
 const router = new VueRouter({
