@@ -3,6 +3,7 @@
     <md-card>
       <md-card-header>
         <h2 class="md-title">Alla köer</h2>
+        <h2>Just a test at views/Queues.vue</h2>
       </md-card-header>
 
       <md-card-content>

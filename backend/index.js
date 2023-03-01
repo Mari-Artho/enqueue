@@ -11,7 +11,6 @@ const history = require('connect-history-api-fallback')
 const Sequelize = require('sequelize')
 
 const config = require('./config')
-//const config = require('./config.example')
 const model = require('./model')
 const socket_controller = require('./socket_controller')
 const { auth } = require('express-openid-connect')
