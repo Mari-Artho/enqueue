@@ -54,4 +54,4 @@ https://fonts.google.com/icons?selected=Material+Icons
 ⭐️ To use animation css
 $ npm install animate.css --save
 
-link[https://animate.style/#usage]
+[link](https://animate.style/#usage)
