@@ -1,16 +1,23 @@
+<script scoped>
+//import 'animate.css'
+import animation from 'animate.css'
+export default animation
+</script>
+
 <template>
   <div>
+    <h1 class="animate__fadeInTopLeft animate__repeat-2">HELLO</h1>
     <img src="../../public/images/kth-logo.png" alt="kth logo" height="100px" width="100px" />
     <md-card>
       <md-card-header>
-        <h3>Hej! This is a test line</h3>
+        <h3 class="animate__fadeInTopLeft animate__repeat-2">Hej! This is a test line</h3>
         <h2>HELLO!</h2>
       </md-card-header>
     </md-card>
   </div>
 </template>
 
-<style>
+<style scoped>
 h2 {
   width: 100px;
   height: 100px;
