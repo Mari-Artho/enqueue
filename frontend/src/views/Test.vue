@@ -69,9 +69,14 @@ h2 {
 @keyframes slide-right-animation {
   0% {
     width: 0;
+    background: pink;
+  }
+  50% {
+    background: yellow;
   }
   100% {
     width: 50%;
+    background: #7eace9;
   }
 }
 </style>
