@@ -1,24 +1,36 @@
 <script scoped>
-//import 'animate.css'
-import animation from 'animate.css'
-export default animation
+import 'animate.css'
+//import animation from 'animate.css'
+//export default animation
+
+export default {
+  name: 'Test',
+}
 </script>
 
 <template>
   <div>
-    <h1 class="animate__fadeInTopLeft animate__repeat-2">HELLO</h1>
-    <img src="../../public/images/kth-logo.png" alt="kth logo" height="100px" width="100px" />
+    <h1 class="animate__animated animate__swing animate__repeat-2">HELLO</h1>
+    <img class="animate__animated animate__flip animate__repeat-3" src="../../public/images/kth-logo.png" alt="kth logo" height="100px" width="100px" />
     <md-card>
       <md-card-header>
-        <h3 class="animate__fadeInTopLeft animate__repeat-2">Hej! This is a test line</h3>
+        <h3 class="moving">Test1</h3>
         <h2 class="slide-right">HELLO!</h2>
+      </md-card-header>
+    </md-card>
+
+    <md-card>
+      <md-card-header>
+        <h3 class="moving">Test2</h3>
+        <h2 class="slide-right">Hej!</h2>
       </md-card-header>
     </md-card>
   </div>
 </template>
 
 <style scoped>
-h2 {
+/* Moving animation */
+.moving {
   width: 100px;
   height: 100px;
   background-color: lightblue;
@@ -56,7 +68,7 @@ h2 {
   }
 }
 
-/* Animation: 2 */
+/* Slide Animation */
 .slide-right {
   width: 50%;
   height: 30px;

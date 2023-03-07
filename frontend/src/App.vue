@@ -2,7 +2,7 @@
   <md-app>
     <md-app-toolbar class="md-primary">
       <md-button to="/queues"> <md-icon>list</md-icon> Alla köer </md-button>
-      <h3>Hej! Mari is here 😃 at App.vue</h3>
+      <h3 class="animate__animated animate__fadeInDown">Hej! Mari is here 😃 at App.vue</h3>
       <md-button to="/test"><md-icon>local_florist</md-icon> Test Button</md-button>
 
       <md-button v-if="$store.state.profile !== null && $store.state.profile.teacher" to="/admin"> <md-icon>build</md-icon> Administration </md-button>
@@ -26,6 +26,7 @@
 
 <script>
 import axios from 'axios'
+import 'animate.css'
 
 export default {
   created() {
