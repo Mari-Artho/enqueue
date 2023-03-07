@@ -11,7 +11,7 @@ export default animation
     <md-card>
       <md-card-header>
         <h3 class="animate__fadeInTopLeft animate__repeat-2">Hej! This is a test line</h3>
-        <h2>HELLO!</h2>
+        <h2 class="slide-right">HELLO!</h2>
       </md-card-header>
     </md-card>
   </div>
@@ -24,7 +24,7 @@ h2 {
   background-color: lightblue;
   position: relative;
   animation-name: moving;
-  animation-duration: 2s;
+  animation-duration: 4s;
   margin: 2rem;
 }
 
@@ -53,6 +53,24 @@ h2 {
     background-color: orange;
     left: 0px;
     top: 0px;
+  }
+}
+
+/* Animation: 2 */
+.slide-right {
+  width: 50%;
+  height: 30px;
+  background: #8eb7f0;
+  animation-name: slide-right-animation;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+@keyframes slide-right-animation {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 50%;
   }
 }
 </style>
