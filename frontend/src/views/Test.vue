@@ -62,8 +62,9 @@ h2 {
   height: 30px;
   background: #8eb7f0;
   animation-name: slide-right-animation;
-  animation-duration: 6s;
+  animation-duration: 3s;
   animation-iteration-count: infinite;
+  /* animation-iteration-count: initial; */
 }
 @keyframes slide-right-animation {
   0% {
