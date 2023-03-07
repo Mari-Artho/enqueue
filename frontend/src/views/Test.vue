@@ -1,7 +1,5 @@
 <script scoped>
 import 'animate.css'
-//import animation from 'animate.css'
-//export default animation
 
 export default {
   name: 'Test',
