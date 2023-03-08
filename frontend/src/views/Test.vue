@@ -31,7 +31,7 @@ export default {
 .moving {
   width: 100px;
   height: 100px;
-  background-color: lightblue;
+  background-color: #448aff;
   position: relative;
   animation-name: moving;
   animation-duration: 3s;
@@ -86,7 +86,7 @@ export default {
   }
   100% {
     width: 50%;
-    background: #7eace9;
+    background: #448aff;
   }
 }
 </style>
