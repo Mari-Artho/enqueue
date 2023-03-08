@@ -8,8 +8,10 @@ export default {
 
 <template>
   <div>
-    <h1 class="animate__animated animate__swing animate__repeat-2">HELLO</h1>
-    <img class="animate__animated animate__flip animate__repeat-3" src="../../public/images/kth-logo.png" alt="kth logo" height="100px" width="100px" />
+    <div class="layout-flex">
+      <h1 class="animate__animated animate__swing animate__repeat-2">HELLO</h1>
+      <img class="animate__animated animate__flip animate__repeat-3" src="../../public/images/kth-logo.png" alt="kth logo" height="100px" width="100px" />
+    </div>
     <md-card>
       <md-card-header>
         <h3 class="moving">Test1</h3>
@@ -27,6 +29,15 @@ export default {
 </template>
 
 <style scoped>
+.layout-flex {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  margin: 2rem;
+}
+
 /* Moving animation */
 .moving {
   width: 100px;
