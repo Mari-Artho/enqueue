@@ -34,7 +34,7 @@ export default {
   background-color: lightblue;
   position: relative;
   animation-name: moving;
-  animation-duration: 4s;
+  animation-duration: 3s;
   margin: 2rem;
 }
 
@@ -46,18 +46,18 @@ export default {
   }
   25% {
     background-color: yellow;
-    left: 50px;
+    left: 200px;
     top: 0px;
   }
   50% {
     background-color: orange;
-    left: 50px;
-    top: 50px;
+    left: 400px;
+    top: 0px;
   }
   75% {
     background-color: green;
-    left: 0px;
-    top: 50px;
+    left: 600px;
+    top: 0px;
   }
   100% {
     background-color: orange;
