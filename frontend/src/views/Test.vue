@@ -9,7 +9,7 @@ export default {
 <template>
   <div>
     <div class="layout-flex">
-      <h1 class="animate__animated animate__swing animate__repeat-2">HELLO</h1>
+      <h1 class="animate__animated animate__swing animate__repeat-3"><md-icon>thumb_up</md-icon>HELLO</h1>
       <img class="animate__animated animate__flip animate__repeat-3" src="../../public/images/kth-logo.png" alt="kth logo" height="100px" width="100px" />
     </div>
     <md-card>
