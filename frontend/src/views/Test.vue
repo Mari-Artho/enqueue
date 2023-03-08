@@ -12,6 +12,12 @@ export default {
       <h1 class="animate__animated animate__swing animate__repeat-3"><md-icon>thumb_up</md-icon>HELLO</h1>
       <img class="animate__animated animate__flip animate__repeat-3" src="../../public/images/kth-logo.png" alt="kth logo" height="100px" width="100px" />
     </div>
+    <div class="search">
+      <input type="text" v-model="searchTerm" placeholder="search" />
+      <button @click="search">search</button>
+    </div>
+    <md-input /><md-button>SEARCH</md-button>
+
     <md-card>
       <md-card-header>
         <h3 class="moving">Test1</h3>
@@ -34,7 +40,8 @@ export default {
   justify-content: center;
 }
 
-img {
+img,
+.search {
   margin: 2rem;
 }
 
