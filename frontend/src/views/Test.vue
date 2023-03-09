@@ -2,7 +2,18 @@
 import 'animate.css'
 
 export default {
+  el: '#now',
   name: 'Test',
+
+  data: () => ({
+    now: '',
+  }),
+
+  created: function () {
+    setInterval(() => {
+      this.now = new Date().toLocaleString()
+    }, 1000)
+  },
 }
 </script>
 
@@ -11,11 +22,15 @@ export default {
     <div class="layout-flex">
       <h1 class="animate__animated animate__swing animate__repeat-3"><md-icon>thumb_up</md-icon>HELLO</h1>
       <img class="animate__animated animate__flip animate__repeat-3" src="../../public/images/kth-logo.png" alt="kth logo" height="100px" width="100px" />
+      <div id="now">
+        <p class="currentTime">{{ now }}</p>
+      </div>
     </div>
-    <div class="search">
-      <input type="text" v-model="searchTerm" placeholder="search" />
+
+    <!-- <div class="search">
+      <input v-model="searchTerm" type="text" placeholder="search" />
       <button @click="search">search</button>
-    </div>
+    </div> -->
     <md-input /><md-button>SEARCH</md-button>
 
     <md-card>
@@ -43,6 +58,13 @@ export default {
 img,
 .search {
   margin: 2rem;
+}
+
+/* Show current time */
+.currentTime {
+  font-size: 2.5rem;
+  background-color: rgb(202, 227, 239);
+  border: 1rem bold black;
 }
 
 /* Moving animation */
