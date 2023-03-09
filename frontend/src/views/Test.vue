@@ -64,7 +64,9 @@ img,
 .currentTime {
   font-size: 2.5rem;
   background-color: rgb(202, 227, 239);
-  border: 1rem bold black;
+  border: 5px solid black;
+  padding: 1rem;
+  border-radius: 5px;
 }
 
 /* Moving animation */
