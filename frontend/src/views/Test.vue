@@ -63,9 +63,10 @@ img,
 /* Show current time */
 .currentTime {
   font-size: 2.5rem;
-  background-color: rgb(202, 227, 239);
-  border: 5px solid black;
-  padding: 1rem;
+  background-color: #448aff;
+  border: 3px solid black;
+  color: white;
+  padding: 2rem;
   border-radius: 5px;
 }
 
