@@ -1,6 +1,7 @@
 module.exports = {
   debug: true,
-  hostname: "http://test.kth.se:8080",
+  //hostname: "http://test.kth.se:8080",
+  hosename: "http://localhost:8080",
   listen: {
     ip: "0.0.0.0",
     port: 1234,
