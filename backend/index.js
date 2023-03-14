@@ -107,6 +107,7 @@ if (config.kthlogin.clientId && config.kthlogin.clientSecret) {
 app.use(async (req, res, next) => {
   if (req.oidc.user && !req.session.profile) {
     const id = req.oidc.user.kthid;
+    //const id = req.oidc.user.clientId;
     const username = req.oidc.user.username;
     const name = req.oidc.user.unique_name[0];
 
