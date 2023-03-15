@@ -17,6 +17,7 @@
           <span v-if="dialog_queuing.profile.user_name !== null"> {{ dialog_queuing.profile.name }} ({{ dialog_queuing.profile.user_name }}) </span>
         </h2>
 
+        <!-- Alert message -->
         <strong>Gick in i kön:</strong>
         {{ unix_to_datetime(dialog_queuing.entered_at) }}
         <br />
@@ -177,7 +178,9 @@
 
             <md-table-head style="width: 20%"> Tid </md-table-head>
 
-            <md-table-head style="width: 50%"> Kommentar </md-table-head>
+            <md-table-head style="width: 40%"> Kommentar </md-table-head>
+
+            <md-table-head style="width: 10%"> Plats </md-table-head>
           </md-table-row>
 
           <template v-if="view_entire_queue === true">
@@ -187,7 +190,12 @@
 
                 <div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div>
 
-                <span :class="[{ badLocation: user.bad_location }]"><Location :location="user.location" /></span>
+                <!-- <span :class="[{ badLocation: user.bad_location }]"><Location :location="user.location" /></span> -->
+              </md-table-cell>
+              <!-- Plats -->
+              <md-table-cell>
+                <div v-if="user.profile.name !== null" style="white-space: nowrap"><Location :location="user.location" /></div>
+                <!-- <span :class="[{ badLocation: user.bad_location }]"><Location :location="user.location" /></span> -->
               </md-table-cell>
 
               <md-table-cell>{{ unix_to_datetime(user.entered_at) }} </md-table-cell>
@@ -256,7 +264,8 @@
         <md-card>
           <md-card-header>
             <h2 class="md-title">
-              <span v-if="in_queue">Hantera min köplats</span>
+              <!-- Köplats -->
+              <span v-if="in_queue">Hantera min köplats💖</span>
 
               <span v-else>Gå med i kön</span>
             </h2>
@@ -791,4 +800,3 @@ export default {
   },
 }
 </script>
-
