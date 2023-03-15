@@ -11,8 +11,11 @@
           <md-table-row v-for="queue in queues" :key="queue.id" style="cursor: pointer" @click.native="open_queue(queue)">
             <md-table-cell>
               <md-icon v-if="!queue.open" class="md-accent"> lock </md-icon>
+
               <md-icon v-else> lock_open </md-icon>
               {{ queue.name }}
+              <md-icon v-if="!queue.open" class="md-accent"> catching_pokemon </md-icon>
+              <md-icon v-else> mood </md-icon>
             </md-table-cell>
             <md-table-cell class="text-right">
               {{ queue.queuing_count }}
