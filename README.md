@@ -55,3 +55,5 @@ https://fonts.google.com/icons?selected=Material+Icons
 $ npm install animate.css --save
 
 [link to animate.css ](https://animate.style/#usage)
+
+⭐️ The clientId and clientSecret in the config file are 36-40 numbers or strings respectively.
