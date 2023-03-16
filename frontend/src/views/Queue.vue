@@ -56,16 +56,20 @@
       </md-dialog-actions>
     </md-dialog>
 
+    <!-- Display when there is a booking -->
     <md-dialog v-if="dialog_booking !== null" :md-active="true">
       <md-dialog-content>
+        <!-- Time slot -->
         <h2>Tidslucka {{ unix_to_datetime(dialog_booking.timestamp) }}</h2>
 
+        <!-- Name -->
         <template v-if="$store.state.profile !== null">
           <strong>Namn:</strong>
           {{ dialog_booking.students.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
           <br />
         </template>
 
+        <!-- Plats -->
         <strong>Plats:&nbsp;</strong>
 
         <span v-if="dialog_booking.location === null" class="noLocation">ingen plats angiven</span>
@@ -74,12 +78,14 @@
 
         <br />
 
+        <!-- Comment -->
         <template v-if="dialog_booking.comment !== null">
           <strong>Kommentar:</strong>
           {{ dialog_booking.comment }}
           <br />
         </template>
 
+        <!-- Assisted by -->
         <template v-if="dialog_booking.handlers.length > 0">
           <strong>Assisteras av:</strong>
           {{ dialog_booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
@@ -87,13 +93,15 @@
       </md-dialog-content>
 
       <md-dialog-content>
+        <!-- Enter location input form -->
         <form v-if="$store.state.profile !== null && dialog_booking.students.findIndex(x => x.id === $store.state.profile.id) !== -1" style="display: inline-flex" @submit.prevent="booking_set_location">
+          <!-- Input plats -->
           <md-field>
             <label for="booking_location">Ange plats</label>
-
             <md-input id="booking_location" v-model="booking_location" type="text" />
           </md-field>
 
+          <!-- Save plats button-->
           <md-card-actions>
             <md-button type="submit" class="md-primary">Spara</md-button>
           </md-card-actions>
@@ -102,15 +110,20 @@
 
       <md-dialog-actions>
         <span v-if="is_assistant_in_queue">
+          <!-- Remove button -->
           <md-button class="md-accent" @click="booking_remove(dialog_booking)">Ta bort</md-button>
 
+          <!-- Button -->
           <md-button v-if="dialog_booking.location !== null" :class="[{ 'md-accent': !dialog_booking.bad_location }]" @click="booking_bad_location"> Placering </md-button>
 
+          <!-- Button -->
           <md-button v-if="dialog_booking.handlers.find(x => x.id === $store.state.profile.id) === undefined" class="md-primary" @click="booking_handle"> Assistera </md-button>
 
+          <!-- Stop assisting button -->
           <md-button v-else @click="booking_handle">Sluta assistera</md-button>
         </span>
 
+        <!-- Close button -->
         <md-button class="md-primary" @click="dialog_booking = null"> Stäng </md-button>
       </md-dialog-actions>
     </md-dialog>
@@ -131,6 +144,7 @@
           <span v-for="opening in queue.openings" :key="opening" style="background: #eeeeee; padding: 5px; margin: 0 3px"> {{ unix_to_datetime(opening) }} </span>
         </div>
 
+        <!-- Display when there is a booking -->
         <md-table v-if="queue.bookings.length > 0">
           <md-table-row>
             <md-table-head style="width: 30%"> Tidslucka </md-table-head>
@@ -173,29 +187,32 @@
           </md-table-row>
         </md-table>
 
+        <!-- Row of Que tables -->
         <md-table v-if="queue.queuing.length > 0">
-          <!-- Row of Que tables -->
+          <!-- Table head -->
           <md-table-row>
-            <md-table-head style="width: 30%"> Namn </md-table-head>
+            <md-table-head style="width: 20%"> Namn </md-table-head>
 
             <md-table-head style="width: 10%"> Innehåll </md-table-head>
 
             <md-table-head style="width: 10%"> Plats </md-table-head>
 
-            <md-table-head style="width: 20%"> Tid </md-table-head>
+            <md-table-head style="width: 10%"> Tid </md-table-head>
 
-            <md-table-head style="width: 40%"> Kommentar </md-table-head>
+            <md-table-head style="width: 30%"> Kommentar </md-table-head>
           </md-table-row>
 
           <template v-if="view_entire_queue === true">
             <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
               <!-- Namn -->
-              <md-table-cel>
-                <!-- <md-badge v-if="user.action !== null" class="md-primary md-square" :md-content="user.action.name" /> -->
-                <div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div>
-              </md-table-cel>
+              <md-table-cel v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</md-table-cel>
+              <!-- <md-table-cel
+                ><div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div></md-table-cel
+              > -->
 
+              <!-- Innehåll -->
               <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square" :md-content="user.action.name" /></md-table-cell>
+
               <!-- Plats -->
               <md-table-cell>
                 <div v-if="user.profile.name !== null" style="white-space: nowrap"><Location :location="user.location" /></div>
