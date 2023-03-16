@@ -204,11 +204,10 @@
 
           <template v-if="view_entire_queue === true">
             <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
-              <!-- Namn -->
-              <md-table-cel v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</md-table-cel>
-              <!-- <md-table-cel
-                ><div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div></md-table-cel
-              > -->
+              <!-- Namn  -->
+              <md-table-cell>
+                <div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div>
+              </md-table-cell>
 
               <!-- Innehåll -->
               <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square" :md-content="user.action.name" /></md-table-cell>
