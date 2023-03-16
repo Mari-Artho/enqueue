@@ -10,6 +10,7 @@
 
     <md-dialog-confirm :md-active="promt_clear_queue && queue.queuing.length !== 0" md-title="Vill du rensa kön?" md-confirm-text="Ja, rensa kön" md-cancel-text="Nej, återgå" @md-confirm="purge()" @md-cancel="promt_clear_queue = false" />
 
+    <!-- Alert message -->
     <md-dialog v-if="dialog_queuing !== null" :md-active="true">
       <md-dialog-content>
         <h2>
@@ -17,11 +18,11 @@
           <span v-if="dialog_queuing.profile.user_name !== null"> {{ dialog_queuing.profile.name }} ({{ dialog_queuing.profile.user_name }}) </span>
         </h2>
 
-        <!-- Alert message -->
         <strong>Gick in i kön:</strong>
         {{ unix_to_datetime(dialog_queuing.entered_at) }}
         <br />
 
+        <!-- nbsp means no line break -->
         <strong>Plats:&nbsp;</strong>
 
         <span :class="[{ badLocation: dialog_queuing.bad_location }]"><Location :location="dialog_queuing.location" /></span>
@@ -134,7 +135,7 @@
           <md-table-row>
             <md-table-head style="width: 30%"> Tidslucka </md-table-head>
 
-            <md-table-head v-if="$store.state.profile !== null" style="width: 30%"> Namn </md-table-head>
+            <md-table-head v-if="$store.state.profile !== null" style="width: 30%"> Namn</md-table-head>
 
             <md-table-head v-if="$store.state.profile !== null" style="width: 40%"> Kommentar </md-table-head>
 
@@ -173,33 +174,37 @@
         </md-table>
 
         <md-table v-if="queue.queuing.length > 0">
+          <!-- Row of Que tables -->
           <md-table-row>
             <md-table-head style="width: 30%"> Namn </md-table-head>
+
+            <md-table-head style="width: 10%"> Innehåll </md-table-head>
+
+            <md-table-head style="width: 10%"> Plats </md-table-head>
 
             <md-table-head style="width: 20%"> Tid </md-table-head>
 
             <md-table-head style="width: 40%"> Kommentar </md-table-head>
-
-            <md-table-head style="width: 10%"> Plats </md-table-head>
           </md-table-row>
 
           <template v-if="view_entire_queue === true">
             <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
-              <md-table-cell>
-                <md-badge v-if="user.action !== null" class="md-primary md-square" :md-content="user.action.name" />
-
+              <!-- Namn -->
+              <md-table-cel>
+                <!-- <md-badge v-if="user.action !== null" class="md-primary md-square" :md-content="user.action.name" /> -->
                 <div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div>
+              </md-table-cel>
 
-                <!-- <span :class="[{ badLocation: user.bad_location }]"><Location :location="user.location" /></span> -->
-              </md-table-cell>
+              <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square" :md-content="user.action.name" /></md-table-cell>
               <!-- Plats -->
               <md-table-cell>
                 <div v-if="user.profile.name !== null" style="white-space: nowrap"><Location :location="user.location" /></div>
-                <!-- <span :class="[{ badLocation: user.bad_location }]"><Location :location="user.location" /></span> -->
               </md-table-cell>
 
+              <!-- Tid -->
               <md-table-cell>{{ unix_to_datetime(user.entered_at) }} </md-table-cell>
 
+              <!-- Kommentar -->
               <md-table-cell>
                 <span v-if="user.comment !== null">{{ user.comment }}</span>
               </md-table-cell>
