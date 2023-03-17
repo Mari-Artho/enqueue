@@ -219,9 +219,6 @@
 
               <!-- Tid -->
               <md-table-cell>{{ unix_to_datetime(user.entered_at) }} </md-table-cell>
-              <md-table-cell style="background: red"
-                ><p>unix_to_datetime test{{ unix_to_datetime2(user.entered_at) }}</p>
-              </md-table-cell>
 
               <!-- Kommentar -->
               <md-table-cell>
@@ -643,23 +640,15 @@ export default {
 
     //Time stamp year/month/day/time
     unix_to_datetime2(unix) {
-      const unixTime = 1616000000
-      const date = new Date(unixTime * 1000)
-      // year
+      const unixTime = 1616000000 //integer value representing unix time.
+      const date = new Date(unixTime * 1000) //Convert UNIX time to Date object
       const year = date.getFullYear()
-
-      // month
       const month = date.getMonth() + 1
-
-      // date
       const day = date.getDate()
-
-      // hour
       const hour = date.getHours()
-
-      // minute
       const minute = date.getMinutes()
-      console.log(`${year}/${month}/${day} ${hour}:${minute}`)
+
+      return `${year}/${month}/${day} ${hour}:${minute}`
     },
 
     unix_to_datetime(unix) {
@@ -667,27 +656,20 @@ export default {
       const d = new Date(unix)
       const today = new Date()
 
-      const hour = '0' + d.getHours()
-      const min = '0' + d.getMinutes()
-
-      const time = hour.slice(-2) + ':' + min.slice(-2)
-
-      //test1
       const year = d.getFullYear()
       const month = d.getMonth() + 1
       const day = d.getDate()
-      //test1 end
 
+      const hour = '0' + d.getHours()
+      const min = '0' + d.getMinutes()
+      const time = hour.slice(-2) + ':' + min.slice(-2)
       if (today.getDate() === d.getDate() && today.getMonth() === d.getMonth() && today.getFullYear() === d.getFullYear()) {
-        return year + '/' + month + '/' + day + '/' + time
+        return `${year}/${month}/${day} ${time}`
       }
-
       var date = d.getDate() + ' ' + ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'][d.getMonth()]
-
       if (today.getFullYear() !== d.getFullYear()) {
         date += ' ' + d.getFullYear()
       }
-
       return date + ', ' + time
     },
 
