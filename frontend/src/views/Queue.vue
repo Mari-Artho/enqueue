@@ -193,11 +193,11 @@
           <md-table-row>
             <md-table-head style="width: 5%"> Namn </md-table-head>
 
-            <md-table-head style="width: 5%"> Innehåll </md-table-head>
+            <md-table-head style="width: 5%"> Plats </md-table-head>
 
-            <md-table-head style="width: 10%"> Plats </md-table-head>
+            <md-table-head style="width: 1%">.</md-table-head>
 
-            <md-table-head style="width: 10%"> Tid </md-table-head>
+            <md-table-head style="width: 20%"> Tid </md-table-head>
 
             <md-table-head style="width: 40%"> Kommentar </md-table-head>
           </md-table-row>
@@ -209,13 +209,13 @@
                 <div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div>
               </md-table-cell>
 
-              <!-- Innehåll -->
-              <md-table-cell><md-badge style="background: orange; padding: 0" v-if="user.action !== null" class="md-primary md-square" :md-content="user.action.name" /></md-table-cell>
-
               <!-- Plats -->
               <md-table-cell>
                 <div v-if="user.profile.name !== null" style="white-space: nowrap"><Location :location="user.location" /></div>
               </md-table-cell>
+
+              <!-- Innehåll -->
+              <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
 
               <!-- Tid -->
               <md-table-cell>{{ unix_to_datetime(user.entered_at) }} </md-table-cell>
@@ -821,3 +821,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.md-content {
+  padding-left: 0;
+  background: green;
+  color: red;
+}
+</style>
