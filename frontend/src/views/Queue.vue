@@ -197,7 +197,7 @@
 
             <md-table-head style="width: 1%; color: white">.</md-table-head>
 
-            <md-table-head style="width: 20%"> Tid </md-table-head>
+            <md-table-head style="width: 40%"> Tid </md-table-head>
 
             <md-table-head style="width: 40%"> Kommentar </md-table-head>
           </md-table-row>
@@ -219,6 +219,9 @@
 
               <!-- Tid -->
               <md-table-cell>{{ unix_to_datetime(user.entered_at) }} </md-table-cell>
+              <md-table-cell style="background: red"
+                ><p>unix_to_datetime test{{ unix_to_datetime2(user.entered_at) }}</p>
+              </md-table-cell>
 
               <!-- Kommentar -->
               <md-table-cell>
@@ -638,6 +641,27 @@ export default {
       })
     },
 
+    //Time stamp year/month/day/time
+    unix_to_datetime2(unix) {
+      const unixTime = 1616000000
+      const date = new Date(unixTime * 1000)
+      // year
+      const year = date.getFullYear()
+
+      // month
+      const month = date.getMonth() + 1
+
+      // date
+      const day = date.getDate()
+
+      // hour
+      const hour = date.getHours()
+
+      // minute
+      const minute = date.getMinutes()
+      console.log(`${year}/${month}/${day} ${hour}:${minute}`)
+    },
+
     unix_to_datetime(unix) {
       // TODO: övergå till något bibliotek, till exempel Moment
       const d = new Date(unix)
@@ -648,8 +672,14 @@ export default {
 
       const time = hour.slice(-2) + ':' + min.slice(-2)
 
+      //test1
+      const year = d.getFullYear()
+      const month = d.getMonth() + 1
+      const day = d.getDate()
+      //test1 end
+
       if (today.getDate() === d.getDate() && today.getMonth() === d.getMonth() && today.getFullYear() === d.getFullYear()) {
-        return time
+        return year + '/' + month + '/' + day + '/' + time
       }
 
       var date = d.getDate() + ' ' + ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'][d.getMonth()]
