@@ -189,6 +189,8 @@
 
         <!-- Row of Que tables -->
         <md-table v-if="queue.queuing.length > 0">
+          <div id="now" class="currentTime">{{ now }}</div>
+
           <!-- Table head -->
           <md-table-row>
             <md-table-head style="width: 5%"> Namn </md-table-head>
@@ -380,7 +382,12 @@ export default {
     Location,
   },
 
+  el: '#now',
+
   data: () => ({
+    //current time
+    now: '',
+
     queue: null,
     location: null,
     comment: null,
@@ -508,6 +515,11 @@ export default {
     this.$store.state.socket.on('notify', this.socket_handle_notify)
 
     this.fetch_queue()
+
+    //current time
+    setInterval(() => {
+      this.now = new Date().toLocaleString()
+    }, 1000)
   },
 
   methods: {
@@ -834,8 +846,16 @@ export default {
 }
 </script>
 
-<!-- <style scoped>
-.table-display {
-  color: red;
+<style scoped>
+.currentTime {
+  width: 250px;
+  height: 30px;
+  padding: auto;
+  padding-left: 2rem;
+  font-size: 1.2rem;
+  border: 1px solid blue;
+  border-radius: 10px;
+  background: #448aff;
+  color: white;
 }
-</style> -->
+</style>
