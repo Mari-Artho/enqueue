@@ -191,15 +191,15 @@
         <md-table v-if="queue.queuing.length > 0">
           <!-- Table head -->
           <md-table-row>
-            <md-table-head style="width: 20%"> Namn </md-table-head>
+            <md-table-head style="width: 5%"> Namn </md-table-head>
 
-            <md-table-head style="width: 10%"> Innehåll </md-table-head>
+            <md-table-head style="width: 5%"> Innehåll </md-table-head>
 
             <md-table-head style="width: 10%"> Plats </md-table-head>
 
             <md-table-head style="width: 10%"> Tid </md-table-head>
 
-            <md-table-head style="width: 30%"> Kommentar </md-table-head>
+            <md-table-head style="width: 40%"> Kommentar </md-table-head>
           </md-table-row>
 
           <template v-if="view_entire_queue === true">
@@ -210,7 +210,7 @@
               </md-table-cell>
 
               <!-- Innehåll -->
-              <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square" :md-content="user.action.name" /></md-table-cell>
+              <md-table-cell><md-badge style="background: orange; padding: 0" v-if="user.action !== null" class="md-primary md-square" :md-content="user.action.name" /></md-table-cell>
 
               <!-- Plats -->
               <md-table-cell>
