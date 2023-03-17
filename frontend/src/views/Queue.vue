@@ -195,7 +195,7 @@
 
             <md-table-head style="width: 5%"> Plats </md-table-head>
 
-            <md-table-head style="width: 1%">.</md-table-head>
+            <md-table-head style="width: 1%; color: white">.</md-table-head>
 
             <md-table-head style="width: 20%"> Tid </md-table-head>
 
@@ -822,10 +822,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.md-content {
-  padding-left: 0;
-  background: green;
+<!-- <style scoped>
+.table-display {
   color: red;
 }
-</style>
+</style> -->
