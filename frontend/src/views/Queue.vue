@@ -376,17 +376,16 @@
 import Location from '../components/Location.vue'
 
 export default {
+  el: '#now',
   name: 'Queue',
 
   components: {
     Location,
   },
 
-  el: '#now',
-
   data: () => ({
     //current time
-    now: '',
+    now: null,
 
     queue: null,
     location: null,
