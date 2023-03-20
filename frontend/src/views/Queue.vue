@@ -187,23 +187,22 @@
           </md-table-row>
         </md-table>
 
+        <div id="now" class="currentTime">{{ now }}</div>
         <!-- Row of Que tables -->
         <md-table v-if="queue.queuing.length > 0">
-          <div id="now" class="currentTime">{{ now }}</div>
-
           <!-- Booking que -->
           <br />
           <div style="background: lightgrey; height: 100px">Booking queue will be here</div>
 
           <!-- Drop in que/Table head -->
           <md-table-row>
-            <md-table-head style="width: 1%"> Namn </md-table-head>
+            <md-table-head style="width: 5%"> Namn </md-table-head>
 
-            <md-table-head style="width: 10%"> Plats </md-table-head>
+            <md-table-head style="width: 4%"> Plats </md-table-head>
 
             <md-table-head style="width: 1%; color: white">.</md-table-head>
 
-            <md-table-head style="width: 40%"> Tid </md-table-head>
+            <md-table-head style="width: 20%"> Tid </md-table-head>
 
             <md-table-head style="width: 70%"> Kommentar </md-table-head>
           </md-table-row>
@@ -211,12 +210,12 @@
           <template v-if="view_entire_queue === true">
             <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
               <!-- Namn  -->
-              <md-table-cell style="width: 1%">
+              <md-table-cell>
                 <div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div>
               </md-table-cell>
 
               <!-- Plats -->
-              <md-table-cell style="width: 10%">
+              <md-table-cell>
                 <div v-if="user.profile.name !== null" style="white-space: nowrap"><Location :location="user.location" /></div>
               </md-table-cell>
 
