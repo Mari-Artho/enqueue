@@ -220,7 +220,7 @@
               <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
 
               <!-- Tid -->
-              <md-table-cell>{{ unix_to_datetime(user.entered_at) }} </md-table-cell>
+              <md-table-cell>{{ unix_to_datetime2(user.entered_at) }} </md-table-cell>
 
               <!-- Kommentar -->
               <md-table-cell>
@@ -857,14 +857,15 @@ export default {
 
 <style scoped>
 .currentTime {
-  width: 250px;
-  height: 30px;
-  padding: auto;
+  width: 300px;
+  height: 35px;
+  padding: 5px;
   padding-left: 2rem;
   font-size: 1.2rem;
   border: 1px solid blue;
   border-radius: 10px;
   background: #448aff;
   color: white;
+  font-family: 'Share Tech Mono', monospace;
 }
 </style>
