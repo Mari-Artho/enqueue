@@ -149,7 +149,7 @@
           <md-table-row>
             <md-table-head style="width: 30%"> Tidslucka </md-table-head>
 
-            <md-table-head v-if="$store.state.profile !== null" style="width: 30%"> Namn</md-table-head>
+            <md-table-head v-if="$store.state.profile !== null" style="width: 20%"> Namn</md-table-head>
 
             <md-table-head v-if="$store.state.profile !== null" style="width: 40%"> Kommentar </md-table-head>
 
@@ -191,28 +191,32 @@
         <md-table v-if="queue.queuing.length > 0">
           <div id="now" class="currentTime">{{ now }}</div>
 
-          <!-- Table head -->
-          <md-table-row>
-            <md-table-head style="width: 5%"> Namn </md-table-head>
+          <!-- Booking que -->
+          <br />
+          <div style="background: lightgrey; height: 100px">Booking queue will be here</div>
 
-            <md-table-head style="width: 5%"> Plats </md-table-head>
+          <!-- Drop in que/Table head -->
+          <md-table-row>
+            <md-table-head style="width: 1%"> Namn </md-table-head>
+
+            <md-table-head style="width: 10%"> Plats </md-table-head>
 
             <md-table-head style="width: 1%; color: white">.</md-table-head>
 
             <md-table-head style="width: 40%"> Tid </md-table-head>
 
-            <md-table-head style="width: 40%"> Kommentar </md-table-head>
+            <md-table-head style="width: 70%"> Kommentar </md-table-head>
           </md-table-row>
 
           <template v-if="view_entire_queue === true">
             <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
               <!-- Namn  -->
-              <md-table-cell>
+              <md-table-cell style="width: 1%">
                 <div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div>
               </md-table-cell>
 
               <!-- Plats -->
-              <md-table-cell>
+              <md-table-cell style="width: 10%">
                 <div v-if="user.profile.name !== null" style="white-space: nowrap"><Location :location="user.location" /></div>
               </md-table-cell>
 
@@ -868,4 +872,8 @@ export default {
   color: white;
   font-family: 'Share Tech Mono', monospace;
 }
+
+/* .md-table-head {
+  background-color: orange;
+} */
 </style>
