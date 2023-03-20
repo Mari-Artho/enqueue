@@ -317,6 +317,7 @@
               <p>För att kunna ställa dig i kön måste du vara ansluten till KTHLAN, exempelvis via eduroam.</p>
             </div>
 
+            <!-- Log in -->
             <div v-else-if="$store.state.profile === null">
               <p>För att kunna ställa dig i kön måste du logga in.</p>
 
@@ -328,12 +329,14 @@
             </div>
 
             <div v-else>
+              <!-- Plats -->
               <md-field v-if="$store.state.location === null">
                 <label for="location">Plats</label>
 
                 <md-input id="location" v-model="location" type="text" required />
               </md-field>
 
+              <!-- Kommentar -->
               <md-field>
                 <label for="comment">Kommentar</label>
 
@@ -341,17 +344,20 @@
               </md-field>
 
               <div v-for="p_action in queue.actions" :key="p_action.id">
-                <!--class="md-get-palette-color(green, A200)" -->
+                <!-- class="md-get-palette-color(green, A200)" -->
 
                 <md-radio v-model="action" :value="p_action.id" :class="'md-' + p_action.color"> {{ p_action.name }} </md-radio>
               </div>
 
+              <!-- Events/Actions -->
               <md-card-actions v-if="in_queue">
+                <!-- Lämna kön button -->
                 <md-button type="submit" class="md-accent" @click="dequeue($store.state)">
                   <md-icon>person_add_disabled</md-icon>
                   Lämna kön
                 </md-button>
 
+                <!-- Update button -->
                 <md-button :disabled="(queue.force_comment && (comment === null || comment.length === 0)) || (queue.force_action && action === null)" type="submit" class="md-primary" @click="update_own_details">
                   <md-icon>update</md-icon>
                   Uppdatera
@@ -359,6 +365,7 @@
               </md-card-actions>
 
               <md-card-actions v-else>
+                <!-- Gå med i kön button -->
                 <md-button :disabled="!queue.open || (queue.force_comment && (comment === null || comment.length === 0)) || (queue.force_action && action === null)" type="submit" class="md-primary" @click="enqueue">
                   <md-icon>person_add</md-icon>
                   Gå med i kön
@@ -522,6 +529,7 @@ export default {
   },
 
   methods: {
+    //add to que
     enqueue() {
       fetch('/api/queues/' + this.queue.name + '/queuing', {
         method: 'POST',
@@ -540,6 +548,7 @@ export default {
       })
     },
 
+    //update
     update_own_details() {
       fetch('/api/queues/' + this.queue.name + '/queuing/' + this.$store.state.profile.id, {
         method: 'PATCH',
@@ -558,6 +567,7 @@ export default {
       })
     },
 
+    //delete
     dequeue(student) {
       fetch('/api/queues/' + this.queue.name + '/queuing/' + student.profile.id, {
         method: 'DELETE',
