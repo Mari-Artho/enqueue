@@ -597,6 +597,7 @@ export default {
           if (student.profile.id === this.$store.state.profile.id) {
             this.comment = null
             this.action = null
+            this.scrollToTop()
           }
         } else {
           res.json().then(data => {
