@@ -369,7 +369,7 @@
 
               <md-card-actions v-else>
                 <!-- Gå med i kön button -->
-                <md-button :disabled="!queue.open || (queue.force_comment && (comment === null || comment.length === 0)) || (queue.force_action && action === null)" type="submit" class="md-primary" @click="enqueue">
+                <md-button :disabled="!queue.open || (queue.force_comment && (comment === null || comment.length === 0)) || (queue.force_action && action === null)" type="submit" class="md-primary" @click="addQueAndScrollTop">
                   <md-icon>person_add</md-icon>
                   Gå med i kön
                 </md-button>
@@ -532,6 +532,17 @@ export default {
   },
 
   methods: {
+    //To put two methods in one button
+    addQueAndScrollTop() {
+      this.scrollToTop()
+      this.enqueue()
+    },
+
+    //scroll to top
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
+
     //add to que
     enqueue() {
       fetch('/api/queues/' + this.queue.name + '/queuing', {
@@ -546,6 +557,7 @@ export default {
         if (res.status !== 201) {
           res.json().then(data => {
             alert(data.message)
+            // this.scrollToTop()
           })
         }
       })
