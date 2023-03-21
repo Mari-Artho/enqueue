@@ -361,7 +361,7 @@
                 </md-button>
 
                 <!-- Update button -->
-                <md-button :disabled="(queue.force_comment && (comment === null || comment.length === 0)) || (queue.force_action && action === null)" type="submit" class="md-primary" @click="update_own_details">
+                <md-button :disabled="(queue.force_comment && (comment === null || comment.length === 0)) || (queue.force_action && action === null)" type="submit" class="md-primary" @click="updateAndScrollTop">
                   <md-icon>update</md-icon>
                   Uppdatera
                 </md-button>
@@ -536,6 +536,13 @@ export default {
     addQueAndScrollTop() {
       this.scrollToTop()
       this.enqueue()
+      this.update_own_details()
+    },
+
+    //To put two methods in one button
+    updateAndScrollTop() {
+      this.scrollToTop()
+      this.update_own_details()
     },
 
     //scroll to top
@@ -557,7 +564,6 @@ export default {
         if (res.status !== 201) {
           res.json().then(data => {
             alert(data.message)
-            // this.scrollToTop()
           })
         }
       })
