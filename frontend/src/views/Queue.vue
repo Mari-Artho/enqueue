@@ -187,13 +187,13 @@
           </md-table-row>
         </md-table>
 
+        <!-- Current time -->
         <div id="now" class="currentTime">{{ now }}</div>
         <!-- Row of Que tables -->
         <md-table v-if="queue.queuing.length > 0">
           <!-- Booking que -->
           <br />
           <div style="background: lightgrey; height: 100px">Booking queue will be here</div>
-
           <!-- Drop in que/Table head -->
           <md-table-row>
             <md-table-head style="width: 5%"> Namn </md-table-head>
