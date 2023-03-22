@@ -4,3 +4,5 @@ backend/config.js
 .DS_Store
 .expo
 .watchmanconfig
+hemlig_enqueue.py
+
