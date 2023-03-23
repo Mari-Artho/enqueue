@@ -194,6 +194,10 @@
           <!-- Booking que -->
           <br />
           <div style="background: lightgrey; height: 100px">Booking queue will be here</div>
+          <!-- <div v-if="dialog_booking == null" style="background: pink">
+            <h2>Tidslucka {{ unix_to_datetime(dialog_booking.timestamp) }}</h2>
+          </div> -->
+
           <!-- Drop in que/Table head -->
           <md-table-row>
             <md-table-head style="width: 5%"> Namn </md-table-head>
@@ -223,7 +227,7 @@
               <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
 
               <!-- Tid -->
-              <md-table-cell>{{ unix_to_datetime2(user.entered_at) }} </md-table-cell>
+              <md-table-cell>{{ unix_to_datetime(user.entered_at) }} </md-table-cell>
 
               <!-- Kommentar -->
               <md-table-cell>
@@ -682,17 +686,17 @@ export default {
     },
 
     //Time stamp year/month/day/time
-    unix_to_datetime2(unix) {
-      const unixTime = 1616000000 //integer value representing unix time.
-      const date = new Date(unixTime * 1000) //Convert UNIX time to Date object
-      const year = date.getFullYear()
-      const month = date.getMonth() + 1
-      const day = date.getDate()
-      const hour = date.getHours()
-      const minute = date.getMinutes()
+    // unix_to_datetime2(unix) {
+    //   const unixTime = 1616000000 //integer value representing unix time.
+    //   const date = new Date(unixTime * 1000) //Convert UNIX time to Date object
+    //   const year = date.getFullYear()
+    //   const month = date.getMonth() + 1
+    //   const day = date.getDate()
+    //   const hour = date.getHours()
+    //   const minute = date.getMinutes()
 
-      return `${year}/${month}/${day} ${hour}:${minute}`
-    },
+    //   return `${year}/${month}/${day} ${hour}:${minute}`
+    // },
 
     unix_to_datetime(unix) {
       // TODO: övergå till något bibliotek, till exempel Moment
