@@ -138,6 +138,8 @@
         </h1>
 
         <p style="white-space: pre-line">{{ queue.description }}</p>
+        <p>This is queue.name: {{ queue.name }}</p>
+        <p>This is queue.link: {{ queue.link }}</p>
         <p>Hej</p>
 
         <div v-if="queue.openings.length > 0">
