@@ -137,7 +137,9 @@
           {{ queue.name }}
         </h1>
 
-        <p style="white-space: pre-line" v-html="createLinks(queue.description)"></p>
+        <!-- Description from MySql and link to zoom. -->
+        <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
+        <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
         <p>Hej</p>
 
         <div v-if="queue.openings.length > 0">
