@@ -2,11 +2,10 @@
   <md-app>
     <md-app-toolbar class="md-primary">
       <md-button to="/queues"> <md-icon>list</md-icon> Alla köer </md-button>
-      <h3 class="animate__animated animate__fadeInDown">Hej! Mari is here 😃 at App.vue</h3>
-      <md-button to="/test"><md-icon>local_florist</md-icon> Test Button</md-button>
-      <md-button to="/admin"><md-icon>settings</md-icon> Admin</md-button>
 
       <md-button v-if="$store.state.profile !== null && $store.state.profile.teacher" to="/admin"> <md-icon>build</md-icon> Administration </md-button>
+
+      <md-button to="/test"><md-icon>local_florist</md-icon> Test Button</md-button>
 
       <div class="md-toolbar-section-end">
         <md-button v-if="$store.state.profile === null" @click="triggerLogin()"> <md-icon>face</md-icon> Logga in </md-button>

@@ -65,7 +65,7 @@ r = s.post(
 
 print("r.status_code=", r.status_code)
 print("-------------------")
-print(r.text)
+print("r.text=",r.text)
 
 #pprint(r.json())
 #1679667153000

@@ -138,6 +138,7 @@
         </h1>
 
         <p style="white-space: pre-line">{{ queue.description }}</p>
+        <p>Hej</p>
 
         <div v-if="queue.openings.length > 0">
           Kommande öppningar:
@@ -292,9 +293,9 @@
         <br />
 
         <md-card>
+          <!-- Köplats -->
           <md-card-header>
             <h2 class="md-title">
-              <!-- Köplats -->
               <span v-if="in_queue">Hantera min köplats💖</span>
 
               <span v-else>Gå med i kön</span>
