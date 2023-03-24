@@ -137,9 +137,7 @@
           {{ queue.name }}
         </h1>
 
-        <p style="white-space: pre-line">{{ queue.description }}</p>
-        <p>This is queue.name: {{ queue.name }}</p>
-        <p>This is queue.link: {{ queue.link }}</p>
+        <p style="white-space: pre-line" v-html="createLinks(queue.description)"></p>
         <p>Hej</p>
 
         <div v-if="queue.openings.length > 0">
@@ -540,6 +538,12 @@ export default {
   },
 
   methods: {
+    // create links from URLs that are embedded in text
+    createLinks(text) {
+      const urlRegex = /(https?:\/\/[^\s/$.?#]+\.[^\s]+)/g // regular expression to match URLs
+      return text.replace(urlRegex, '<a href="$1">$1</a>') // replace URLs with HTML links
+    },
+
     //To put two methods in one button
     addQueAndScrollTop() {
       this.scrollToTop()
