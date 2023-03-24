@@ -197,9 +197,10 @@
           <!-- Booking que -->
           <br />
           <div style="background: lightgrey; height: 100px">Booking queue will be here</div>
-          <!-- <div v-if="dialog_booking == null" style="background: pink">
+          <div v-if="!dialog_booking == null" style="background: pink">
             <h2>Tidslucka {{ unix_to_datetime(dialog_booking.timestamp) }}</h2>
-          </div> -->
+            <h2>Location {{ unix_to_datetime(dialog_booking.location) }}</h2>
+          </div>
 
           <!-- Drop in que/Table head -->
           <md-table-row>
