@@ -37,7 +37,7 @@
 
         <template v-if="dialog_queuing.handlers.length > 0">
           <strong>Assisteras av:</strong>
-          {{ dialog_queuing.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
+          {{ dialog_queuing.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}💓
         </template>
       </md-dialog-content>
 
@@ -88,7 +88,7 @@
         <!-- Assisted by -->
         <template v-if="dialog_booking.handlers.length > 0">
           <strong>Assisteras av:</strong>
-          {{ dialog_booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
+          🐵{{ dialog_booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
         </template>
       </md-dialog-content>
 
@@ -215,6 +215,8 @@
             <md-table-head style="width: 20%"> Tid </md-table-head>
 
             <md-table-head style="width: 70%"> Kommentar </md-table-head>
+
+            <md-table-head style="width: 5%"> Assisteras av </md-table-head>
           </md-table-row>
 
           <template v-if="view_entire_queue === true">
@@ -238,6 +240,11 @@
               <!-- Kommentar -->
               <md-table-cell>
                 <span v-if="user.comment !== null">{{ user.comment }}</span>
+              </md-table-cell>
+
+              <!-- Assisteras av-->
+              <md-table-cell>
+                {{ user.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
               </md-table-cell>
             </md-table-row>
           </template>
