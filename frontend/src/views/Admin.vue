@@ -2,6 +2,7 @@
   <div>
     <h1>Administration</h1>
 
+    <!-- Lärare -->
     <md-card>
       <md-card-header>
         <h2 class="md-title">Lärare</h2>
@@ -39,6 +40,7 @@
 
     <br />
 
+    <!-- Skapa ny kö -->
     <md-card>
       <md-card-header>
         <h2 class="md-title">Skapa ny kö</h2>
@@ -60,6 +62,7 @@
 
     <br />
 
+    <!-- Terminalsalar -->
     <md-card>
       <md-card-header>
         <h2 class="md-title">Terminalsalar</h2>
