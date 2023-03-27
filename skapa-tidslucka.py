@@ -50,14 +50,26 @@ print("loggain text", r.text)
 #print(r.status_code)
 #print(r.text)
 #pprint(r.json())
+# r = s.post(
+#     "http://localhost:8080/api/queues/tilpro/bookings",
+#     json={
+#         'comment': "'https://kth-se.zoom.us/j/7583921381 d1-d2'",
+#         'external_id': None,
+#         'location': None,
+#         'removal_duration': 1000000,
+#         'students': [{'user_name': 'ashenawa'}],
+#         'timestamp': 1679667153000,
+#         'zz': None}
+# )
+
 r = s.post(
     "http://localhost:8080/api/queues/tilpro/bookings",
     json={
         'comment': "'https://kth-se.zoom.us/j/7583921381 d1-d2'",
         'external_id': None,
-        'location': None,
+        'location': "zoom",
         'removal_duration': 1000000,
-        'students': [{'user_name': 'ashenawa'}],
+        'students': [{'user_name': 'artho2'}],
         'timestamp': 1679667153000,
         'zz': None}
 )
