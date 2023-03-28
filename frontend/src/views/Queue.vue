@@ -142,6 +142,9 @@
         <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
         <p>Hej</p>
 
+        <!-- Current time -->
+        <div id="now" class="currentTime">{{ now }}</div>
+
         <div v-if="queue.openings.length > 0">
           Kommande öppningar:
           <span v-for="opening in queue.openings" :key="opening" style="background: #eeeeee; padding: 5px; margin: 0 3px"> {{ unix_to_datetime(opening) }} </span>
@@ -190,8 +193,6 @@
           </md-table-row>
         </md-table>
 
-        <!-- Current time -->
-        <div id="now" class="currentTime">{{ now }}</div>
         <!-- Row of Que tables -->
         <md-table v-if="queue.queuing.length > 0">
           <!-- Booking que -->
