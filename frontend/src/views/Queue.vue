@@ -152,6 +152,7 @@
 
         <!-- Display when there is a booking -->
         <md-table v-if="queue.bookings.length > 0">
+          <h1 style="margin-top: 3rem">Bokad tid</h1>
           <md-table-row>
             <md-table-head style="width: 30%"> Tidslucka </md-table-head>
 
@@ -195,15 +196,6 @@
 
         <!-- Row of Que tables -->
         <md-table v-if="queue.queuing.length > 0">
-          <!-- Booking que -->
-          <br />
-          <h1>Bokad tid</h1>
-          <div style="background: lightgrey; height: 100px">Booking queue will be here</div>
-          <div v-if="!dialog_booking == null" style="background: pink">
-            <h2>Tidslucka {{ unix_to_datetime(dialog_booking.timestamp) }}</h2>
-            <h2>Location {{ unix_to_datetime(dialog_booking.location) }}</h2>
-          </div>
-
           <!-- Drop in que/Table head -->
           <h1>Queue</h1>
           <md-table-row>
