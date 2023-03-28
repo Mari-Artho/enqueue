@@ -228,7 +228,7 @@
 
               <!-- Plats -->
               <md-table-cell>
-                <div v-if="user.profile.name !== null" style="white-space: nowrap"><Location :location="user.location" /></div>
+                <div v-if="user.profile.name !== null"><Location :location="user.location" /></div>
               </md-table-cell>
 
               <!-- Innehåll -->
