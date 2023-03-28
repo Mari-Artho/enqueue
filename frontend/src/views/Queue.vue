@@ -161,6 +161,8 @@
             <md-table-head v-if="$store.state.profile !== null" style="width: 40%"> Kommentar </md-table-head>
 
             <md-table-head v-else style="width: 70%"> Kommentar </md-table-head>
+
+            <md-table-head v-if="$store.state.profile !== null" style="width: 5%"> Assisteras av </md-table-head>
           </md-table-row>
 
           <md-table-row
@@ -175,21 +177,30 @@
             ]"
             @click="dialog_booking = booking"
           >
+            <!-- Tid -->
             <md-table-cell>
               {{ unix_to_datetime(booking.timestamp) }}
               <br />
 
+              <!-- Location -->
               <div v-if="booking.location !== null" :class="[{ badLocation: booking.bad_location }]">{{ booking.location }}</div>
 
               <div v-else class="noLocation">ingen plats angiven</div>
             </md-table-cell>
 
+            <!-- Student name -->
             <md-table-cell v-if="$store.state.profile !== null">
               <div v-for="student in booking.students" :key="student.id">{{ student.name }}</div>
             </md-table-cell>
 
+            <!-- Komment -->
             <md-table-cell>
-              <span v-if="booking.comment !== null">{{ booking.comment }}</span>
+              <div v-if="booking.comment !== null">{{ booking.comment }}</div>
+            </md-table-cell>
+
+            <!-- Assisteras av-->
+            <md-table-cell>
+              <div>{{ booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}</div>
             </md-table-cell>
           </md-table-row>
         </md-table>
