@@ -206,9 +206,13 @@
         </md-table>
 
         <!-- Row of Que tables -->
+        <h1>Queue</h1>
+        <div v-if="queue.queuing.length < 1">
+          <h3 style="color: grey; margin-top: 2rem">Den här kön är tom</h3>
+        </div>
+
         <md-table v-if="queue.queuing.length > 0">
           <!-- Drop in que/Table head -->
-          <h1>Queue</h1>
           <md-table-row>
             <md-table-head style="width: 5%"> Namn </md-table-head>
 
