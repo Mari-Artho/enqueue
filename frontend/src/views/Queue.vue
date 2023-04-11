@@ -151,7 +151,7 @@
         </div>
 
         <!-- Display when there is a booking -->
-        <md-table v-if="queue.bookings.length > 0 && in_queue">
+        <md-table v-if="queue.bookings.length > 0 && in_queue && queue.open">
           <h1 style="margin-top: 3rem">Bokad tid</h1>
           <md-table-row>
             <md-table-head style="width: 30%"> Tidslucka </md-table-head>
