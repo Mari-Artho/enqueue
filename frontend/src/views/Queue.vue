@@ -118,7 +118,7 @@
           <!-- Remove button -->
           <md-button class="md-accent" @click="booking_remove(dialog_booking)"> Ta bort </md-button>
 
-          <!-- Button -->
+          <!-- Placering button -->
           <md-button v-if="dialog_booking.location !== null" :class="[{ 'md-accent': !dialog_booking.bad_location }]" @click="booking_bad_location"> Placering </md-button>
 
           <!-- Assistera button -->
