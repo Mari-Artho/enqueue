@@ -122,7 +122,16 @@
           <md-button v-if="dialog_booking.location !== null" :class="[{ 'md-accent': !dialog_booking.bad_location }]" @click="booking_bad_location"> Placering </md-button>
 
           <!-- Assistera button -->
-          <md-button v-if="dialog_booking.handlers.find(x => x.id === $store.state.profile.id) === undefined" class="md-primary" @click="booking_handle" v-on:click="showAlert"> Assistera </md-button>
+          <md-button
+            v-if="dialog_booking.handlers.find(x => x.id === $store.state.profile.id) === undefined"
+            class="md-primary"
+            @click="
+              booking_handle()
+              showAlert()
+            "
+          >
+            Assistera
+          </md-button>
 
           <!-- <md-button v-if="dialog_booking.handlers.find(x => x.id === $store.state.profile.id) === undefined" class="md-primary alert" @click="booking_handle" v-on:click="showAlert" v-bind:class="[alertClass]" v-show="show">
             Assistera <span>{{ ThankMessage }}</span>
