@@ -43,15 +43,20 @@
 
       <md-dialog-actions>
         <span v-if="is_assistant_in_queue">
+          <!-- Ta bort -->
           <md-button class="md-accent" @click="dequeue(dialog_queuing)">Ta bort</md-button>
 
+          <!-- Placering -->
           <md-button :class="[{ 'md-accent': !dialog_queuing.bad_location }]" @click="queuing_bad_location(dialog_queuing)"> Placering </md-button>
 
+          <!-- Assistera -->
           <md-button v-if="dialog_queuing.handlers.find(x => x.id === $store.state.profile.id) === undefined" class="md-primary" @click="queuing_handle(dialog_queuing.profile)"> Assistera </md-button>
 
+          <!-- Sluta assistera -->
           <md-button v-else @click="queuing_handle(dialog_queuing.profile)">Sluta assistera</md-button>
         </span>
 
+        <!-- Stäng -->
         <md-button class="md-primary" @click="dialog_queuing = null"> Stäng </md-button>
       </md-dialog-actions>
     </md-dialog>
@@ -111,13 +116,17 @@
       <md-dialog-actions>
         <span v-if="is_assistant_in_queue">
           <!-- Remove button -->
-          <md-button class="md-accent" @click="booking_remove(dialog_booking)">Ta bort</md-button>
+          <md-button class="md-accent" @click="booking_remove(dialog_booking)"> Ta bort </md-button>
 
           <!-- Button -->
           <md-button v-if="dialog_booking.location !== null" :class="[{ 'md-accent': !dialog_booking.bad_location }]" @click="booking_bad_location"> Placering </md-button>
 
-          <!-- Button -->
-          <md-button v-if="dialog_booking.handlers.find(x => x.id === $store.state.profile.id) === undefined" class="md-primary" @click="booking_handle"> Assistera </md-button>
+          <!-- Assistera button -->
+          <md-button v-if="dialog_booking.handlers.find(x => x.id === $store.state.profile.id) === undefined" class="md-primary" @click="booking_handle" v-on:click="showAlert"> Assistera </md-button>
+
+          <!-- <md-button v-if="dialog_booking.handlers.find(x => x.id === $store.state.profile.id) === undefined" class="md-primary alert" @click="booking_handle" v-on:click="showAlert" v-bind:class="[alertClass]" v-show="show">
+            Assistera <span>{{ ThankMessage }}</span>
+          </md-button> -->
 
           <!-- Stop assisting button -->
           <md-button v-else @click="booking_handle">Sluta assistera</md-button>
@@ -144,6 +153,11 @@
 
         <!-- Current time -->
         <div id="now" class="currentTime">{{ now }}</div>
+
+        <!-- Show thank you message -->
+        <div class="alert" v-bind:class="[alertClass]" v-show="show">
+          {{ ThankMessage }}
+        </div>
 
         <div v-if="queue.openings.length > 0">
           Kommande öppningar:
@@ -422,6 +436,11 @@ export default {
     //current time
     now: null,
 
+    //show thank you to assistant
+    alertClass: '',
+    show: false,
+    ThankMessage: 'Tack för din hjälp 😃',
+
     queue: null,
     location: null,
     comment: null,
@@ -557,6 +576,15 @@ export default {
   },
 
   methods: {
+    //Show thank you assistant
+    showAlert: function () {
+      this.alertClass = 'alert-success'
+      this.show = true
+      setTimeout(() => {
+        this.show = false
+      }, 5000)
+    },
+
     // create links from URLs that are embedded in text
     createLinks(text) {
       const urlRegex = /(https?:\/\/[^\s/$.?#]+\.[^\s]+)/g // regular expression to match URLs
