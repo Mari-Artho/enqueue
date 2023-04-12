@@ -175,21 +175,19 @@
           <span v-for="opening in queue.openings" :key="opening" style="background: #eeeeee; padding: 5px; margin: 0 3px"> {{ unix_to_datetime(opening) }} </span>
         </div>
 
-        <!-- Test -->
+        <!-- Bokning info -->
         <h1>Booking info</h1>
         <div v-if="queue.bookings.length < 1">
-          <h3 style="color: red; margin-top: 2rem">Den här bookings är tom</h3>
+          <h3 style="color: grey; margin-bottom: 2rem">Den här bookingskör är tom</h3>
         </div>
         <div v-if="queue.bookings.length > 0">
-          <h3 style="color: orange; margin-top: 2rem">Det är kö för bokningar.</h3>
+          <h3 style="color: blue; margin-top: 2rem">Det är kö för bokningar. Logga in för att se bokningen.😃</h3>
         </div>
 
-        <!-- Display when there is a booking ,in_queue ==log in-->
+        <!-- Display when there is a booking -->
         <!-- <md-table v-if="queue.bookings.length > 0 && in_queue && queue.open"> -->
         <!-- <md-table v-if="in_queue && queue.open"> -->
-        <!-- <md-table v-if="in_queue && queue.open"> -->
-        <!-- <md-table v-if="queue.bookings.length > 0 && in_queue"> -->
-        <md-table v-if="in_queue">
+        <md-table v-if="queue.bookings.length > 0 && is_login">
           <h1 style="margin-top: 3rem">Bokad tid</h1>
           <md-table-row>
             <md-table-head style="width: 30%"> Tidslucka </md-table-head>
@@ -485,6 +483,21 @@ export default {
   }),
 
   computed: {
+    //Test
+    is_login() {
+      if (this.$store.state.profile === null) {
+        return false
+      }
+
+      for (const student of this.queue.queuing) {
+        if (this.$store.state.profile.id === student.profile.id) {
+          return false
+        }
+      }
+
+      return true
+    },
+
     in_queue() {
       // testar om den inloggade profilen står i kön
       if (this.$store.state.profile === null) {
