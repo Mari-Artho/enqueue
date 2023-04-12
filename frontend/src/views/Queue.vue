@@ -176,12 +176,14 @@
         </div>
 
         <!-- Bokning info -->
-        <h1>Booking info</h1>
-        <div v-if="queue.bookings.length < 1">
-          <h3 style="color: grey; margin-bottom: 2rem">Den här bookingskör är tom</h3>
-        </div>
-        <div v-if="queue.bookings.length > 0">
-          <h3 style="color: blue; margin-top: 2rem">Det är kö för bokningar. Logga in för att se bokningen.😃</h3>
+        <div v-if="!is_login">
+          <h1>Booking info</h1>
+          <div v-if="queue.bookings.length < 1">
+            <h3 style="color: grey; margin-bottom: 2rem">Den här bookingskör är tom</h3>
+          </div>
+          <div v-if="queue.bookings.length > 0">
+            <h3 style="color: blue; margin-top: 2rem">Någon har en bokning. Logga in för att se bokningen.😃</h3>
+          </div>
         </div>
 
         <!-- Display when there is a booking -->
