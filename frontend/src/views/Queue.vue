@@ -137,11 +137,11 @@
             Assistera <span>{{ ThankMessage }}</span>
           </md-button> -->
 
-          <!-- Stop assisting button -->
+          <!-- Sluta assisting button -->
           <md-button v-else @click="booking_handle">Sluta assistera</md-button>
         </span>
 
-        <!-- Close button -->
+        <!-- Stäng button -->
         <md-button class="md-primary" @click="dialog_booking = null"> Stäng </md-button>
       </md-dialog-actions>
     </md-dialog>
@@ -164,17 +164,32 @@
         <div id="now" class="currentTime">{{ now }}</div>
 
         <!-- Show thank you message -->
-        <div class="alert" v-bind:class="[alertClass]" v-show="show">
+        <div v-show="show" class="alert" v-bind:class="[alertClass]">
           {{ ThankMessage }}
         </div>
 
-        <div v-if="queue.openings.length > 0">
+        <!-- TODO: -->
+        <!-- <div v-if="queue.openings.length > 0"> -->
+        <div>
           Kommande öppningar:
           <span v-for="opening in queue.openings" :key="opening" style="background: #eeeeee; padding: 5px; margin: 0 3px"> {{ unix_to_datetime(opening) }} </span>
         </div>
 
-        <!-- Display when there is a booking -->
-        <md-table v-if="queue.bookings.length > 0 && in_queue && queue.open">
+        <!-- Test -->
+        <h1>Booking info</h1>
+        <div v-if="queue.bookings.length < 1">
+          <h3 style="color: red; margin-top: 2rem">Den här bookings är tom</h3>
+        </div>
+        <div v-if="queue.bookings.length > 0">
+          <h3 style="color: orange; margin-top: 2rem">Det är kö för bokningar.</h3>
+        </div>
+
+        <!-- Display when there is a booking ,in_queue ==log in-->
+        <!-- <md-table v-if="queue.bookings.length > 0 && in_queue && queue.open"> -->
+        <!-- <md-table v-if="in_queue && queue.open"> -->
+        <!-- <md-table v-if="in_queue && queue.open"> -->
+        <!-- <md-table v-if="queue.bookings.length > 0 && in_queue"> -->
+        <md-table v-if="in_queue">
           <h1 style="margin-top: 3rem">Bokad tid</h1>
           <md-table-row>
             <md-table-head style="width: 30%"> Tidslucka </md-table-head>
