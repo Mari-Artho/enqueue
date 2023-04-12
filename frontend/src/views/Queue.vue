@@ -185,8 +185,6 @@
         </div>
 
         <!-- Display when there is a booking -->
-        <!-- <md-table v-if="queue.bookings.length > 0 && in_queue && queue.open"> -->
-        <!-- <md-table v-if="in_queue && queue.open"> -->
         <md-table v-if="queue.bookings.length > 0 && is_login">
           <h1 style="margin-top: 3rem">Bokad tid</h1>
           <md-table-row>
@@ -483,7 +481,7 @@ export default {
   }),
 
   computed: {
-    //Test
+    //Check if user are logged in
     is_login() {
       if (this.$store.state.profile === null) {
         return false
