@@ -176,19 +176,19 @@
         </div>
 
         <!-- Bokning info -->
-        <div v-if="!is_login">
-          <h1>Booking info</h1>
+        <div v-if="!is_login" class="animate__animated animate__fadeInUp">
+          <h2>Booking info</h2>
           <div v-if="queue.bookings.length < 1">
             <h3 style="color: grey; margin-bottom: 2rem">Den här bookingskör är tom</h3>
           </div>
           <div v-if="queue.bookings.length > 0">
-            <h3 style="color: blue; margin-top: 2rem">Någon har en bokning. Logga in för att se bokningen.😃</h3>
+            <h3 style="color: grey; margin-bottom: 2rem">Någon har en bokning. Logga in för att se bokningen.</h3>
           </div>
         </div>
 
         <!-- Display when there is a booking -->
-        <md-table v-if="queue.bookings.length > 0 && is_login">
-          <h1 style="margin-top: 3rem">Bokad tid</h1>
+        <md-table v-if="queue.bookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
+          <h2 style="margin-top: 3rem">Bokad tid</h2>
           <md-table-row>
             <md-table-head style="width: 30%"> Tidslucka </md-table-head>
 
@@ -242,9 +242,11 @@
         </md-table>
 
         <!-- Row of Que tables -->
-        <h1>Queue</h1>
-        <div v-if="queue.queuing.length < 1">
-          <h3 style="color: grey; margin-top: 2rem">Den här kön är tom</h3>
+        <div class="animate__animated animate__fadeInUp">
+          <h2>Queue</h2>
+          <div v-if="queue.queuing.length < 1">
+            <h3 style="color: grey; margin-top: 0">Den här kön är tom</h3>
+          </div>
         </div>
 
         <md-table v-if="queue.queuing.length > 0">
