@@ -7,9 +7,6 @@
 
       <md-button to="/test"><md-icon>local_florist</md-icon> Test Button</md-button>
 
-      <!-- test triggerTest -->
-      <md-button @click="triggerTest()"><md-icon>cruelty_free</md-icon> Trigger</md-button>
-
       <div class="md-toolbar-section-end">
         <md-button v-if="$store.state.profile === null" @click="triggerLogin()"> <md-icon>face</md-icon> Logga in </md-button>
 
@@ -65,10 +62,6 @@ export default {
 
     triggerLogout() {
       document.location = '/logout'
-    },
-
-    triggerTest() {
-      document.location = '/test'
     },
   },
 }
