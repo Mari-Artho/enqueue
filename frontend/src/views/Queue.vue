@@ -493,7 +493,7 @@ export default {
 
       for (const student of this.queue.queuing) {
         if (this.$store.state.profile.id === student.profile.id) {
-          return false
+          return true
         }
       }
 
