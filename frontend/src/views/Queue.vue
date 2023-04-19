@@ -128,6 +128,7 @@
             @click="
               booking_handle()
               showAlert()
+              modalOpen()
             "
           >
             Assistera
@@ -449,8 +450,8 @@
 import Location from '../components/Location.vue'
 
 export default {
-  el: '#now',
   name: 'Queue',
+  el: '#now',
 
   components: {
     Location,
@@ -615,7 +616,12 @@ export default {
   },
 
   methods: {
-    //Show thank you assistant
+    //Show thank you assistant 1
+    modalOpen() {
+      alert('Thank you for your help!!')
+    },
+
+    //Show thank you assistant 2
     showAlert: function () {
       this.alertClass = 'alert-success'
       this.show = true
