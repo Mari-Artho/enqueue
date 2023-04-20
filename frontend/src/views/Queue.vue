@@ -298,6 +298,7 @@
         </md-table>
       </div>
 
+      <!-- Alternativ on the right of the screen -->
       <div class="md-layout-item md-xlarge-size-30 md-large-size-30 md-medium-size-30 md-small-size-30 md-xsmall-size-100">
         <md-card v-if="is_assistant_in_queue">
           <md-card-header>
@@ -306,24 +307,25 @@
 
           <md-card-content>
             <md-list>
+              <!-- Meddela samtliga -->
               <md-list-item @click="prompt_broadcast = true">
                 <md-icon>chat_bubble_outline</md-icon>
-
                 <span class="md-list-item-text">Meddela samtliga</span>
               </md-list-item>
 
+              <!-- Meddela assistenter -->
               <md-list-item @click="promt_notify_faculty = true">
                 <md-icon>chat_bubble</md-icon>
-
                 <span class="md-list-item-text">Meddela assistenter</span>
               </md-list-item>
 
+              <!-- Rensa kön -->
               <md-list-item :disabled="queue.queuing.length === 0" @click="queue.queuing.length !== 0 && (promt_clear_queue = true)">
                 <md-icon>clear_all</md-icon>
-
                 <span class="md-list-item-text">Rensa kön</span>
               </md-list-item>
 
+              <!-- Stäng kön/Öppna kön -->
               <md-list-item @click="toggle_open()">
                 <md-icon v-if="queue.open"> lock </md-icon>
 
@@ -334,15 +336,15 @@
                 <span v-else class="md-list-item-text">Öppna kön</span>
               </md-list-item>
 
+              <!-- Inställningar/Edit -->
               <md-list-item :to="'/queues/' + queue.name + '/edit'">
                 <md-icon>settings</md-icon>
-
                 <span class="md-list-item-text">Inställningar</span>
               </md-list-item>
 
+              <!-- Historik -->
               <md-list-item :to="'/queues/' + queue.name + '/history'">
                 <md-icon>history</md-icon>
-
                 <span class="md-list-item-text">Historik</span>
               </md-list-item>
             </md-list>

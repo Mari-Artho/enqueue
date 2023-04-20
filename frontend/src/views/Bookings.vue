@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div>
+      <h1>TEST to all bookings</h1>
+      <!-- <md-list-item :to="`/queues/${queue.name}/history`"> -->
+      <md-list-item :to="`/queues/tilpro/history`">
+        <span class="md-list-item-text">ALL BOOKINGS</span>
+      </md-list-item>
+    </div>
+
     <md-card>
       <md-card-header>
         <h2 class="md-title">Bokningar</h2>
@@ -27,12 +35,13 @@
 import axios from 'axios'
 
 export default {
-  name: 'Queues',
+  name: 'Bookings',
 
   data: () => ({
     queues: [],
   }),
 
+  // get all queues and sort them by (a) whether they are open and (b) name
   async created() {
     this.queues = (await axios.get('/queues')).data.sort((x, y) => {
       if (x.open && !y.open) {
@@ -51,7 +60,7 @@ export default {
 
   methods: {
     open_queue(queue) {
-      this.$router.push('/queues/' + queue.name)
+      this.$router.push('/bookings/' + queue.name)
     },
   },
 }

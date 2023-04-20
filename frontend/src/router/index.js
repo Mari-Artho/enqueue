@@ -7,6 +7,7 @@ import QueueEditView from '../views/QueueEdit.vue'
 import QueueHistoryView from '../views/QueueHistory.vue'
 import TestView from '../views/Test.vue'
 import Bookings from '../views/Bookings.vue'
+import Booking from '../views/Booking.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,7 @@ const routes = [
   { path: '/queues/:name/history', component: QueueHistoryView },
   { path: '/test', component: TestView },
   { path: '/bookings', component: Bookings },
+  { path: '/booking/:name/bookings', component: Booking },
 ]
 
 const router = new VueRouter({
