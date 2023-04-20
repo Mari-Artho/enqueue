@@ -44,113 +44,115 @@ router.post("/", async (req, res) => {
   res.json(queue);
 });
 
+exports.get_queue_info = (queue) => {
+  if (queue === null) {
+    res.status(404);
+    res.end();
+    return;
+  }
+
+  model.get_bookings(queue).then((bookings) => {
+    model.get_actions(queue).then((actions) => {
+      model
+        .has_permission(
+          queue,
+          req.session.hasOwnProperty("profile") ? req.session.profile.id : null
+        )
+        .then(async (has_permission) => {
+          if (!has_permission) {
+            queue.Students = queue.Students.map((s) => {
+              if (
+                req.session.hasOwnProperty("profile") &&
+                req.session.profile.id === s.id
+              ) {
+                return s;
+              } else {
+                return null;
+              }
+            });
+          }
+
+          var queuing = model.get_queuing(queue);
+
+          bookings = bookings.map((b) => nice_booking(b));
+
+          if (!req.session.hasOwnProperty("profile")) {
+            queuing = queuing.map((s) => {
+              const s_copy = Object.assign({}, s);
+
+              s_copy.profile = {
+                id: s.profile.id,
+                user_name: null,
+                name: null,
+              };
+
+              return s_copy;
+            });
+
+            for (const booking of bookings) {
+              booking.students = booking.students.map((x) => ({
+                id: x.id,
+                user_name: null,
+                name: null,
+              }));
+            }
+          }
+
+          let openings;
+
+          if (queue.show_openings) {
+            openings = (await model.get_tasks(queue))
+              .filter((x) => x.type === "OPEN" && x.deadline > Date.now())
+              .map((x) => x.deadline);
+          } else {
+            openings = [];
+          }
+
+          res.json({
+            id: queue.id,
+            name: queue.name,
+            description: queue.description,
+            open: queue.open,
+            show_openings: has_permission ? queue.show_openings : undefined,
+            force_kthlan: queue.force_kthlan,
+            force_comment: queue.force_comment,
+            force_action: queue.force_action,
+            queuing: queuing,
+            actions: actions.map((a) => ({
+              id: a.id,
+              name: a.name,
+              color: a.color,
+            })),
+            rooms: queue.Rooms.map((r) => ({
+              id: r.id,
+              name: r.name,
+            })),
+            students: queue.Students.map((s) =>
+              s === null
+                ? null
+                : {
+                    id: s.id,
+                    user_name: s.user_name,
+                    name: s.name,
+                  }
+            ),
+            assistants: queue.Assistants.map((a) => ({
+              id: a.id,
+              user_name: a.user_name,
+              name: a.name,
+            })),
+            bookings: bookings,
+            openings,
+          });
+        });
+    });
+  });
+};
+
 // ge information om en kö
 router.get("/:name", (req, res) => {
   model.get_queue(req.params.name).then((queue) => {
-    if (queue === null) {
-      res.status(404);
-      res.end();
-      return;
-    }
-
-    model.get_bookings(queue).then((bookings) => {
-      model.get_actions(queue).then((actions) => {
-        model
-          .has_permission(
-            queue,
-            req.session.hasOwnProperty("profile")
-              ? req.session.profile.id
-              : null
-          )
-          .then(async (has_permission) => {
-            if (!has_permission) {
-              queue.Students = queue.Students.map((s) => {
-                if (
-                  req.session.hasOwnProperty("profile") &&
-                  req.session.profile.id === s.id
-                ) {
-                  return s;
-                } else {
-                  return null;
-                }
-              });
-            }
-
-            var queuing = model.get_queuing(queue);
-
-            bookings = bookings.map((b) => nice_booking(b));
-
-            if (!req.session.hasOwnProperty("profile")) {
-              queuing = queuing.map((s) => {
-                const s_copy = Object.assign({}, s);
-
-                s_copy.profile = {
-                  id: s.profile.id,
-                  user_name: null,
-                  name: null,
-                };
-
-                return s_copy;
-              });
-
-              for (const booking of bookings) {
-                booking.students = booking.students.map((x) => ({
-                  id: x.id,
-                  user_name: null,
-                  name: null,
-                }));
-              }
-            }
-
-            let openings;
-
-            if (queue.show_openings) {
-              openings = (await model.get_tasks(queue))
-                .filter((x) => x.type === "OPEN" && x.deadline > Date.now())
-                .map((x) => x.deadline);
-            } else {
-              openings = [];
-            }
-
-            res.json({
-              id: queue.id,
-              name: queue.name,
-              description: queue.description,
-              open: queue.open,
-              show_openings: has_permission ? queue.show_openings : undefined,
-              force_kthlan: queue.force_kthlan,
-              force_comment: queue.force_comment,
-              force_action: queue.force_action,
-              queuing: queuing,
-              actions: actions.map((a) => ({
-                id: a.id,
-                name: a.name,
-                color: a.color,
-              })),
-              rooms: queue.Rooms.map((r) => ({
-                id: r.id,
-                name: r.name,
-              })),
-              students: queue.Students.map((s) =>
-                s === null
-                  ? null
-                  : {
-                      id: s.id,
-                      user_name: s.user_name,
-                      name: s.name,
-                    }
-              ),
-              assistants: queue.Assistants.map((a) => ({
-                id: a.id,
-                user_name: a.user_name,
-                name: a.name,
-              })),
-              bookings: bookings,
-              openings,
-            });
-          });
-      });
-    });
+    this.get_queue_info(queue);
   });
 });
 
