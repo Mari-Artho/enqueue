@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h1>HELLO WORLD</h1>
-    <h2>You can do it! 😃🧸</h2>
-
     <h1>
       <md-icon v-if="!queue.open" class="md-size-2x md-accent"> lock </md-icon>
 
@@ -10,8 +7,11 @@
       {{ queue.name }}
     </h1>
 
+    <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
+    <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
+
     <md-table>
-      <h2>Bokad tid</h2>
+      <h2><md-icon>pending_actions</md-icon> Alla bokningar</h2>
       <!-- table-row -->
       <md-table-row>
         <md-table-head> Tidslucka </md-table-head>
@@ -63,10 +63,12 @@ export default {
     location: null,
   }),
   created() {
+    this.$store.state.socket.on('connect', this.fetch_queue)
     this.fetch_queue()
   },
-  
+
   methods: {
+    //get a que data
     fetch_queue() {
       fetch('/api/queues/' + this.$route.params.name)
         .then(res => res.json())
@@ -79,6 +81,12 @@ export default {
 
           this.sort_bookings()
         })
+    },
+
+    // create links from URLs that are embedded in text
+    createLinks(text) {
+      const urlRegex = /(https?:\/\/[^\s/$.?#]+\.[^\s]+)/g // regular expression to match URLs
+      return text.replace(urlRegex, '<a href="$1">$1</a>') // replace URLs with HTML links
     },
   },
 }
