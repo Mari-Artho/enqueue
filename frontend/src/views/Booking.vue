@@ -3,8 +3,15 @@
     <h1>HELLO WORLD</h1>
     <h2>You can do it! 😃🧸</h2>
 
+    <h1>
+      <md-icon v-if="!queue.open" class="md-size-2x md-accent"> lock </md-icon>
+
+      <md-icon v-if="queue.open" class="md-size-2x"> people </md-icon>
+      {{ queue.name }}
+    </h1>
+
     <md-table>
-      <h2 style="margin-top: 3rem">Bokad tid</h2>
+      <h2>Bokad tid</h2>
       <!-- table-row -->
       <md-table-row>
         <md-table-head> Tidslucka </md-table-head>
@@ -40,3 +47,38 @@
     </md-table>
   </div>
 </template>
+
+<script>
+//import Location from '../components/Location.vue'
+
+export default {
+  name: 'Booking',
+
+  //   components: {
+  //     Location,
+  //   },
+
+  data: () => ({
+    queue: null,
+    location: null,
+  }),
+  created() {
+    this.fetch_queue()
+  },
+  methods: {
+    fetch_queue() {
+      fetch('/api/queues/' + this.$route.params.name)
+        .then(res => res.json())
+        .then(queue => {
+          this.queue = queue
+
+          if (this.$store.state.location !== null) {
+            this.location = this.$store.state.location.name
+          }
+
+          this.sort_bookings()
+        })
+    },
+  },
+}
+</script>
