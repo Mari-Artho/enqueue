@@ -1,25 +1,8 @@
 <template>
   <div>
-    <div>
-      <h1>TEST to all bookings</h1>
-      <!-- <md-list-item :to="`/queues/${queue.name}/history`"> -->
-
-      <md-list-item :to="`/queues/tilpro/history`">
-        <span class="md-list-item-text">Test link to tilpro/history</span>
-      </md-list-item>
-
-      <md-list-item :to="`/queues/tilpro/edit`">
-        <span class="md-list-item-text">Test link to tilpro/edit</span>
-      </md-list-item>
-
-      <md-list-item :to="`/queues/tilpro/bookings`">
-        <span class="md-list-item-text">Test link to tilpro/bookings</span>
-      </md-list-item>
-    </div>
-
     <md-card>
       <md-card-header>
-        <h2 class="md-title">Bokningar</h2>
+        <h2 class="md-title">Alla Bokningar</h2>
       </md-card-header>
 
       <md-card-content>

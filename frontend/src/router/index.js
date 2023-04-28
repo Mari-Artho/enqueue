@@ -20,7 +20,7 @@ const routes = [
   { path: '/queues/:name/history', component: QueueHistoryView },
   { path: '/test', component: TestView },
   { path: '/bookings', component: Bookings },
-  { path: '/booking/:name/bookings', component: Booking },
+  { path: '/bookings/:name', component: Booking },
 ]
 
 const router = new VueRouter({
