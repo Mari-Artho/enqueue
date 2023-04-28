@@ -68,6 +68,7 @@
         <h2>Tidslucka {{ unix_to_datetime(dialog_booking.timestamp) }}</h2>
 
         <!-- Name -->
+        <!-- $store.state is a property used to refer to the state in the Vue.js application's store object. -->
         <template v-if="$store.state.profile !== null">
           <strong>Namn:</strong>
           {{ dialog_booking.students.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}

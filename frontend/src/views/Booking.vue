@@ -65,6 +65,7 @@ export default {
   created() {
     this.fetch_queue()
   },
+  
   methods: {
     fetch_queue() {
       fetch('/api/queues/' + this.$route.params.name)
