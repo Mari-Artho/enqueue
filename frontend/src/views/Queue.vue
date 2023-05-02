@@ -1,5 +1,8 @@
 <template>
-  <div v-if="queue">
+  <div v-if="queue" class="my-component">
+    <p>Below is testMessage</p>
+    <p>{{ testMessage }}</p>
+
     <md-dialog-alert md-title="Meddelande" style="white-space: pre-line" :md-active.sync="broadcast_active" :md-content="broadcast_message" md-confirm-text="OK!" @md-closed="broadcast_active = false" />
 
     <md-dialog-alert md-title="Meddelande" style="white-space: pre-line" :md-active.sync="notify_active" :md-content="notification_message" md-confirm-text="OK!" @md-closed="broadcast_active = false" />
@@ -455,6 +458,10 @@ import Location from '../components/Location.vue'
 export default {
   name: 'Queue',
   el: '#now',
+
+  props: {
+    testMessage: String,
+  },
 
   components: {
     Location,

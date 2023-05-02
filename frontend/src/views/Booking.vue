@@ -51,19 +51,15 @@
 
 <script>
 //import Location from '../components/Location.vue'
-
 export default {
   name: 'Booking',
-
-  //   components: {
-  //     Location,
-  //   },
 
   data: () => ({
     queue: null,
     location: null,
     dialog_booking: null,
   }),
+
   created() {
     this.$store.state.socket.on('connect', this.fetch_queue)
     this.fetch_queue()

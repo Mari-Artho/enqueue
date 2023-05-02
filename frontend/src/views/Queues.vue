@@ -1,5 +1,7 @@
 <template>
   <div>
+    <Queue :testMessage="myMessage" />
+    <Test :testMessage="myMessage" />
     <md-card>
       <md-card-header>
         <h2 class="md-title">Alla köer</h2>
@@ -29,13 +31,23 @@
 
 <script>
 import axios from 'axios'
+import Queue from './Queue.vue'
+import Test from './Test.vue'
 
 export default {
   name: 'Queues',
 
-  data: () => ({
-    queues: [],
-  }),
+  components: {
+    Queue,
+    Test,
+  },
+
+  data() {
+    return {
+      queues: [],
+      myMessage: 'Hello from Mari',
+    }
+  },
 
   async created() {
     this.queues = (await axios.get('/queues')).data.sort((x, y) => {
@@ -51,6 +63,8 @@ export default {
         return 0
       }
     })
+
+    //this.myMessage = 'Hello from Mari!'
   },
 
   methods: {

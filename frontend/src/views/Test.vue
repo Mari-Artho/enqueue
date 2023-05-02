@@ -5,9 +5,9 @@ export default {
   el: '#now',
   name: 'Test',
 
-  data: () => ({
-    now: '',
-  }),
+  props: {
+    testMessage: String,
+  },
 
   created: function () {
     setInterval(() => {
@@ -32,6 +32,9 @@ export default {
       <button @click="search">search</button>
     </div> -->
     <md-input /><md-button>SEARCH</md-button>
+
+    <p>Below is testMessage</p>
+    <p>{{ testMessage }}</p>
 
     <md-card>
       <md-card-header>
