@@ -1,8 +1,5 @@
 <template>
   <div v-if="queue" class="my-component">
-    <p>Below is testMessage</p>
-    <p>{{ testMessage }}</p>
-
     <md-dialog-alert md-title="Meddelande" style="white-space: pre-line" :md-active.sync="broadcast_active" :md-content="broadcast_message" md-confirm-text="OK!" @md-closed="broadcast_active = false" />
 
     <md-dialog-alert md-title="Meddelande" style="white-space: pre-line" :md-active.sync="notify_active" :md-content="notification_message" md-confirm-text="OK!" @md-closed="broadcast_active = false" />
@@ -163,6 +160,7 @@
         <!-- Description from MySql and link to zoom. -->
         <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
         <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
+        <Queues :testMessage="myMessage" />
         <p>Hej</p>
 
         <!-- Current time -->
@@ -454,20 +452,20 @@
 
 <script>
 import Location from '../components/Location.vue'
+import Queues from './Queues.vue'
 
 export default {
   name: 'Queue',
   el: '#now',
 
-  props: {
-    testMessage: String,
-  },
-
   components: {
     Location,
+    Queues,
   },
 
   data: () => ({
+    myMessage: 'こんにちは！😃',
+
     //current time
     now: null,
 

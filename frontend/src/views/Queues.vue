@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Queue :testMessage="myMessage" />
-    <Test :testMessage="myMessage" />
+    <p>{{ testMessage }}</p>
+
     <md-card>
       <md-card-header>
         <h2 class="md-title">Alla köer</h2>
@@ -31,21 +31,17 @@
 
 <script>
 import axios from 'axios'
-import Queue from './Queue.vue'
-import Test from './Test.vue'
 
 export default {
   name: 'Queues',
 
-  components: {
-    Queue,
-    Test,
+  props: {
+    testMessage: String,
   },
 
   data() {
     return {
       queues: [],
-      myMessage: 'Hello from Mari',
     }
   },
 
