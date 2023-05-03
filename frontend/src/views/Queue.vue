@@ -160,7 +160,6 @@
         <!-- Description from MySql and link to zoom. -->
         <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
         <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
-        <Queues :testMessage="myMessage" />
         <p>Hej</p>
 
         <!-- Current time -->
@@ -452,7 +451,6 @@
 
 <script>
 import Location from '../components/Location.vue'
-import Queues from './Queues.vue'
 
 export default {
   name: 'Queue',
@@ -460,12 +458,9 @@ export default {
 
   components: {
     Location,
-    Queues,
   },
 
   data: () => ({
-    myMessage: 'こんにちは！😃',
-
     //current time
     now: null,
 

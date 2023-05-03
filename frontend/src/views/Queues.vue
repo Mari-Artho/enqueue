@@ -1,7 +1,5 @@
 <template>
   <div>
-    <p>{{ testMessage }}</p>
-
     <md-card>
       <md-card-header>
         <h2 class="md-title">Alla köer</h2>
@@ -35,10 +33,6 @@ import axios from 'axios'
 export default {
   name: 'Queues',
 
-  props: {
-    testMessage: String,
-  },
-
   data() {
     return {
       queues: [],
@@ -59,8 +53,6 @@ export default {
         return 0
       }
     })
-
-    //this.myMessage = 'Hello from Mari!'
   },
 
   methods: {
