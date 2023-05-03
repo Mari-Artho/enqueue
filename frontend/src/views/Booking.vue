@@ -31,19 +31,19 @@
       <md-table-row v-for="booking in queue.bookings" :key="booking.id">
         <!-- Tid -->
         <!-- <md-table-cell>{{ unix_to_datetime(dialog_booking.timestamp) }}</md-table-cell> -->
-        <md-table-cell>{{ booking.id }}</md-table-cell>
+        <md-table-cell>{{ booking.timestamp }}</md-table-cell>
 
         <!-- Plats -->
-        <md-table-cell>hej</md-table-cell>
+        <md-table-cell>{{ booking.location }}</md-table-cell>
 
         <!-- Namn -->
-        <md-table-cell>hej</md-table-cell>
+        <md-table-cell>{{ booking.name }}</md-table-cell>
 
         <!-- Kommentar -->
-        <md-table-cell>hej</md-table-cell>
+        <md-table-cell>{{ booking.comment }}</md-table-cell>
 
         <!-- Assisteras av -->
-        <md-table-cell>hej</md-table-cell>
+        <md-table-cell>{{ booking.assistant }}</md-table-cell>
       </md-table-row>
     </md-table>
   </div>
