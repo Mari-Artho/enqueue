@@ -7,11 +7,14 @@
       {{ queue.name }}
     </h1>
 
+    <h1>Time:</h1>
+
     <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
     <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
 
     <md-table>
       <h2><md-icon>pending_actions</md-icon> Alla bokningar</h2>
+
       <!-- table-row -->
       <md-table-row>
         <md-table-head> Tidslucka </md-table-head>
@@ -30,8 +33,7 @@
       <!-- <md-table-row v-for="booking in queues.booking" :key="booking.id" style="cursor: pointer"> -->
       <md-table-row v-for="booking in queue.bookings" :key="booking.id">
         <!-- Tid -->
-        <!-- <md-table-cell>{{ unix_to_datetime(dialog_booking.timestamp) }}</md-table-cell> -->
-        <md-table-cell>{{ booking.timestamp }}</md-table-cell>
+        <md-table-cell>{{ getFormattedDate(booking.timestamp) }}</md-table-cell>
 
         <!-- Plats -->
         <md-table-cell>{{ booking.location }}</md-table-cell>
@@ -50,7 +52,6 @@
 </template>
 
 <script>
-//import Location from '../components/Location.vue'
 export default {
   name: 'Booking',
 
@@ -83,7 +84,6 @@ export default {
     //get a que data
     fetch_queue() {
       fetch('/api/queues/' + this.$route.params.name)
-        //   fetch('/api/bookings/' + this.$route.params.name)
         .then(res => res.json())
         .then(queue => {
           this.queue = queue
@@ -119,29 +119,17 @@ export default {
       const urlRegex = /(https?:\/\/[^\s/$.?#]+\.[^\s]+)/g // regular expression to match URLs
       return text.replace(urlRegex, '<a href="$1">$1</a>') // replace URLs with HTML links
     },
-  },
 
-  //time
-  unix_to_datetime(unix) {
-    // TODO: övergå till något bibliotek, till exempel Moment
-    const d = new Date(unix)
-    const today = new Date()
-
-    const year = d.getFullYear()
-    const month = d.getMonth() + 1
-    const day = d.getDate()
-
-    const hour = '0' + d.getHours()
-    const min = '0' + d.getMinutes()
-    const time = hour.slice(-2) + ':' + min.slice(-2)
-    if (today.getDate() === d.getDate() && today.getMonth() === d.getMonth() && today.getFullYear() === d.getFullYear()) {
-      return `${year}/${month}/${day} ${time}`
-    }
-    var date = d.getDate() + ' ' + ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'][d.getMonth()]
-    if (today.getFullYear() !== d.getFullYear()) {
-      date += ' ' + d.getFullYear()
-    }
-    return date + ', ' + time
+    //convert unit time to datetime
+    getFormattedDate(timestamp) {
+      const date = new Date(timestamp)
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1
+      const day = date.getDate()
+      const hours = date.getHours()
+      const minutes = date.getMinutes()
+      return `${year}-${('00' + month).slice(-2)}-${('00' + day).slice(-2)} ${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}`
+    },
   },
 }
 </script>
