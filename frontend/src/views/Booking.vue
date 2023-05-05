@@ -10,6 +10,11 @@
     <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
     <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
 
+    <h1>hej!</h1>
+    <ul v-for="student in bookings_students" :key="booking_id.id">
+      <li>{{ student.student_id }}</li>
+    </ul>
+
     <md-card>
       <md-card-header>
         <h2><md-icon>pending_actions</md-icon> Alla bokningar</h2>
