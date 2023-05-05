@@ -7,47 +7,51 @@
       {{ queue.name }}
     </h1>
 
-    <h1>Time:</h1>
-
     <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
     <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
 
-    <md-table>
-      <h2><md-icon>pending_actions</md-icon> Alla bokningar</h2>
+    <md-card>
+      <md-card-header>
+        <h2><md-icon>pending_actions</md-icon> Alla bokningar</h2>
+      </md-card-header>
 
-      <!-- table-row -->
-      <md-table-row>
-        <md-table-head> Tidslucka </md-table-head>
+      <md-card-content>
+        <md-table>
+          <!-- table-row -->
+          <md-table-row>
+            <md-table-head> Tidslucka </md-table-head>
 
-        <md-table-head> Plats </md-table-head>
+            <md-table-head> Plats </md-table-head>
 
-        <md-table-head> Namn</md-table-head>
+            <md-table-head> Namn</md-table-head>
 
-        <md-table-head> Kommentar </md-table-head>
+            <md-table-head> Kommentar </md-table-head>
 
-        <!-- <md-table-head> Kommentar </md-table-head> -->
+            <!-- <md-table-head> Kommentar </md-table-head> -->
 
-        <md-table-head> Assisteras av </md-table-head>
-      </md-table-row>
+            <md-table-head> Assisteras av </md-table-head>
+          </md-table-row>
 
-      <!-- <md-table-row v-for="booking in queues.booking" :key="booking.id" style="cursor: pointer"> -->
-      <md-table-row v-for="booking in queue.bookings" :key="booking.id">
-        <!-- Tid -->
-        <md-table-cell>{{ getFormattedDate(booking.timestamp) }}</md-table-cell>
+          <!-- <md-table-row v-for="booking in queues.booking" :key="booking.id" style="cursor: pointer"> -->
+          <md-table-row v-for="booking in queue.bookings" :key="booking.id">
+            <!-- Tid -->
+            <md-table-cell>{{ getFormattedDate(booking.timestamp) }}</md-table-cell>
 
-        <!-- Plats -->
-        <md-table-cell>{{ booking.location }}</md-table-cell>
+            <!-- Plats -->
+            <md-table-cell>{{ booking.location }}</md-table-cell>
 
-        <!-- Namn -->
-        <md-table-cell>{{ booking.name }}</md-table-cell>
+            <!-- Namn -->
+            <md-table-cell>{{ booking.name }}</md-table-cell>
 
-        <!-- Kommentar -->
-        <md-table-cell>{{ booking.comment }}</md-table-cell>
+            <!-- Kommentar -->
+            <md-table-cell>{{ booking.comment }}</md-table-cell>
 
-        <!-- Assisteras av -->
-        <md-table-cell>{{ booking.assistant }}</md-table-cell>
-      </md-table-row>
-    </md-table>
+            <!-- Assisteras av -->
+            <md-table-cell>{{ booking.assistant }}</md-table-cell>
+          </md-table-row>
+        </md-table>
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 
