@@ -540,12 +540,11 @@ router.patch("/:name/queuing/:id", (req, res) => {
       .get_queuing(queue)
       .find((x) => x.profile.id === req.params.id);
 
-    if (student === null) {
+    if (student == null) {
       res.status(404);
       res.end();
       return;
     }
-
     update_student(queue, student, {}, req, res, Object.keys(req.body));
   });
 });
