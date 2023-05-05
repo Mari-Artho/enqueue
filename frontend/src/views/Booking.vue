@@ -10,8 +10,14 @@
     <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
     <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
 
-    <h1>hej!</h1>
-    <ul v-for="student in bookings_students" :key="booking_id.id">
+    <!-- test -->
+    <!-- <md-table-cell v-if="$store.state.profile !== null"> -->
+    <!-- <md-table-cell> -->
+    <md-table-cell v-if="$store.queues_assistants !== null">
+      <div v-for="assistant in queues_assistants" :key="assistant.id">{{ assistant.assistant_id }}</div>
+    </md-table-cell>
+
+    <ul v-for="student in bookings_students" :key="student.id">
       <li>{{ student.student_id }}</li>
     </ul>
 
