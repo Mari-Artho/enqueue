@@ -622,8 +622,6 @@ export default {
 
     this.fetch_queue()
 
-    this.fetchReservations()
-
     //current time
     setInterval(() => {
       this.now = new Date().toLocaleString()
@@ -631,16 +629,6 @@ export default {
   },
 
   methods: {
-    //sort only today's booking
-    fetchReservations() {
-      fetch('/api/queues/' + this.$route.params.name + '/' + bookings).then(response => {
-        this.reservations = response.data
-      })
-      console.log('Success to fetch data').catch(error => {
-        console.error(error)
-      })
-    },
-
     //Show thank you assistant 1
     modalOpen() {
       alert('Thank you for your help!!')
