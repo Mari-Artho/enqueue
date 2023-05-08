@@ -63,7 +63,6 @@
 
     <!-- Display when there is a booking-->
     <md-dialog v-if="dialog_booking !== null" :md-active="true">
-      <!-- <md-dialog v-if="dialog_booking !== null && todaysReservations == null" :md-active="true"> -->
       <md-dialog-content>
         <!-- Time slot -->
         <h2>Tidslucka {{ unix_to_datetime(dialog_booking.timestamp) }}</h2>
@@ -190,7 +189,7 @@
         </div>
 
         <!-- Display when there is a booking -->
-        <md-table v-if="todaysReservations.length > 0 && is_login" class="animate__animated animate__fadeInUp">
+        <md-table v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
           <h2 style="margin-top: 3rem">Bokad tid</h2>
           <md-table-row>
             <md-table-head style="width: 30%"> Tidslucka </md-table-head>
@@ -205,7 +204,7 @@
           </md-table-row>
 
           <md-table-row
-            v-for="booking in todaysReservations"
+            v-for="booking in todaysBookings"
             :key="booking.id"
             style="cursor: pointer"
             :class="[
@@ -487,11 +486,11 @@ export default {
     booking_location: null,
     dialog_queuing: null,
     dialog_booking: null,
-    reservations: [],
+    //reservations: [],
   }),
 
   computed: {
-    todaysReservations() {
+    todaysBookings() {
       const today = new Date()
       // Filter booking data to return only today's bookings
       return this.queue.bookings.filter(booking => {
