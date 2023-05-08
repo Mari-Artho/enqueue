@@ -61,7 +61,7 @@
       </md-dialog-actions>
     </md-dialog>
 
-    <!-- Display when there is a booking -->
+    <!-- Display when there is a booking-->
     <md-dialog v-if="dialog_booking !== null" :md-active="true">
       <md-dialog-content>
         <!-- Time slot -->
@@ -189,7 +189,7 @@
         </div>
 
         <!-- Display when there is a booking -->
-        <md-table v-if="queue.bookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
+        <md-table v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
           <h2 style="margin-top: 3rem">Bokad tid</h2>
           <md-table-row>
             <md-table-head style="width: 30%"> Tidslucka </md-table-head>
@@ -204,7 +204,7 @@
           </md-table-row>
 
           <md-table-row
-            v-for="booking in queue.bookings"
+            v-for="booking in todaysBookings"
             :key="booking.id"
             style="cursor: pointer"
             :class="[
@@ -486,9 +486,19 @@ export default {
     booking_location: null,
     dialog_queuing: null,
     dialog_booking: null,
+    //reservations: [],
   }),
 
   computed: {
+    todaysBookings() {
+      const today = new Date()
+      // Filter booking data to return only today's bookings
+      return this.queue.bookings.filter(booking => {
+        const timestamp = new Date(booking.timestamp)
+        return timestamp.getFullYear() == today.getFullYear() && timestamp.getMonth() == today.getMonth() && timestamp.getDate() == today.getDate()
+      })
+    },
+
     //Check if user are logged in
     is_login() {
       if (this.$store.state.profile === null) {
@@ -612,6 +622,8 @@ export default {
 
     this.fetch_queue()
 
+    this.fetchReservations()
+
     //current time
     setInterval(() => {
       this.now = new Date().toLocaleString()
@@ -619,6 +631,16 @@ export default {
   },
 
   methods: {
+    //sort only today's booking
+    fetchReservations() {
+      fetch('/api/queues/' + this.$route.params.name + '/' + bookings).then(response => {
+        this.reservations = response.data
+      })
+      console.log('Success to fetch data').catch(error => {
+        console.error(error)
+      })
+    },
+
     //Show thank you assistant 1
     modalOpen() {
       alert('Thank you for your help!!')
