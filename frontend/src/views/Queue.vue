@@ -61,8 +61,9 @@
       </md-dialog-actions>
     </md-dialog>
 
-    <!-- Display when there is a booking -->
+    <!-- Display when there is a booking-->
     <md-dialog v-if="dialog_booking !== null" :md-active="true">
+      <!-- <md-dialog v-if="dialog_booking !== null && todaysReservations == null" :md-active="true"> -->
       <md-dialog-content>
         <!-- Time slot -->
         <h2>Tidslucka {{ unix_to_datetime(dialog_booking.timestamp) }}</h2>
@@ -161,6 +162,29 @@
         <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
         <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
         <p>Hej</p>
+        <div>
+          <!-- <h2>今日の予約1</h2>
+          <ul>
+            <li v-for="reservation in todaysReservations" :key="reservation.id">
+              {{ reservation.timestamp }}
+              {{ reservation.comment }}
+            </li>
+          </ul> -->
+
+          <h2>今日の予約2</h2>
+          <ul>
+            <li v-for="reservation in todaysReservations2" :key="reservation.id">
+              {{ reservation.timestamp }}
+            </li>
+          </ul>
+
+          <h2>今日の予約3</h2>
+          <ul>
+            <li v-for="booking in queue.bookings" :key="booking.id">
+              {{ booking.timestamp }}
+            </li>
+          </ul>
+        </div>
 
         <!-- Current time -->
         <div id="now" class="currentTime">{{ now }}</div>
@@ -486,9 +510,48 @@ export default {
     booking_location: null,
     dialog_queuing: null,
     dialog_booking: null,
+    reservations: [],
   }),
 
   computed: {
+    //Check if today or not.
+    // todaysReservations() {
+    //   const today = new Date().toISOString().split('T')[0]
+    //   return
+    //   this.reservations.filter(reservation => reservation.date === today)
+    // },
+
+    // todaysReservations2() {
+    //   const today = new Date().setHours(0, 0, 0, 0)
+
+    //   // Filter booking data to return only today's bookings
+    //   return this.reservations.filter(reservation => {
+    //     const reservationDate = new Date(reservation.timestamp * 1000).setHours(0, 0, 0, 0) // Unix Timestampをミリ秒単位に変換して日付のみを持つDateオブジェクトを作成
+    //     return
+    //     reservationDate === today
+    //   })
+    // },
+
+    todaysReservations2() {
+      const today = new Date()
+      // Filter booking data to return only today's bookings
+      return this.queue.bookings.filter(booking => {
+        const timestamp = new Date(booking.timestamp)
+        return timestamp.getFullYear() == today.getFullYear() && timestamp.getMonth() == today.getMonth() && timestamp.getDate() == today.getDate()
+      })
+    },
+
+    todaysReservations3() {
+      const today = new Date().setHours(0, 0, 0, 0)
+
+      // Filter booking data to return only today's bookings
+      return this.queue.bookings.filter(booking => {
+        const bookingDate = new Date(booking.timestamp * 1000).setHours(0, 0, 0, 0) // Unix Timestampをミリ秒単位に変換して日付のみを持つDateオブジェクトを作成
+        return
+        bookingDate == today
+      })
+    },
+
     //Check if user are logged in
     is_login() {
       if (this.$store.state.profile === null) {
@@ -612,6 +675,8 @@ export default {
 
     this.fetch_queue()
 
+    this.fetchReservations()
+
     //current time
     setInterval(() => {
       this.now = new Date().toLocaleString()
@@ -619,6 +684,16 @@ export default {
   },
 
   methods: {
+    //sort only today's booking
+    fetchReservations() {
+      fetch('/api/queues/' + this.$route.params.name + '/' + bookings).then(response => {
+        this.reservations = response.data
+      })
+      console.log('Seccess to fetch data').catch(error => {
+        console.error(error)
+      })
+    },
+
     //Show thank you assistant 1
     modalOpen() {
       alert('Thank you for your help!!')
