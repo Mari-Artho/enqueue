@@ -232,11 +232,11 @@
                 </md-table-cell>
 
                 <!-- Student name -->
-                <div v-if="$store.state.profile !== null">
-                  <md-table-cell v-for="student in booking.students" :key="student.id" style="width: 25%">
+                <md-table-cell v-if="$store.state.profile !== null" style="width: 25%">
+                  <div v-for="student in booking.students" :key="student.id">
                     {{ student.name }}
-                  </md-table-cell>
-                </div>
+                  </div>
+                </md-table-cell>
 
                 <!-- Komment -->
                 <md-table-cell style="width: 35%" v-if="booking.comment !== null">
