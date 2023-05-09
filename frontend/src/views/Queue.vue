@@ -189,59 +189,65 @@
         </div>
 
         <!-- Display when there is a booking -->
-        <md-table v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
-          <h2 style="margin-top: 3rem">Bokad tid</h2>
-          <md-table-row>
-            <md-table-head style="width: 30%"> Tidslucka </md-table-head>
+        <md-card>
+          <md-table v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
+            <md-card-header>
+              <h2 style="margin-top: 3rem">Bokad tid</h2>
+              <md-table-row>
+                <md-table-head style="width: 30%"> Tidslucka </md-table-head>
 
-            <md-table-head v-if="$store.state.profile !== null" style="width: 20%"> Namn</md-table-head>
+                <md-table-head v-if="$store.state.profile !== null" style="width: 20%"> Namn</md-table-head>
 
-            <md-table-head v-if="$store.state.profile !== null" style="width: 40%"> Kommentar </md-table-head>
+                <md-table-head v-if="$store.state.profile !== null" style="width: 40%"> Kommentar </md-table-head>
 
-            <md-table-head v-else style="width: 70%"> Kommentar </md-table-head>
+                <md-table-head v-else style="width: 70%"> Kommentar </md-table-head>
 
-            <md-table-head v-if="$store.state.profile !== null" style="width: 5%"> Assisteras av </md-table-head>
-          </md-table-row>
+                <md-table-head v-if="$store.state.profile !== null" style="width: 5%"> Assisteras av </md-table-head>
+              </md-table-row>
+            </md-card-header>
 
-          <md-table-row
-            v-for="booking in todaysBookings"
-            :key="booking.id"
-            style="cursor: pointer"
-            :class="[
-              { studentIsHandled: booking.handlers.length > 0 },
-              {
-                myQueueRow: $store.state.profile !== null && booking.students.findIndex(x => x.id === $store.state.profile.id) !== -1,
-              },
-            ]"
-            @click="dialog_booking = booking"
-          >
-            <!-- Tid -->
-            <md-table-cell>
-              {{ unix_to_datetime(booking.timestamp) }}
-              <br />
+            <md-card-content>
+              <md-table-row
+                v-for="booking in todaysBookings"
+                :key="booking.id"
+                style="cursor: pointer"
+                :class="[
+                  { studentIsHandled: booking.handlers.length > 0 },
+                  {
+                    myQueueRow: $store.state.profile !== null && booking.students.findIndex(x => x.id === $store.state.profile.id) !== -1,
+                  },
+                ]"
+                @click="dialog_booking = booking"
+              >
+                <!-- Tid -->
+                <md-table-cell>
+                  {{ unix_to_datetime(booking.timestamp) }}
+                  <br />
 
-              <!-- Location -->
-              <div v-if="booking.location !== null" :class="[{ badLocation: booking.bad_location }]">{{ booking.location }}</div>
+                  <!-- Location -->
+                  <div v-if="booking.location !== null" :class="[{ badLocation: booking.bad_location }]">{{ booking.location }}</div>
 
-              <div v-else class="noLocation">ingen plats angiven</div>
-            </md-table-cell>
+                  <div v-else class="noLocation">ingen plats angiven</div>
+                </md-table-cell>
 
-            <!-- Student name -->
-            <md-table-cell v-if="$store.state.profile !== null">
-              <div v-for="student in booking.students" :key="student.id">{{ student.name }}</div>
-            </md-table-cell>
+                <!-- Student name -->
+                <md-table-cell v-if="$store.state.profile !== null">
+                  <div v-for="student in booking.students" :key="student.id">{{ student.name }}</div>
+                </md-table-cell>
 
-            <!-- Komment -->
-            <md-table-cell>
-              <div v-if="booking.comment !== null">{{ booking.comment }}</div>
-            </md-table-cell>
+                <!-- Komment -->
+                <md-table-cell>
+                  <div v-if="booking.comment !== null">{{ booking.comment }}</div>
+                </md-table-cell>
 
-            <!-- Assisteras av-->
-            <md-table-cell>
-              <div>{{ booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}</div>
-            </md-table-cell>
-          </md-table-row>
-        </md-table>
+                <!-- Assisteras av-->
+                <md-table-cell>
+                  <div>{{ booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}</div>
+                </md-table-cell>
+              </md-table-row>
+            </md-card-content>
+          </md-table>
+        </md-card>
 
         <!-- Row of Que tables -->
         <div class="animate__animated animate__fadeInUp">
