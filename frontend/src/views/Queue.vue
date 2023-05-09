@@ -189,20 +189,20 @@
         </div>
 
         <!-- Display when there is a booking -->
-        <md-card>
-          <md-table v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
+        <md-card v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
+          <md-table>
             <md-card-header>
-              <h2 style="margin-top: 3rem">Bokad tid</h2>
+              <h2 style="margin-top: 1rem">Dagens bokningar</h2>
               <md-table-row>
-                <md-table-head style="width: 30%"> Tidslucka </md-table-head>
+                <md-table-head style="width: 23%"> Tidslucka </md-table-head>
 
-                <md-table-head v-if="$store.state.profile !== null" style="width: 20%"> Namn</md-table-head>
+                <md-table-head v-if="$store.state.profile !== null" style="width: 23%"> Namn</md-table-head>
 
-                <md-table-head v-if="$store.state.profile !== null" style="width: 40%"> Kommentar </md-table-head>
+                <md-table-head v-if="$store.state.profile !== null" style="width: 35%"> Kommentar </md-table-head>
 
-                <md-table-head v-else style="width: 70%"> Kommentar </md-table-head>
+                <md-table-head v-else style="width: 35%"> Kommentar </md-table-head>
 
-                <md-table-head v-if="$store.state.profile !== null" style="width: 5%"> Assisteras av </md-table-head>
+                <md-table-head v-if="$store.state.profile !== null" style="width: 25%"> Assisteras av </md-table-head>
               </md-table-row>
             </md-card-header>
 
@@ -221,7 +221,8 @@
               >
                 <!-- Tid -->
                 <md-table-cell>
-                  {{ unix_to_datetime(booking.timestamp) }}
+                  <div style="width: 20%">{{ unix_to_datetime(booking.timestamp) }}</div>
+
                   <br />
 
                   <!-- Location -->
@@ -231,78 +232,89 @@
                 </md-table-cell>
 
                 <!-- Student name -->
-                <md-table-cell v-if="$store.state.profile !== null">
-                  <div v-for="student in booking.students" :key="student.id">{{ student.name }}</div>
-                </md-table-cell>
+                <div v-if="$store.state.profile !== null">
+                  <md-table-cell v-for="student in booking.students" :key="student.id" style="width: 25%">
+                    {{ student.name }}
+                  </md-table-cell>
+                </div>
 
                 <!-- Komment -->
-                <md-table-cell>
-                  <div v-if="booking.comment !== null">{{ booking.comment }}</div>
+                <md-table-cell style="width: 35%" v-if="booking.comment !== null">
+                  {{ booking.comment }}
                 </md-table-cell>
 
                 <!-- Assisteras av-->
-                <md-table-cell>
-                  <div>{{ booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}</div>
+                <md-table-cell style="width: 25%">
+                  {{ booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
                 </md-table-cell>
               </md-table-row>
             </md-card-content>
           </md-table>
         </md-card>
 
+        <br />
         <!-- Row of Que tables -->
-        <div class="animate__animated animate__fadeInUp">
-          <h2>Queue</h2>
-          <div v-if="queue.queuing.length < 1">
-            <h3 style="color: grey; margin-top: 0">Den här kön är tom</h3>
+        <md-card>
+          <div class="animate__animated animate__fadeInUp">
+            <md-card-header>
+              <h2>Queue</h2>
+              <div v-if="queue.queuing.length < 1">
+                <h3 style="color: grey; margin-top: 0">Den här kön är tom</h3>
+              </div>
+            </md-card-header>
           </div>
-        </div>
 
-        <md-table v-if="queue.queuing.length > 0">
-          <!-- Drop in que/Table head -->
-          <md-table-row>
-            <md-table-head style="width: 5%"> Namn </md-table-head>
+          <md-table v-if="queue.queuing.length > 0">
+            <md-card-content>
+              <!-- Drop in que/Table head -->
+              <md-table-row>
+                <md-table-head style="width: 5%"> Namn </md-table-head>
 
-            <md-table-head style="width: 4%"> Plats </md-table-head>
+                <md-table-head style="width: 4%"> Plats </md-table-head>
 
-            <md-table-head style="width: 1%; color: white">.</md-table-head>
+                <md-table-head style="width: 1%; color: white">.</md-table-head>
 
-            <md-table-head style="width: 20%"> Tid </md-table-head>
+                <md-table-head style="width: 20%"> Tid </md-table-head>
 
-            <md-table-head style="width: 70%"> Kommentar </md-table-head>
+                <md-table-head style="width: 70%"> Kommentar </md-table-head>
 
-            <md-table-head style="width: 5%"> Assisteras av </md-table-head>
-          </md-table-row>
+                <md-table-head style="width: 5%"> Assisteras av </md-table-head>
+              </md-table-row>
+            </md-card-content>
 
-          <template v-if="view_entire_queue === true">
-            <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
-              <!-- Namn  -->
-              <md-table-cell>
-                <div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div>
-              </md-table-cell>
+            <md-card-content>
+              <template v-if="view_entire_queue === true">
+                <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
+                  <!-- Namn  -->
+                  <md-table-cell>
+                    <div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div>
+                  </md-table-cell>
 
-              <!-- Plats -->
-              <md-table-cell>
-                <div v-if="user.profile.name !== null"><Location :location="user.location" /></div>
-              </md-table-cell>
+                  <!-- Plats -->
+                  <md-table-cell>
+                    <div v-if="user.profile.name !== null"><Location :location="user.location" /></div>
+                  </md-table-cell>
 
-              <!-- Innehåll -->
-              <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
+                  <!-- Innehåll -->
+                  <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
 
-              <!-- Tid -->
-              <md-table-cell>{{ unix_to_datetime2(user.entered_at) }} </md-table-cell>
+                  <!-- Tid -->
+                  <md-table-cell>{{ unix_to_datetime2(user.entered_at) }} </md-table-cell>
 
-              <!-- Kommentar -->
-              <md-table-cell>
-                <span v-if="user.comment !== null">{{ user.comment }}</span>
-              </md-table-cell>
+                  <!-- Kommentar -->
+                  <md-table-cell>
+                    <span v-if="user.comment !== null">{{ user.comment }}</span>
+                  </md-table-cell>
 
-              <!-- Assisteras av-->
-              <md-table-cell>
-                {{ user.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
-              </md-table-cell>
-            </md-table-row>
-          </template>
-        </md-table>
+                  <!-- Assisteras av-->
+                  <md-table-cell>
+                    {{ user.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
+                  </md-table-cell>
+                </md-table-row>
+              </template>
+            </md-card-content>
+          </md-table>
+        </md-card>
       </div>
 
       <!-- Alternativ on the right of the screen -->
@@ -357,8 +369,6 @@
             </md-list>
           </md-card-content>
         </md-card>
-
-        <br />
 
         <md-card>
           <!-- Köplats -->
@@ -1011,6 +1021,10 @@ export default {
 }
 
 /* .md-table-head {
-  background-color: orange;
+  background-color: rgba(217, 218, 220, 0.784);
 } */
+
+.md-card {
+  margin-top: 1rem;
+}
 </style>
