@@ -257,7 +257,7 @@
         <md-card>
           <div class="animate__animated animate__fadeInUp">
             <md-card-header>
-              <h2>Queue</h2>
+              <h2>Drop-in Queue</h2>
               <div v-if="queue.queuing.length < 1">
                 <h3 style="color: grey; margin-top: 0">Den här kön är tom</h3>
               </div>
@@ -268,17 +268,17 @@
             <md-card-content>
               <!-- Drop in que/Table head -->
               <md-table-row>
-                <md-table-head style="width: 5%"> Namn </md-table-head>
+                <md-table-head style="width: 20%"> Namn </md-table-head>
 
-                <md-table-head style="width: 4%"> Plats </md-table-head>
+                <md-table-head style="width: 15%"> Plats </md-table-head>
 
-                <md-table-head style="width: 1%; color: white">.</md-table-head>
+                <md-table-head style="width: 15%"> Tid </md-table-head>
 
-                <md-table-head style="width: 20%"> Tid </md-table-head>
+                <md-table-head style="width: 0%; color: white">.</md-table-head>
 
-                <md-table-head style="width: 70%"> Kommentar </md-table-head>
+                <md-table-head style="width: 25%"> Kommentar </md-table-head>
 
-                <md-table-head style="width: 5%"> Assisteras av </md-table-head>
+                <md-table-head style="width: 25%"> Assisteras av </md-table-head>
               </md-table-row>
             </md-card-content>
 
@@ -286,20 +286,18 @@
               <template v-if="view_entire_queue === true">
                 <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
                   <!-- Namn  -->
-                  <md-table-cell>
-                    <div v-if="user.profile.name !== null" style="white-space: nowrap">{{ index + 1 }}. {{ user.profile.name }}</div>
-                  </md-table-cell>
+                  <md-table-cell v-if="user.profile.name !== null" style="white-space: nowrap; width: 10%"> {{ index + 1 }}. {{ user.profile.name }} </md-table-cell>
 
                   <!-- Plats -->
-                  <md-table-cell>
-                    <div v-if="user.profile.name !== null"><Location :location="user.location" /></div>
+                  <md-table-cell style="width: 1%" v-if="user.profile.name !== null">
+                    <Location :location="user.location" />
                   </md-table-cell>
-
-                  <!-- Innehåll -->
-                  <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
 
                   <!-- Tid -->
                   <md-table-cell>{{ unix_to_datetime2(user.entered_at) }} </md-table-cell>
+
+                  <!-- Innehåll -->
+                  <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
 
                   <!-- Kommentar -->
                   <md-table-cell>
