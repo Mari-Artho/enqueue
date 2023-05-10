@@ -255,14 +255,12 @@
         <br />
         <!-- Row of Que tables -->
         <md-card>
-          <!-- <div class="animate__animated animate__fadeInUp"> -->
           <md-card-header class="animate__animated animate__fadeInUp">
             <h2>Drop-in Queue</h2>
             <div v-if="queue.queuing.length < 1">
               <h3 style="color: grey; margin-top: 0">Den här kön är tom</h3>
             </div>
           </md-card-header>
-          <!-- </div> -->
 
           <md-table v-if="queue.queuing.length > 0" class="animate__animated animate__fadeInUp">
             <md-card-content>
