@@ -178,15 +178,15 @@
         </div>
 
         <!-- Bokning info -->
-        <div v-if="!is_login" class="animate__animated animate__fadeInUp">
-          <h2>Booking info</h2>
+        <md-card v-if="!is_login" class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
+          <h2>Bokningsinformation</h2>
           <div v-if="queue.bookings.length < 1">
             <h3 style="color: grey; margin-bottom: 2rem">Den här bookingskör är tom</h3>
           </div>
           <div v-if="queue.bookings.length > 0">
-            <h3 style="color: grey; margin-bottom: 2rem">Någon har en bokning. Logga in för att se bokningen.</h3>
+            <h3 style="color: grey; margin-bottom: 2rem"><md-icon style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
           </div>
-        </div>
+        </md-card>
 
         <!-- Display when there is a booking -->
         <md-card v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
