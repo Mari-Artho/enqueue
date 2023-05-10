@@ -255,16 +255,16 @@
         <br />
         <!-- Row of Que tables -->
         <md-card>
-          <div class="animate__animated animate__fadeInUp">
-            <md-card-header>
-              <h2>Drop-in Queue</h2>
-              <div v-if="queue.queuing.length < 1">
-                <h3 style="color: grey; margin-top: 0">Den här kön är tom</h3>
-              </div>
-            </md-card-header>
-          </div>
+          <!-- <div class="animate__animated animate__fadeInUp"> -->
+          <md-card-header class="animate__animated animate__fadeInUp">
+            <h2>Drop-in Queue</h2>
+            <div v-if="queue.queuing.length < 1">
+              <h3 style="color: grey; margin-top: 0">Den här kön är tom</h3>
+            </div>
+          </md-card-header>
+          <!-- </div> -->
 
-          <md-table v-if="queue.queuing.length > 0">
+          <md-table v-if="queue.queuing.length > 0" class="animate__animated animate__fadeInUp">
             <md-card-content>
               <!-- Drop in que/Table head -->
               <md-table-row>
@@ -1023,6 +1023,6 @@ export default {
 } */
 
 .md-card {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 </style>
