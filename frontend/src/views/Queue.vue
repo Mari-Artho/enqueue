@@ -37,7 +37,7 @@
 
         <template v-if="dialog_queuing.handlers.length > 0">
           <strong>Assisteras av:</strong>
-          {{ dialog_queuing.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}💓
+          {{ dialog_queuing.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
         </template>
       </md-dialog-content>
 
@@ -134,10 +134,6 @@
           >
             Assistera
           </md-button>
-
-          <!-- <md-button v-if="dialog_booking.handlers.find(x => x.id === $store.state.profile.id) === undefined" class="md-primary alert" @click="booking_handle" v-on:click="showAlert" v-bind:class="[alertClass]" v-show="show">
-            Assistera <span>{{ ThankMessage }}</span>
-          </md-button> -->
 
           <!-- Sluta assisting button -->
           <md-button v-else @click="booking_handle">Sluta assistera</md-button>

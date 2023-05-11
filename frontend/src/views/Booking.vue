@@ -48,7 +48,9 @@
             <md-table-cell>{{ booking.comment }}</md-table-cell>
 
             <!-- Assisteras av -->
-            <md-table-cell>{{ booking.assistant }}</md-table-cell>
+            <md-table-cell v-for="handler in booking.handlers" :key="handler.id">
+              {{ handler.name }}
+            </md-table-cell>
           </md-table-row>
         </md-table>
       </md-card-content>
