@@ -11,8 +11,7 @@
     <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
 
     <!-- test -->
-    <!-- <md-table-cell v-if="$store.state.profile !== null"> -->
-    <!-- <md-table-cell> -->
+    <h1>test</h1>
     <md-table-cell v-if="$store.queues_assistants !== null">
       <div v-for="assistant in queues_assistants" :key="assistant.id">{{ assistant.assistant_id }}</div>
     </md-table-cell>
@@ -43,7 +42,6 @@
             <md-table-head> Assisteras av </md-table-head>
           </md-table-row>
 
-          <!-- <md-table-row v-for="booking in queues.booking" :key="booking.id" style="cursor: pointer"> -->
           <md-table-row v-for="booking in queue.bookings" :key="booking.id">
             <!-- Tid -->
             <md-table-cell>{{ getFormattedDate(booking.timestamp) }}</md-table-cell>
@@ -52,7 +50,9 @@
             <md-table-cell>{{ booking.location }}</md-table-cell>
 
             <!-- Namn -->
-            <md-table-cell>{{ booking.name }}</md-table-cell>
+            <md-table-cell v-for="student in booking.students" :key="student.id">
+              {{ student.name }}
+            </md-table-cell>
 
             <!-- Kommentar -->
             <md-table-cell>{{ booking.comment }}</md-table-cell>

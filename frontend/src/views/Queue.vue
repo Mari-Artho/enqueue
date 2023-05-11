@@ -502,9 +502,9 @@ export default {
   }),
 
   computed: {
+    // Filter booking data to return only today's bookings
     todaysBookings() {
       const today = new Date()
-      // Filter booking data to return only today's bookings
       return this.queue.bookings.filter(booking => {
         const timestamp = new Date(booking.timestamp)
         return timestamp.getFullYear() == today.getFullYear() && timestamp.getMonth() == today.getMonth() && timestamp.getDate() == today.getDate()
