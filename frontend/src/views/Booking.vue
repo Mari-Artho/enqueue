@@ -61,7 +61,8 @@
       </md-card-header>
 
       <md-card-content>
-        <md-table v-if="is_me">
+        <h3 v-if="my_bookings.length < 1">Du har ingen bokning</h3>
+        <md-table v-if="my_bookings.length > 0">
           <md-table-row>
             <md-table-head> Tidslucka </md-table-head>
 
@@ -110,15 +111,6 @@ export default {
   }),
 
   computed: {
-    is_me() {
-      if (!this.queue) return false
-
-      if (this.queue.bookings.filter(booking => booking.students.filter(student => student.id) == this.$store.state.profile.id)) {
-        return true
-      }
-      return false
-    },
-
     my_bookings() {
       return this.queue.bookings.filter(booking => booking.students.map(student => student.id) == this.$store.state.profile.id)
     },
