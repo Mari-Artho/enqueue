@@ -5,7 +5,7 @@
 
       <md-button v-if="$store.state.profile !== null && $store.state.profile.teacher" to="/admin"> <md-icon>build</md-icon> Administration </md-button>
 
-      <md-button v-if="$store.state.profile !== null && $store.state.profile.teacher" to="/bookings"> <md-icon>pending_actions</md-icon> Bokning </md-button>
+      <md-button v-if="$store.state.profile !== null" to="/bookings"> <md-icon>pending_actions</md-icon> Bokning </md-button>
 
       <md-button to="/test"><md-icon>local_florist</md-icon> Test Button</md-button>
 
