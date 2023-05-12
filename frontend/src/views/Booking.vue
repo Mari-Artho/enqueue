@@ -10,7 +10,8 @@
     <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
     <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
 
-    <md-card>
+    <!-- Show all bookings when the user is a teacher -->
+    <md-card v-if="$store.state.profile.teacher">
       <md-card-header>
         <h2><md-icon>pending_actions</md-icon> Alla bokningar</h2>
       </md-card-header>
@@ -26,8 +27,6 @@
             <md-table-head> Namn</md-table-head>
 
             <md-table-head> Kommentar </md-table-head>
-
-            <!-- <md-table-head> Kommentar </md-table-head> -->
 
             <md-table-head> Assisteras av </md-table-head>
           </md-table-row>
@@ -54,6 +53,49 @@
         </md-table>
       </md-card-content>
     </md-card>
+
+    <!-- Students can only see their own bookings -->
+    <md-card v-if="!$store.state.profile.teacher">
+      <md-card-header>
+        <h2><md-icon>pending_actions</md-icon>Din bokning</h2>
+      </md-card-header>
+
+      <md-card-content>
+        <md-table v-if="is_me">
+          <md-table-row>
+            <md-table-head> Tidslucka </md-table-head>
+
+            <md-table-head> Plats </md-table-head>
+
+            <md-table-head> Namn</md-table-head>
+
+            <md-table-head> Kommentar </md-table-head>
+
+            <md-table-head> Assisteras av </md-table-head>
+          </md-table-row>
+
+          <md-table-row v-for="booking in queue.bookings.filter(booking => booking.students.map(student => student.id) == this.$store.state.profile.id)" :key="booking.id">
+            <!-- time -->
+            <md-table-cell> {{ getFormattedDate(booking.timestamp) }} </md-table-cell>
+
+            <!-- Plats -->
+            <md-table-cell> {{ booking.location }} </md-table-cell>
+
+            <!-- Namn -->
+            <md-table-cell v-for="student in booking.students" :key="student.id">
+              {{ student.name }}
+            </md-table-cell>
+
+            <!-- Kommentar -->
+            <md-table-cell> {{ booking.comment }} </md-table-cell>
+
+            <!-- Assisteras av-->
+            <md-table-cell v-for="handler in booking.handlers" :key="handler.id"> {{ handler.name }}</md-table-cell>
+            <md-table-cell v-if="booking.handlers.length == 0">&nbsp;</md-table-cell>
+          </md-table-row>
+        </md-table>
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 
@@ -66,6 +108,17 @@ export default {
     location: null,
     dialog_booking: null,
   }),
+
+  computed: {
+    is_me() {
+      if (!this.queue) return false
+      
+      if (this.queue.bookings.filter(booking => booking.students.filter(student => student.id) == this.$store.state.profile.id)) {
+        return true
+      }
+      return false
+    },
+  },
 
   created() {
     this.$store.state.socket.on('connect', this.fetch_queue)
@@ -102,6 +155,7 @@ export default {
         })
     },
 
+    // Sort queues from oldest to newest
     sort_bookings() {
       this.queue.bookings.sort((a, b) => {
         if (a.timestamp < b.timestamp) {
