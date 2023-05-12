@@ -74,7 +74,7 @@
             <md-table-head> Assisteras av </md-table-head>
           </md-table-row>
 
-          <md-table-row v-for="booking in queue.bookings.filter(booking => booking.students.map(student => student.id) == this.$store.state.profile.id)" :key="booking.id">
+          <md-table-row v-for="booking in my_bookings" :key="booking.id">
             <!-- time -->
             <md-table-cell> {{ getFormattedDate(booking.timestamp) }} </md-table-cell>
 
@@ -112,11 +112,15 @@ export default {
   computed: {
     is_me() {
       if (!this.queue) return false
-      
+
       if (this.queue.bookings.filter(booking => booking.students.filter(student => student.id) == this.$store.state.profile.id)) {
         return true
       }
       return false
+    },
+
+    my_bookings() {
+      return this.queue.bookings.filter(booking => booking.students.map(student => student.id) == this.$store.state.profile.id)
     },
   },
 
