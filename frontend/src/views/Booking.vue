@@ -63,6 +63,7 @@
       <md-card-content>
         <h3 v-if="my_bookings.length < 1">Du har ingen bokning</h3>
         <md-table v-if="my_bookings.length > 0">
+          <!-- <md-table> -->
           <md-table-row>
             <md-table-head> Tidslucka </md-table-head>
 
@@ -76,6 +77,7 @@
           </md-table-row>
 
           <md-table-row v-for="booking in my_bookings" :key="booking.id">
+            <!-- <md-table-row v-for="booking in filteredBookings(queue.bookings)" :key="booking.id"> -->
             <!-- time -->
             <md-table-cell> {{ getFormattedDate(booking.timestamp) }} </md-table-cell>
 
@@ -110,8 +112,10 @@ export default {
     dialog_booking: null,
   }),
 
-  my_bookings() {
-    return this.queue.bookings.filter(booking => booking.students.map(student => student.id) == this.$store.state.profile.id)
+  computed: {
+    my_bookings() {
+      return this.queue.bookings.filter(booking => booking.students.map(student => student.id) == this.$store.state.profile.id)
+    },
   },
 
   created() {
