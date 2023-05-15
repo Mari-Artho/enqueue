@@ -31,7 +31,7 @@
             <md-table-head> Assisteras av </md-table-head>
           </md-table-row>
 
-          <md-table-row v-for="booking in filteredReservations(queue.bookings)" :key="booking.id">
+          <md-table-row v-for="booking in filteredBookings(queue.bookings)" :key="booking.id">
             <!-- Tid -->
             <md-table-cell>{{ getFormattedDate(booking.timestamp) }}</md-table-cell>
 
@@ -149,7 +149,8 @@ export default {
         })
     },
 
-    filteredReservations(bookings) {
+    // Filter to not show bookings older than now
+    filteredBookings(bookings) {
       const currentDate = new Date()
       return bookings.filter(booking => {
         const bookingDate = new Date(booking.timestamp)
