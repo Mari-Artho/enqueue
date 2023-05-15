@@ -180,7 +180,7 @@
             <h3 style="color: grey; margin-bottom: 2rem">Den här bookingskör är tom</h3>
           </div>
           <div v-if="queue.bookings.length > 0">
-            <h3 style="color: grey; margin-bottom: 2rem"><md-icon style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
+            <h3 style="color: grey; margin-bottom: 2rem"><md-icon class="animate__animated animate__flash animate__repeat-3" style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
           </div>
         </md-card>
 
