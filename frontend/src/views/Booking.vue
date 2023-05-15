@@ -31,10 +31,9 @@
             <md-table-head> Assisteras av </md-table-head>
           </md-table-row>
 
-          <md-table-row v-for="booking in queue.bookings" :key="booking.id">
+          <md-table-row v-for="booking in filteredReservations(queue.bookings)" :key="booking.id">
             <!-- Tid -->
-            <md-table-cell v-if="filteredReservations(booking.timestamp)">{{ getFormattedDate(booking.timestamp) }}</md-table-cell>
-            <!-- <md-table-cell>{{ getFormattedDate(booking.timestamp) }}</md-table-cell> -->
+            <md-table-cell>{{ getFormattedDate(booking.timestamp) }}</md-table-cell>
 
             <!-- Plats -->
             <md-table-cell>{{ booking.location }}</md-table-cell>
@@ -150,9 +149,12 @@ export default {
         })
     },
 
-    filteredReservations(bookingDate) {
+    filteredReservations(bookings) {
       const currentDate = new Date()
-      return bookingDate >= currentDate
+      return bookings.filter(booking => {
+        const bookingDate = new Date(booking.timestamp)
+        return bookingDate >= currentDate
+      })
     },
 
     // Sort queues from oldest to newest
