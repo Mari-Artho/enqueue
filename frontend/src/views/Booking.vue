@@ -62,41 +62,41 @@
 
       <md-card-content>
         <h3 v-if="my_bookings.length < 1">Du har ingen bokning</h3>
-        <md-table v-if="my_bookings.length > 0">
-          <!-- <md-table> -->
-          <md-table-row>
-            <md-table-head> Tidslucka </md-table-head>
+        <div v-if="my_bookings.length > 0">
+          <md-table>
+            <md-table-row>
+              <md-table-head> Tidslucka </md-table-head>
 
-            <md-table-head> Plats </md-table-head>
+              <md-table-head> Plats </md-table-head>
 
-            <md-table-head> Namn</md-table-head>
+              <md-table-head> Namn</md-table-head>
 
-            <md-table-head> Kommentar </md-table-head>
+              <md-table-head> Kommentar </md-table-head>
 
-            <md-table-head> Assisteras av </md-table-head>
-          </md-table-row>
+              <md-table-head> Assisteras av </md-table-head>
+            </md-table-row>
 
-          <md-table-row v-for="booking in my_bookings" :key="booking.id">
-            <!-- <md-table-row v-for="booking in filteredBookings(queue.bookings)" :key="booking.id"> -->
-            <!-- time -->
-            <md-table-cell> {{ getFormattedDate(booking.timestamp) }} </md-table-cell>
+            <md-table-row v-for="booking in my_bookings" :key="booking.id">
+              <!-- time -->
+              <md-table-cell> {{ getFormattedDate(booking.timestamp) }} </md-table-cell>
 
-            <!-- Plats -->
-            <md-table-cell> {{ booking.location }} </md-table-cell>
+              <!-- Plats -->
+              <md-table-cell> {{ booking.location }} </md-table-cell>
 
-            <!-- Namn -->
-            <md-table-cell v-for="student in booking.students" :key="student.id">
-              {{ student.name }}
-            </md-table-cell>
+              <!-- Namn -->
+              <md-table-cell v-for="student in booking.students" :key="student.id">
+                {{ student.name }}
+              </md-table-cell>
 
-            <!-- Kommentar -->
-            <md-table-cell> {{ booking.comment }} </md-table-cell>
+              <!-- Kommentar -->
+              <md-table-cell> {{ booking.comment }} </md-table-cell>
 
-            <!-- Assisteras av-->
-            <md-table-cell v-for="handler in booking.handlers" :key="handler.id"> {{ handler.name }}</md-table-cell>
-            <md-table-cell v-if="booking.handlers.length == 0">&nbsp;</md-table-cell>
-          </md-table-row>
-        </md-table>
+              <!-- Assisteras av-->
+              <md-table-cell v-for="handler in booking.handlers" :key="handler.id"> {{ handler.name }}</md-table-cell>
+              <md-table-cell v-if="booking.handlers.length == 0">&nbsp;</md-table-cell>
+            </md-table-row>
+          </md-table>
+        </div>
       </md-card-content>
     </md-card>
   </div>
@@ -113,8 +113,21 @@ export default {
   }),
 
   computed: {
+    //Hide past bookings
+    filteredBookings() {
+      const currentDate = new Date()
+      return this.queue.bookings.filter(booking => {
+        const bookingDate = new Date(booking.timestamp)
+        return bookingDate >= currentDate
+      })
+    },
+
+    // Show your own bookings
     my_bookings() {
-      return this.queue.bookings.filter(booking => booking.students.map(student => student.id) == this.$store.state.profile.id)
+      const studentId = this.$store.state.profile.id
+      return this.filteredBookings.filter(booking => {
+        return booking.students.some(student => student.id === studentId)
+      })
     },
   },
 
@@ -151,15 +164,6 @@ export default {
 
           this.sort_bookings()
         })
-    },
-
-    // Filter to not show bookings older than now
-    filteredBookings(bookings) {
-      const currentDate = new Date()
-      return bookings.filter(booking => {
-        const bookingDate = new Date(booking.timestamp)
-        return bookingDate >= currentDate
-      })
     },
 
     // Sort queues from oldest to newest
