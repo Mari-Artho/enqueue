@@ -203,8 +203,10 @@
             </md-card-header>
 
             <md-card-content>
+              <!-- Display when there is no reservation for a student -->
+              <h3 v-if="filteredBookings.length < 1" class="no_bookings">No bookings for today</h3>
               <md-table-row
-                v-for="booking in todaysBookings"
+                v-for="booking in filteredBookings"
                 :key="booking.id"
                 style="cursor: pointer"
                 :class="[
@@ -504,6 +506,15 @@ export default {
       return this.queue.bookings.filter(booking => {
         const timestamp = new Date(booking.timestamp)
         return timestamp.getFullYear() == today.getFullYear() && timestamp.getMonth() == today.getMonth() && timestamp.getDate() == today.getDate()
+      })
+    },
+
+    //Hide past bookings
+    filteredBookings() {
+      const currentDate = new Date()
+      return this.todaysBookings.filter(booking => {
+        const bookingDate = new Date(booking.timestamp)
+        return bookingDate >= currentDate
       })
     },
 
@@ -1018,5 +1029,10 @@ export default {
 
 .md-card {
   margin-top: 0.5rem;
+}
+
+.no_bookings {
+  padding-left: 1.5rem;
+  color: grey;
 }
 </style>
