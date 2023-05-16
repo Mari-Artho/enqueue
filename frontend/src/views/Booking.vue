@@ -19,7 +19,7 @@
       <md-card-content>
         <md-table>
           <!-- table-row -->
-          <md-table-row>
+          <md-table-row v-if="filteredBookings(queue.bookings).length > 0">
             <md-table-head> Tidslucka </md-table-head>
 
             <md-table-head> Plats </md-table-head>
@@ -31,12 +31,12 @@
             <md-table-head> Assisteras av </md-table-head>
           </md-table-row>
 
-          <!-- Display when there is no reservation -->
+          <!-- Display when there is no reservation for a teacher -->
           <template>
-            <h3 v-if="filteredBookings(queue.bookings).length < 1" style="padding-left: 1.5rem; color: grey">Inga bokningar</h3>
+            <h3 v-if="filteredBookings(queue.bookings).length < 1" class="no_bookings">Inga bokningar</h3>
           </template>
 
-          <!-- Display when there is a reservation -->
+          <!-- Display when there is a reservation for a teacher -->
           <md-table-row v-for="booking in filteredBookings(queue.bookings)" :key="booking.id">
             <!-- Tid -->
             <md-table-cell>{{ getFormattedDate(booking.timestamp) }}</md-table-cell>
@@ -67,7 +67,10 @@
       </md-card-header>
 
       <md-card-content>
-        <h3 v-if="my_bookings.length < 1">Du har ingen bokning</h3>
+        <!-- Display when there is no reservation for a student -->
+        <h3 v-if="my_bookings.length < 1" class="no_bookings">Du har ingen bokning</h3>
+
+        <!-- Display when there is a reservation for a student -->
         <div v-if="my_bookings.length > 0">
           <md-table>
             <md-table-row>
@@ -219,3 +222,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.no_bookings {
+  padding-left: 1.5rem;
+  color: grey;
+}
+</style>
