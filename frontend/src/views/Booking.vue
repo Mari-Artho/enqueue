@@ -113,8 +113,8 @@ export default {
   }),
 
   computed: {
-    //Hide past bookings
-    filteredBookings() {
+    //Hide past bookings for students
+    filteredBookingsForStudents() {
       const currentDate = new Date()
       return this.queue.bookings.filter(booking => {
         const bookingDate = new Date(booking.timestamp)
@@ -125,7 +125,7 @@ export default {
     // Show your own bookings
     my_bookings() {
       const studentId = this.$store.state.profile.id
-      return this.filteredBookings.filter(booking => {
+      return this.filteredBookingsForStudents.filter(booking => {
         return booking.students.some(student => student.id === studentId)
       })
     },
@@ -164,6 +164,15 @@ export default {
 
           this.sort_bookings()
         })
+    },
+
+    //Hide past bookings on teacher page
+    filteredBookings(bookings) {
+      const currentDate = new Date()
+      return bookings.filter(booking => {
+        const bookingDate = new Date(booking.timestamp)
+        return bookingDate >= currentDate
+      })
     },
 
     // Sort queues from oldest to newest
