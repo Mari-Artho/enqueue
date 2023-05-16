@@ -270,6 +270,8 @@
 
                 <md-table-head style="width: 15%"> Tid </md-table-head>
 
+                <md-table-head style="width: 15%"> Duration </md-table-head>
+
                 <md-table-head style="width: 0%; color: white">.</md-table-head>
 
                 <md-table-head style="width: 25%"> Kommentar </md-table-head>
@@ -291,6 +293,9 @@
 
                   <!-- Tid -->
                   <md-table-cell>{{ unix_to_datetime2(user.entered_at) }} </md-table-cell>
+
+                  <!-- Elapsed time -->
+                  <md-table-cell>{{ formattedTime }}</md-table-cell>
 
                   <!-- Innehåll -->
                   <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
@@ -471,6 +476,9 @@ export default {
   },
 
   data: () => ({
+    //Elapsed time since student queued
+    elapsedTime: 0,
+
     //current time
     now: null,
 
@@ -496,10 +504,25 @@ export default {
     booking_location: null,
     dialog_queuing: null,
     dialog_booking: null,
-    //reservations: [],
   }),
 
+  mounted() {
+    //Elapsed time since student queued
+    setInterval(() => {
+      this.elapsedTime += 1
+    }, 1000)
+  },
+
   computed: {
+    //Elapsed time since student queued
+    formattedTime() {
+      const seconds = this.elapsedTime % 60
+      const minutes = Math.floor((this.elapsedTime / 60) % 60)
+      const hours = Math.floor(this.elapsedTime / 3600)
+
+      return `${hours} hour ${minutes} minutes ${seconds} seconds`
+    },
+
     // Filter booking data to return only today's bookings
     todaysBookings() {
       const today = new Date()
