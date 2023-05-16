@@ -31,6 +31,12 @@
             <md-table-head> Assisteras av </md-table-head>
           </md-table-row>
 
+          <!-- Display when there is no reservation -->
+          <template>
+            <h3 v-if="filteredBookings(queue.bookings).length < 1" style="padding-left: 1.5rem; color: grey">Inga bokningar</h3>
+          </template>
+
+          <!-- Display when there is a reservation -->
           <md-table-row v-for="booking in filteredBookings(queue.bookings)" :key="booking.id">
             <!-- Tid -->
             <md-table-cell>{{ getFormattedDate(booking.timestamp) }}</md-table-cell>
@@ -122,7 +128,7 @@ export default {
       })
     },
 
-    // Show your own bookings
+    //Show your own bookings
     my_bookings() {
       const studentId = this.$store.state.profile.id
       return this.filteredBookingsForStudents.filter(booking => {
