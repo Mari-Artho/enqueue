@@ -176,10 +176,12 @@
         <!-- Bokning info -->
         <md-card v-if="!is_login" class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
           <h2>Bokningsinformation</h2>
-          <div v-if="queue.bookings.length < 1">
-            <h3 style="color: grey; margin-bottom: 2rem">Den här bookingskör är tom</h3>
+          <!-- <div v-if="queue.bookings.length < 1"> -->
+          <div v-if="filteredBookings.length < 1">
+            <h3 style="color: grey; margin-bottom: 2rem">Den här kör är tom</h3>
           </div>
-          <div v-if="queue.bookings.length > 0">
+          <!-- <div v-if="queue.bookings.length > 0"> -->
+          <div v-if="filteredBookings.length > 0">
             <h3 style="color: grey; margin-bottom: 2rem"><md-icon class="animate__animated animate__flash animate__repeat-3" style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
           </div>
         </md-card>
@@ -204,9 +206,9 @@
 
             <md-card-content>
               <!-- Display when there is no reservation for a student -->
-              <h3 v-if="filteredBookings.length < 1" class="no_bookings">No bookings for today</h3>
+              <h3 v-if="filteredPastBookings.length < 1" class="no_bookings">No bookings for today</h3>
               <md-table-row
-                v-for="booking in filteredBookings"
+                v-for="booking in filteredPastBookings"
                 :key="booking.id"
                 style="cursor: pointer"
                 :class="[
@@ -532,10 +534,19 @@ export default {
       })
     },
 
-    //Hide past bookings
-    filteredBookings() {
+    //Hide past bookings and show only today's bookings
+    filteredPastBookings() {
       const currentDate = new Date()
       return this.todaysBookings.filter(booking => {
+        const bookingDate = new Date(booking.timestamp)
+        return bookingDate >= currentDate
+      })
+    },
+
+    //filter past bookings and show all bookings(not only today)
+    filteredBookings() {
+      const currentDate = new Date()
+      return this.queue.bookings.filter(booking => {
         const bookingDate = new Date(booking.timestamp)
         return bookingDate >= currentDate
       })
