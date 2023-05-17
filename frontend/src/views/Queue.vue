@@ -192,7 +192,7 @@
             <md-card-header>
               <h2 style="margin-top: 1rem">Dagens bokningar</h2>
               <md-table-row>
-                <md-table-head style="width: 23%"> Tidslucka </md-table-head>
+                <md-table-head style="width: 23%"> Tid </md-table-head>
 
                 <md-table-head v-if="$store.state.profile !== null" style="width: 23%"> Namn</md-table-head>
 
@@ -270,15 +270,15 @@
               <md-table-row>
                 <md-table-head style="width: 20%"> Namn </md-table-head>
 
-                <md-table-head style="width: 15%"> Plats </md-table-head>
+                <!-- <md-table-head style="width: 15%"> Plats </md-table-head> -->
 
                 <md-table-head style="width: 15%"> Tid </md-table-head>
 
-                <md-table-head style="width: 15%"> Duration </md-table-head>
+                <!-- <md-table-head style="width: 15%"> Waiting Time </md-table-head> -->
 
                 <md-table-head style="width: 0%; color: white">.</md-table-head>
 
-                <md-table-head style="width: 25%"> Kommentar </md-table-head>
+                <md-table-head style="width: 20%"> Kommentar </md-table-head>
 
                 <md-table-head style="width: 25%"> Assisteras av </md-table-head>
               </md-table-row>
@@ -288,18 +288,24 @@
               <template v-if="view_entire_queue === true">
                 <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
                   <!-- Namn  -->
-                  <md-table-cell v-if="user.profile.name !== null" style="white-space: nowrap; width: 10%"> {{ index + 1 }}. {{ user.profile.name }} </md-table-cell>
-
-                  <!-- Plats -->
-                  <md-table-cell style="width: 1%" v-if="user.profile.name !== null">
-                    <Location :location="user.location" />
+                  <md-table-cell v-if="user.profile.name !== null" style="white-space: nowrap; width: 10%">
+                    <div>{{ index + 1 }}. {{ user.profile.name }}</div>
+                    <br />
+                    <!-- Plats -->
+                    <div style="width: 1%" v-if="user.profile.name !== null"><Location :location="user.location" /></div>
                   </md-table-cell>
 
                   <!-- Tid -->
-                  <md-table-cell>{{ unix_to_datetime2(user.entered_at) }} </md-table-cell>
-
-                  <!-- Elapsed time -->
-                  <md-table-cell>{{ formattedTime(user.entered_at) }}</md-table-cell>
+                  <md-table-cell>
+                    <div>
+                      {{ unix_to_datetime2(user.entered_at) }}
+                    </div>
+                    <br />
+                    <!-- Elapsed time -->
+                    <div>
+                      {{ formattedTime(user.entered_at) }}
+                    </div>
+                  </md-table-cell>
 
                   <!-- Innehåll -->
                   <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
@@ -673,15 +679,15 @@ export default {
         // More than one hour
         const hours = Math.floor(elapsedTime / 3600000)
         const minutes = Math.floor((elapsedTime % 3600000) / 60000)
-        return `${hours} hours ${minutes} minutes`
+        return `${hours} hours ${minutes} minutes ago`
       } else if (elapsedTime >= 60000) {
         // More than one minute
         const minutes = Math.floor(elapsedTime / 60000)
-        return `${minutes} minutes`
+        return `${minutes} minutes ago`
       } else {
         // Within one minute
         const seconds = Math.floor(elapsedTime / 1000)
-        return `${seconds} seconds`
+        return `${seconds} seconds ago`
       }
     },
 
