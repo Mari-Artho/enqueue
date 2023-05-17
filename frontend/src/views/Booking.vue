@@ -46,7 +46,9 @@
 
             <!-- Namn -->
             <md-table-cell v-for="student in booking.students" :key="student.id">
-              {{ student.name }}
+              <div v-if="is_login" style="background: red">
+                {{ student.name }}
+              </div>
             </md-table-cell>
 
             <!-- Kommentar -->
@@ -112,6 +114,8 @@
 </template>
 
 <script>
+import { isStudentLoggedIn } from '../../../backend/login'
+
 export default {
   name: 'Booking',
 
@@ -122,6 +126,28 @@ export default {
   }),
 
   computed: {
+    //Use student login information from login.js
+    // is_login() {
+    //   const { profile, queue } = this.$store.state
+    //   return isStudentLoggedIn(profile, queue)
+    // },
+
+    //login
+    //Check if user are logged in
+    is_login() {
+      if (this.$store.state.profile === null) {
+        return false
+      }
+
+      for (const student of this.queue.queuing) {
+        if (this.$store.state.profile.id === student.profile.id) {
+          return true
+        }
+      }
+
+      return true
+    },
+
     //Hide past bookings for students
     filteredBookingsForStudents() {
       const currentDate = new Date()
@@ -203,6 +229,17 @@ export default {
       })
     },
 
+    //Check student's login
+    //is_login(student) {
+    // const { profile, queue } = this.$store.state
+    // if (profile === null) {
+    //   return false
+    // }
+
+    //return isStudentLoggedIn(profile, queue, student)
+    //return isStudentLoggedIn(student)
+    //},
+
     // create links from URLs that are embedded in text
     createLinks(text) {
       const urlRegex = /(https?:\/\/[^\s/$.?#]+\.[^\s]+)/g // regular expression to match URLs
@@ -227,5 +264,9 @@ export default {
 .no_bookings {
   padding-left: 1.5rem;
   color: grey;
+}
+
+.logged-in-row {
+  background-color: yellow;
 }
 </style>

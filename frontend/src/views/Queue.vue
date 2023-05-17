@@ -167,20 +167,17 @@
         </div>
 
         <!-- TODO: -->
-        <!-- <div v-if="queue.openings.length > 0"> -->
-        <div>
+        <!-- <div v-if="queue.openings.length > 0">
           Kommande öppningar:
           <span v-for="opening in queue.openings" :key="opening" style="background: #eeeeee; padding: 5px; margin: 0 3px"> {{ unix_to_datetime(opening) }} </span>
-        </div>
+        </div> -->
 
         <!-- Bokning info -->
         <md-card v-if="!is_login" class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
           <h2>Bokningsinformation</h2>
-          <!-- <div v-if="queue.bookings.length < 1"> -->
           <div v-if="filteredBookings.length < 1">
             <h3 style="color: grey; margin-bottom: 2rem">Den här kör är tom</h3>
           </div>
-          <!-- <div v-if="queue.bookings.length > 0"> -->
           <div v-if="filteredBookings.length > 0">
             <h3 style="color: grey; margin-bottom: 2rem"><md-icon class="animate__animated animate__flash animate__repeat-3" style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
           </div>
@@ -292,7 +289,7 @@
                     <div>{{ index + 1 }}. {{ user.profile.name }}</div>
                     <br />
                     <!-- Plats -->
-                    <div style="width: 1%" v-if="user.profile.name !== null"><Location :location="user.location" /></div>
+                    <div style="width: 1%; padding-left: 1rem" v-if="user.profile.name !== null"><Location :location="user.location" /></div>
                   </md-table-cell>
 
                   <!-- Tid -->
