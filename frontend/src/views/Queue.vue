@@ -257,11 +257,13 @@
         <md-card>
           <md-card-header class="animate__animated animate__fadeInUp">
             <h2>Drop-in Queue</h2>
+            <!-- No one in queue -->
             <div v-if="queue.queuing.length < 1">
               <h3 style="color: grey; margin-top: 0">Den här kön är tom</h3>
             </div>
           </md-card-header>
 
+          <!-- Someone in queue -->
           <md-table v-if="queue.queuing.length > 0" class="animate__animated animate__fadeInUp">
             <md-card-content>
               <!-- Drop in que/Table head -->
@@ -297,7 +299,7 @@
                   <md-table-cell>{{ unix_to_datetime2(user.entered_at) }} </md-table-cell>
 
                   <!-- Elapsed time -->
-                  <md-table-cell>{{ formattedTime }}</md-table-cell>
+                  <md-table-cell>{{ formattedTime(user.entered_at) }}</md-table-cell>
 
                   <!-- Innehåll -->
                   <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
@@ -478,9 +480,6 @@ export default {
   },
 
   data: () => ({
-    //Elapsed time since student queued
-    elapsedTime: 0,
-
     //current time
     now: null,
 
@@ -508,23 +507,7 @@ export default {
     dialog_booking: null,
   }),
 
-  mounted() {
-    //Elapsed time since student queued
-    setInterval(() => {
-      this.elapsedTime += 1
-    }, 1000)
-  },
-
   computed: {
-    //Elapsed time since student queued
-    formattedTime() {
-      const seconds = this.elapsedTime % 60
-      const minutes = Math.floor((this.elapsedTime / 60) % 60)
-      const hours = Math.floor(this.elapsedTime / 3600)
-
-      return `${hours} hour ${minutes} minutes ${seconds} seconds`
-    },
-
     // Filter booking data to return only today's bookings
     todaysBookings() {
       const today = new Date()
@@ -682,6 +665,26 @@ export default {
   },
 
   methods: {
+    //Elapsed time since student queued
+    formattedTime(enteredAt) {
+      const currentTime = Date.now() //
+      const elapsedTime = currentTime - enteredAt
+      if (elapsedTime >= 3600000) {
+        // More than one hour
+        const hours = Math.floor(elapsedTime / 3600000)
+        const minutes = Math.floor((elapsedTime % 3600000) / 60000)
+        return `${hours} hours ${minutes} minutes`
+      } else if (elapsedTime >= 60000) {
+        // More than one minute
+        const minutes = Math.floor(elapsedTime / 60000)
+        return `${minutes} minutes`
+      } else {
+        // Within one minute
+        const seconds = Math.floor(elapsedTime / 1000)
+        return `${seconds} seconds`
+      }
+    },
+
     //Show thank you assistant 1
     modalOpen() {
       alert('Thank you for your help!!')
