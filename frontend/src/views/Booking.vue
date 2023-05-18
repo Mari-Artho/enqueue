@@ -45,10 +45,10 @@
             <md-table-cell>{{ booking.location }}</md-table-cell>
 
             <!-- Namn -->
-            <md-table-cell v-for="student in booking.students" :key="student.id">
-              <div v-if="is_login" style="background: red">
-                {{ student.name }}
-              </div>
+            <md-table-cell v-for="student in booking.students" :key="student.id" :class="{ 'logged-in-row': !is_login($store.state.profile, $store.state.queue, student) }">
+              <!-- <div v-if="is_login" style="background: red"> -->
+              {{ student.name }}
+              <!-- </div> -->
             </md-table-cell>
 
             <!-- Kommentar -->
@@ -126,28 +126,6 @@ export default {
   }),
 
   computed: {
-    //Use student login information from login.js
-    // is_login() {
-    //   const { profile, queue } = this.$store.state
-    //   return isStudentLoggedIn(profile, queue)
-    // },
-
-    //login
-    //Check if user are logged in
-    is_login() {
-      if (this.$store.state.profile === null) {
-        return false
-      }
-
-      for (const student of this.queue.queuing) {
-        if (this.$store.state.profile.id === student.profile.id) {
-          return true
-        }
-      }
-
-      return true
-    },
-
     //Hide past bookings for students
     filteredBookingsForStudents() {
       const currentDate = new Date()
@@ -229,16 +207,26 @@ export default {
       })
     },
 
-    //Check student's login
-    //is_login(student) {
-    // const { profile, queue } = this.$store.state
-    // if (profile === null) {
-    //   return false
-    // }
+    //
+    is_loggedIn(profile, queue, student) {
+      return isStudentLoggedIn(profile, queue, student)
+    },
 
-    //return isStudentLoggedIn(profile, queue, student)
-    //return isStudentLoggedIn(student)
-    //},
+    //
+    is_login() {
+      const { profile, queue } = this.$store.state
+      if (profile === null || queue === null) {
+        return false
+      }
+
+      for (const student of this.queue.queuing) {
+        if (student.profile.id === profile.id && this.students && this.students.some(s => s.id === student.id)) {
+          return true
+        }
+      }
+
+      return false
+    },
 
     // create links from URLs that are embedded in text
     createLinks(text) {
