@@ -45,10 +45,8 @@
             <md-table-cell>{{ booking.location }}</md-table-cell>
 
             <!-- Namn -->
-            <md-table-cell v-for="student in booking.students" :key="student.id" :class="{ 'logged-in-row': !is_login($store.state.profile, $store.state.queue, student) }">
-              <!-- <div v-if="is_login" style="background: red"> -->
+            <md-table-cell v-for="student in booking.students" :key="student.id" :class="{ 'logged-in-row': is_login($store.state.profile, $store.state.queue, student) }">
               {{ student.name }}
-              <!-- </div> -->
             </md-table-cell>
 
             <!-- Kommentar -->
@@ -225,7 +223,7 @@ export default {
         }
       }
 
-      return false
+      return true
     },
 
     // create links from URLs that are embedded in text
