@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { isStudentLoggedIn } from '../../../backend/login'
+//import { isStudentLoggedIn } from '../../../backend/login'
 
 export default {
   name: 'Booking',
@@ -203,7 +203,7 @@ export default {
       })
     },
 
-    //Check if student login or not
+    //Check if student is login or not
     login_student(student_id) {
       for (const student of this.queue.queuing) {
         if (student_id === student.profile.id) {
