@@ -83,7 +83,7 @@
               <md-table-head> Assisteras av </md-table-head>
             </md-table-row>
 
-            <md-table-row v-for="booking in my_bookings" :key="booking.id">
+            <md-table-row v-for="booking in my_bookings" :key="booking.id" :class="{ 'logged-in-row': login_student(booking.students[0].id) }">
               <!-- time -->
               <md-table-cell> {{ getFormattedDate(booking.timestamp) }} </md-table-cell>
 
@@ -91,9 +91,7 @@
               <md-table-cell> {{ booking.location }} </md-table-cell>
 
               <!-- Namn -->
-              <md-table-cell v-for="student in booking.students" :key="student.id" :class="{ 'logged-in-row': login_student(student.id) }">
-                {{ student.name }}
-              </md-table-cell>
+              <md-table-cell> {{ booking.students[0].name }} </md-table-cell>
 
               <!-- Kommentar -->
               <md-table-cell> {{ booking.comment }} </md-table-cell>
