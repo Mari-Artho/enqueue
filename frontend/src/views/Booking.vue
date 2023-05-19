@@ -37,7 +37,7 @@
           </template>
 
           <!-- Display when there is a reservation for a teacher -->
-          <md-table-row v-for="booking in filteredBookings(queue.bookings)" :key="booking.id">
+          <md-table-row v-for="booking in filteredBookings(queue.bookings)" :key="booking.id" :class="{ 'logged-in-row': login_student(booking.students[0].id) }">
             <!-- Tid -->
             <md-table-cell>{{ getFormattedDate(booking.timestamp) }}</md-table-cell>
 
@@ -45,13 +45,13 @@
             <md-table-cell>{{ booking.location }}</md-table-cell>
 
             <!-- Namn -->
-            <md-table-cell v-for="student in booking.students" :key="student.id" :class="{ 'logged-in-row': login_student(student.id) }"> {{ student.name }} </md-table-cell>
+            <md-table-cell> {{ booking.students[0].name }} </md-table-cell>
 
             <!-- Kommentar -->
             <md-table-cell>{{ booking.comment }}</md-table-cell>
 
             <!-- Assisteras av-->
-            <md-table-cell v-for="handler in booking.handlers" :key="handler.id"> {{ handler.name }}</md-table-cell>
+            <md-table-cell v-if="booking.handlers.length > 0"> {{ booking.handlers[0].name }}</md-table-cell>
             <md-table-cell v-if="booking.handlers.length == 0">&nbsp;</md-table-cell>
           </md-table-row>
         </md-table>
