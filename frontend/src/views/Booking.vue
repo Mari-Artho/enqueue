@@ -45,7 +45,7 @@
             <md-table-cell>{{ booking.location }}</md-table-cell>
 
             <!-- Namn -->
-            <md-table-cell v-for="student in booking.students" :key="student.id" :class="{ 'logged-in-row': is_login(student.id) }"> {{ student.name }} </md-table-cell>
+            <md-table-cell v-for="student in booking.students" :key="student.id" :class="{ 'logged-in-row': login_student(student.id) }"> {{ student.name }} </md-table-cell>
 
             <!-- Kommentar -->
             <md-table-cell>{{ booking.comment }}</md-table-cell>
@@ -203,7 +203,8 @@ export default {
       })
     },
 
-    is_login(student_id) {
+    //Check if student login or not
+    login_student(student_id) {
       for (const student of this.queue.queuing) {
         if (student_id === student.profile.id) {
           return true
