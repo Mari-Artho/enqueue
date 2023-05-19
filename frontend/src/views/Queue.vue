@@ -473,6 +473,7 @@
 
 <script>
 import Location from '../components/Location.vue'
+import filteredBookingsInQueue from '../../../backend/bookings'
 
 export default {
   name: 'Queue',
@@ -531,11 +532,7 @@ export default {
 
     //filter past bookings and show all bookings(not only today)
     filteredBookings() {
-      const currentDate = new Date()
-      return this.queue.bookings.filter(booking => {
-        const bookingDate = new Date(booking.timestamp)
-        return bookingDate >= currentDate
-      })
+      return filteredBookingsInQueue(this.queue)
     },
 
     //Check if user are logged in
