@@ -45,9 +45,7 @@
             <md-table-cell>{{ booking.location }}</md-table-cell>
 
             <!-- Namn -->
-            <md-table-cell v-for="student in booking.students" :key="student.id" :class="{ 'logged-in-row': is_login($store.state.profile, $store.state.queue, student) }">
-              {{ student.name }}
-            </md-table-cell>
+            <md-table-cell v-for="student in booking.students" :key="student.id" :class="{ 'logged-in-row': is_login(student.id) }"> {{ student.name }} </md-table-cell>
 
             <!-- Kommentar -->
             <md-table-cell>{{ booking.comment }}</md-table-cell>
@@ -205,25 +203,14 @@ export default {
       })
     },
 
-    //
-    is_loggedIn(profile, queue, student) {
-      return isStudentLoggedIn(profile, queue, student)
-    },
-
-    //
-    is_login() {
-      const { profile, queue } = this.$store.state
-      if (profile === null || queue === null) {
-        return false
-      }
-
+    is_login(student_id) {
       for (const student of this.queue.queuing) {
-        if (student.profile.id === profile.id && this.students && this.students.some(s => s.id === student.id)) {
+        if (student_id === student.profile.id) {
           return true
         }
       }
 
-      return true
+      return false
     },
 
     // create links from URLs that are embedded in text

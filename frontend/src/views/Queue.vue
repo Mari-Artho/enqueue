@@ -550,7 +550,7 @@ export default {
         }
       }
 
-      return true
+      return false
     },
 
     in_queue() {

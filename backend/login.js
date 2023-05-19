@@ -1,6 +1,5 @@
-
-export function isStudentLoggedIn(profile, queue, student) {
-  for (const queuedStudent of queue.queuing) {
+export function isStudentLoggedIn(profile, student) {
+  for (const queuedStudent of this.queue.queuing) {
     if (
       profile.id === queuedStudent.profile.id &&
       student.id === queuedStudent.id
