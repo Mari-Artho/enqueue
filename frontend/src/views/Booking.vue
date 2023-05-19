@@ -91,7 +91,7 @@
               <md-table-cell> {{ booking.location }} </md-table-cell>
 
               <!-- Namn -->
-              <md-table-cell v-for="student in booking.students" :key="student.id">
+              <md-table-cell v-for="student in booking.students" :key="student.id" :class="{ 'logged-in-row': login_student(student.id) }">
                 {{ student.name }}
               </md-table-cell>
 
@@ -110,8 +110,6 @@
 </template>
 
 <script>
-//import { isStudentLoggedIn } from '../../../backend/login'
-
 export default {
   name: 'Booking',
 
@@ -214,7 +212,7 @@ export default {
       return false
     },
 
-    // create links from URLs that are embedded in text
+    //create links from URLs that are embedded in text
     createLinks(text) {
       const urlRegex = /(https?:\/\/[^\s/$.?#]+\.[^\s]+)/g // regular expression to match URLs
       return text.replace(urlRegex, '<a href="$1">$1</a>') // replace URLs with HTML links
@@ -240,7 +238,8 @@ export default {
   color: grey;
 }
 
+/* Main color rgb(68, 138, 255) */
 .logged-in-row {
-  background-color: yellow;
+  background-color: rgb(204, 220, 248);
 }
 </style>
