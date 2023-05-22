@@ -520,7 +520,7 @@ export default {
   computed: {
     //Show your own bookings
     my_bookings() {
-      const studentId = this.$store.state.profile.id
+      const studentId = this.$store.state.profile ? this.$store.state.profile.id : -1
       return this.filteredBookings.filter(booking => {
         return booking.students.some(student => student.id === studentId)
       })
