@@ -283,20 +283,13 @@
 
             <md-card-content>
               <template v-if="view_entire_queue === true">
-                <!-- <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user"> -->
-
-                <md-table-row v-for="(user, index) in my_bookings" :key="user.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile && user.id == $store.state.profile.id }]" @click="dialog_queuing = user">
-                  <!-- <md-table-row v-for="(user, index) in my_bookings" :key="user.id" style="cursor: pointer" @click="dialog_queuing = user"> -->
-
+                <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
                   <!-- Namn  -->
-                  <!-- <md-table-cell v-if="user.profile.name !== null" style="white-space: nowrap; width: 10%"> -->
-                  <md-table-cell v-if="user.name" style="white-space: nowrap; width: 10%">
-                    <!-- <div>{{ index + 1 }}. {{ user.profile.name }}</div> -->
-                    <div>{{ index + 1 }}. {{ user.name }}</div>
+                  <md-table-cell v-if="user.profile.name !== null" style="white-space: nowrap; width: 10%">
+                    <div>{{ index + 1 }}. {{ user.profile.name }}</div>
                     <br />
                     <!-- Plats -->
-                    <!-- <div style="width: 1%; padding-left: 1rem" v-if="user.profile.name !== null"><Location :location="user.location" /></div> -->
-                    <div style="width: 1%; padding-left: 1rem" v-if="user.name"><Location :location="user.location" /></div>
+                    <div style="width: 1%; padding-left: 1rem" v-if="user.profile.name !== null"><Location :location="user.location" /></div>
                   </md-table-cell>
 
                   <!-- Tid -->
