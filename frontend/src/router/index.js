@@ -5,7 +5,6 @@ import QueueListView from '../views/Queues.vue'
 import QueueSingleView from '../views/Queue.vue'
 import QueueEditView from '../views/QueueEdit.vue'
 import QueueHistoryView from '../views/QueueHistory.vue'
-import TestView from '../views/Test.vue'
 import Bookings from '../views/Bookings.vue'
 import Booking from '../views/Booking.vue'
 
@@ -18,7 +17,6 @@ const routes = [
   { path: '/queues/:name', component: QueueSingleView },
   { path: '/queues/:name/edit', component: QueueEditView },
   { path: '/queues/:name/history', component: QueueHistoryView },
-  { path: '/test', component: TestView },
   { path: '/bookings', component: Bookings },
   { path: '/bookings/:name', component: Booking },
 ]
