@@ -11,11 +11,11 @@
     <md-dialog-confirm :md-active="promt_clear_queue && queue.queuing.length !== 0" md-title="Vill du rensa kön?" md-confirm-text="Ja, rensa kön" md-cancel-text="Nej, återgå" @md-confirm="purge()" @md-cancel="promt_clear_queue = false" />
 
     <!-- Alert message -->
-    <md-dialog v-if="dialog_queuing !== null" :md-active="true">
+    <md-dialog v-if="dialog_queuing" :md-active="true">
       <md-dialog-content>
         <h2>
           {{ queue.queuing.findIndex(x => x.profile.id === dialog_queuing.profile.id) + 1 }}.
-          <span v-if="dialog_queuing.profile.user_name !== null"> {{ dialog_queuing.profile.name }} ({{ dialog_queuing.profile.user_name }}) </span>
+          <span v-if="dialog_queuing.profile.user_name"> {{ dialog_queuing.profile.name }} ({{ dialog_queuing.profile.user_name }}) </span>
         </h2>
 
         <strong>Gick in i kön:</strong>
@@ -29,7 +29,7 @@
 
         <br />
 
-        <template v-if="dialog_queuing.comment !== null">
+        <template v-if="dialog_queuing.comment">
           <strong>Kommentar:</strong>
           {{ dialog_queuing.comment }}
           <br />
@@ -62,14 +62,14 @@
     </md-dialog>
 
     <!-- Display when there is a booking-->
-    <md-dialog v-if="dialog_booking !== null" :md-active="true">
+    <md-dialog v-if="dialog_booking" :md-active="true">
       <md-dialog-content>
         <!-- Time slot -->
         <h2>Tidslucka {{ unix_to_datetime(dialog_booking.timestamp) }}</h2>
 
         <!-- Name -->
         <!-- $store.state is a property used to refer to the state in the Vue.js application's store object. -->
-        <template v-if="$store.state.profile !== null">
+        <template v-if="$store.state.profile">
           <strong>Namn:</strong>
           {{ dialog_booking.students.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
           <br />
@@ -85,7 +85,7 @@
         <br />
 
         <!-- Comment -->
-        <template v-if="dialog_booking.comment !== null">
+        <template v-if="dialog_booking.comment">
           <strong>Kommentar:</strong>
           {{ dialog_booking.comment }}
           <br />
@@ -100,7 +100,7 @@
 
       <md-dialog-content>
         <!-- Enter location input form -->
-        <form v-if="$store.state.profile !== null && dialog_booking.students.findIndex(x => x.id === $store.state.profile.id) !== -1" style="display: inline-flex" @submit.prevent="booking_set_location">
+        <form v-if="$store.state.profile && dialog_booking.students.findIndex(x => x.id === $store.state.profile.id) !== -1" style="display: inline-flex" @submit.prevent="booking_set_location">
           <!-- Input plats -->
           <md-field>
             <label for="booking_location">Ange plats</label>
@@ -120,7 +120,7 @@
           <md-button class="md-accent" @click="booking_remove(dialog_booking)"> Ta bort </md-button>
 
           <!-- Placering button -->
-          <md-button v-if="dialog_booking.location !== null" :class="[{ 'md-accent': !dialog_booking.bad_location }]" @click="booking_bad_location"> Placering </md-button>
+          <md-button v-if="dialog_booking.location" :class="[{ 'md-accent': !dialog_booking.bad_location }]" @click="booking_bad_location"> Placering </md-button>
 
           <!-- Assistera button -->
           <md-button
@@ -190,13 +190,13 @@
               <md-table-row>
                 <md-table-head style="width: 23%"> Tid </md-table-head>
 
-                <md-table-head v-if="$store.state.profile !== null" style="width: 23%"> Namn</md-table-head>
+                <md-table-head v-if="$store.state.profile" style="width: 23%"> Namn</md-table-head>
 
-                <md-table-head v-if="$store.state.profile !== null" style="width: 35%"> Kommentar </md-table-head>
+                <md-table-head v-if="$store.state.profile" style="width: 35%"> Kommentar </md-table-head>
 
                 <md-table-head v-else style="width: 35%"> Kommentar </md-table-head>
 
-                <md-table-head v-if="$store.state.profile !== null" style="width: 25%"> Assisteras av </md-table-head>
+                <md-table-head v-if="$store.state.profile" style="width: 25%"> Assisteras av </md-table-head>
               </md-table-row>
             </md-card-header>
 
@@ -210,7 +210,7 @@
                 :class="[
                   { studentIsHandled: booking.handlers.length > 0 },
                   {
-                    myQueueRow: $store.state.profile !== null && booking.students.findIndex(x => x.id === $store.state.profile.id) !== -1,
+                    myQueueRow: $store.state.profile && booking.students.findIndex(x => x.id === $store.state.profile.id) !== -1,
                   },
                 ]"
                 @click="dialog_booking = booking"
@@ -222,20 +222,20 @@
                   <br />
 
                   <!-- Location -->
-                  <div v-if="booking.location !== null" :class="[{ badLocation: booking.bad_location }]">{{ booking.location }}</div>
+                  <div v-if="booking.location" :class="[{ badLocation: booking.bad_location }]">{{ booking.location }}</div>
 
                   <div v-else class="noLocation">ingen plats angiven</div>
                 </md-table-cell>
 
                 <!-- Student name -->
-                <md-table-cell v-if="$store.state.profile !== null" style="width: 25%">
+                <md-table-cell v-if="$store.state.profile" style="width: 25%">
                   <div v-for="student in booking.students" :key="student.id">
                     {{ student.name }}
                   </div>
                 </md-table-cell>
 
                 <!-- Komment -->
-                <md-table-cell style="width: 35%" v-if="booking.comment !== null">
+                <md-table-cell style="width: 35%" v-if="booking.comment">
                   {{ booking.comment }}
                 </md-table-cell>
 
@@ -285,18 +285,18 @@
               <template v-if="view_entire_queue === true">
                 <!-- <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user"> -->
 
-                <md-table-row v-for="(user, index) in my_bookings" :key="user.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
+                <md-table-row v-for="(user, index) in my_bookings" :key="user.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile && user.id == $store.state.profile.id }]" @click="dialog_queuing = user">
                   <!-- <md-table-row v-for="(user, index) in my_bookings" :key="user.id" style="cursor: pointer" @click="dialog_queuing = user"> -->
 
                   <!-- Namn  -->
                   <!-- <md-table-cell v-if="user.profile.name !== null" style="white-space: nowrap; width: 10%"> -->
-                  <md-table-cell v-if="user.name !== null" style="white-space: nowrap; width: 10%">
+                  <md-table-cell v-if="user.name" style="white-space: nowrap; width: 10%">
                     <!-- <div>{{ index + 1 }}. {{ user.profile.name }}</div> -->
                     <div>{{ index + 1 }}. {{ user.name }}</div>
                     <br />
                     <!-- Plats -->
                     <!-- <div style="width: 1%; padding-left: 1rem" v-if="user.profile.name !== null"><Location :location="user.location" /></div> -->
-                    <div style="width: 1%; padding-left: 1rem" v-if="user.name !== null"><Location :location="user.location" /></div>
+                    <div style="width: 1%; padding-left: 1rem" v-if="user.name"><Location :location="user.location" /></div>
                   </md-table-cell>
 
                   <!-- Tid -->
@@ -312,11 +312,11 @@
                   </md-table-cell>
 
                   <!-- Innehåll -->
-                  <md-table-cell><md-badge v-if="user.action !== null" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
+                  <md-table-cell><md-badge v-if="user.action" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
 
                   <!-- Kommentar -->
                   <md-table-cell>
-                    <span v-if="user.comment !== null">{{ user.comment }}</span>
+                    <span v-if="user.comment">{{ user.comment }}</span>
                   </md-table-cell>
 
                   <!-- Assisteras av-->
@@ -608,7 +608,7 @@ export default {
       }
 
       for (const student of this.queue.students) {
-        if (student !== null && student.id === this.$store.state.profile.id) {
+        if (student && student.id === this.$store.state.profile.id) {
           return false
         }
       }
@@ -618,7 +618,7 @@ export default {
 
     profile_in_white_list() {
       for (const student of this.queue.students) {
-        if (student !== null && this.$store.state.profile.id === student.id) {
+        if (student && this.$store.state.profile.id === student.id) {
           return true
         }
       }
@@ -649,7 +649,7 @@ export default {
     dialog_booking: function (n) {
       this.dialog_queuing = null
 
-      if (n !== null) {
+      if (n) {
         this.booking_location = n.location
       }
     },
@@ -923,7 +923,7 @@ export default {
         .then(queue => {
           this.queue = queue
 
-          if (this.$store.state.location !== null) {
+          if (this.$store.state.location) {
             this.location = this.$store.state.location.name
           }
 
@@ -994,7 +994,7 @@ export default {
       }
 
       // om en assistent har öppnat rutan med inställningar för en köande student, justera den
-      if (this.dialog_queuing !== null) {
+      if (this.dialog_queuing) {
         const qsi = this.queue.queuing.findIndex(x => x.profile.id === this.dialog_queuing.profile.id)
 
         this.dialog_queuing = qsi === -1 ? null : this.queue.queuing[qsi]
@@ -1027,7 +1027,7 @@ export default {
       this.queue.bookings.push(data.booking)
       this.sort_bookings()
 
-      if (this.dialog_booking !== null && this.dialog_booking.id === data.booking.id) {
+      if (this.dialog_booking && this.dialog_booking.id === data.booking.id) {
         this.dialog_booking = data.booking
         this.booking_location = data.booking.location
       }
@@ -1036,7 +1036,7 @@ export default {
     socket_handle_delete_booking(booking_id) {
       this.queue.bookings = this.queue.bookings.filter(x => x.id !== booking_id)
 
-      if (this.dialog_booking !== null && this.dialog_booking.id === booking_id) {
+      if (this.dialog_booking && this.dialog_booking.id === booking_id) {
         this.dialog_booking = null
       }
     },
