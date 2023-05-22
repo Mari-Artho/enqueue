@@ -141,20 +141,6 @@ export default {
     this.fetch_queue()
   },
 
-  watch: {
-    dialog_queuing: function () {
-      this.dialog_booking = null
-    },
-
-    dialog_booking: function (n) {
-      this.dialog_queuing = null
-
-      if (n !== null) {
-        this.booking_location = n.location
-      }
-    },
-  },
-
   methods: {
     //get a que data
     fetch_queue() {

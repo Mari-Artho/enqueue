@@ -253,6 +253,7 @@
         <md-card>
           <md-card-header class="animate__animated animate__fadeInUp">
             <h2>Drop-in Queue</h2>
+
             <!-- No one in queue -->
             <div v-if="queue.queuing.length < 1">
               <h3 style="color: grey; margin-top: 0">Den här kön är tom</h3>
@@ -282,13 +283,20 @@
 
             <md-card-content>
               <template v-if="view_entire_queue === true">
-                <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
+                <!-- <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user"> -->
+
+                <md-table-row v-for="(user, index) in my_bookings" :key="user.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
+                  <!-- <md-table-row v-for="(user, index) in my_bookings" :key="user.id" style="cursor: pointer" @click="dialog_queuing = user"> -->
+
                   <!-- Namn  -->
-                  <md-table-cell v-if="user.profile.name !== null" style="white-space: nowrap; width: 10%">
-                    <div>{{ index + 1 }}. {{ user.profile.name }}</div>
+                  <!-- <md-table-cell v-if="user.profile.name !== null" style="white-space: nowrap; width: 10%"> -->
+                  <md-table-cell v-if="user.name !== null" style="white-space: nowrap; width: 10%">
+                    <!-- <div>{{ index + 1 }}. {{ user.profile.name }}</div> -->
+                    <div>{{ index + 1 }}. {{ user.name }}</div>
                     <br />
                     <!-- Plats -->
-                    <div style="width: 1%; padding-left: 1rem" v-if="user.profile.name !== null"><Location :location="user.location" /></div>
+                    <!-- <div style="width: 1%; padding-left: 1rem" v-if="user.profile.name !== null"><Location :location="user.location" /></div> -->
+                    <div style="width: 1%; padding-left: 1rem" v-if="user.name !== null"><Location :location="user.location" /></div>
                   </md-table-cell>
 
                   <!-- Tid -->
@@ -510,6 +518,14 @@ export default {
   }),
 
   computed: {
+    //Show your own bookings
+    my_bookings() {
+      const studentId = this.$store.state.profile.id
+      return this.filteredBookings.filter(booking => {
+        return booking.students.some(student => student.id === studentId)
+      })
+    },
+
     // Filter booking data to return only today's bookings
     todaysBookings() {
       const today = new Date()
