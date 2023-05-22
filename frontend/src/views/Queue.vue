@@ -203,53 +203,102 @@
             <md-card-content>
               <!-- Display when there is no reservation for a student -->
               <h3 v-if="filteredPastBookings.length < 1" class="no_bookings">No bookings for today</h3>
-              <md-table-row
-                v-for="booking in filteredPastBookings"
-                :key="booking.id"
-                style="cursor: pointer"
-                :class="[
-                  { studentIsHandled: booking.handlers.length > 0 },
-                  {
-                    myQueueRow: $store.state.profile && booking.students.findIndex(x => x.id === $store.state.profile.id) !== -1,
-                  },
-                ]"
-                @click="dialog_booking = booking"
-              >
-                <!-- Tid -->
-                <md-table-cell>
-                  <div style="width: 20%">{{ unix_to_datetime(booking.timestamp) }}</div>
 
-                  <br />
+              <!-- Teacher's display -->
+              <div v-if="this.$store.state.profile.teacher === true">
+                <md-table-row
+                  v-for="booking in filteredPastBookings"
+                  :key="booking.id"
+                  style="cursor: pointer"
+                  :class="[
+                    { studentIsHandled: booking.handlers.length > 0 },
+                    {
+                      myQueueRow: $store.state.profile && booking.students.findIndex(x => x.id === $store.state.profile.id) !== -1,
+                    },
+                  ]"
+                  @click="dialog_booking = booking"
+                >
+                  <!-- Tid -->
+                  <md-table-cell>
+                    <div style="width: 20%">{{ unix_to_datetime(booking.timestamp) }}</div>
 
-                  <!-- Location -->
-                  <div v-if="booking.location" :class="[{ badLocation: booking.bad_location }]">{{ booking.location }}</div>
+                    <br />
 
-                  <div v-else class="noLocation">ingen plats angiven</div>
-                </md-table-cell>
+                    <!-- Location -->
+                    <div v-if="booking.location" :class="[{ badLocation: booking.bad_location }]">{{ booking.location }}</div>
 
-                <!-- Student name -->
-                <md-table-cell v-if="$store.state.profile" style="width: 25%">
-                  <div v-for="student in booking.students" :key="student.id">
-                    {{ student.name }}
-                  </div>
-                </md-table-cell>
+                    <div v-else class="noLocation">ingen plats angiven</div>
+                  </md-table-cell>
 
-                <!-- Komment -->
-                <md-table-cell style="width: 35%" v-if="booking.comment">
-                  {{ booking.comment }}
-                </md-table-cell>
+                  <!-- Student name -->
+                  <md-table-cell v-if="$store.state.profile" style="width: 25%">
+                    <div v-for="student in booking.students" :key="student.id">
+                      {{ student.name }}
+                    </div>
+                  </md-table-cell>
 
-                <!-- Assisteras av-->
-                <md-table-cell style="width: 25%">
-                  {{ booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
-                </md-table-cell>
-              </md-table-row>
+                  <!-- Komment -->
+                  <md-table-cell style="width: 35%" v-if="booking.comment">
+                    {{ booking.comment }}
+                  </md-table-cell>
+
+                  <!-- Assisteras av-->
+                  <md-table-cell style="width: 25%">
+                    {{ booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
+                  </md-table-cell>
+                </md-table-row>
+              </div>
+
+              <!-- Student's display -->
+              <div v-else>
+                <md-table-row
+                  v-for="booking in my_bookings"
+                  :key="booking.id"
+                  style="cursor: pointer"
+                  :class="[
+                    { studentIsHandled: booking.handlers.length > 0 },
+                    {
+                      myQueueRow: $store.state.profile && booking.students.findIndex(x => x.id === $store.state.profile.id) !== -1,
+                    },
+                  ]"
+                  @click="dialog_booking = booking"
+                >
+                  <!-- Tid -->
+                  <md-table-cell>
+                    <div style="width: 20%">{{ unix_to_datetime(booking.timestamp) }}</div>
+
+                    <br />
+
+                    <!-- Location -->
+                    <div v-if="booking.location" :class="[{ badLocation: booking.bad_location }]">{{ booking.location }}</div>
+
+                    <div v-else class="noLocation">ingen plats angiven</div>
+                  </md-table-cell>
+
+                  <!-- Student name -->
+                  <md-table-cell v-if="$store.state.profile" style="width: 25%">
+                    <div v-for="student in booking.students" :key="student.id">
+                      {{ student.name }}
+                    </div>
+                  </md-table-cell>
+
+                  <!-- Komment -->
+                  <md-table-cell style="width: 35%" v-if="booking.comment">
+                    {{ booking.comment }}
+                  </md-table-cell>
+
+                  <!-- Assisteras av-->
+                  <md-table-cell style="width: 25%">
+                    {{ booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
+                  </md-table-cell>
+                </md-table-row>
+              </div>
             </md-card-content>
           </md-table>
         </md-card>
 
         <br />
-        <!-- Row of Que tables -->
+        <!-- Row of Queue tables -->
         <md-card>
           <md-card-header class="animate__animated animate__fadeInUp">
             <h2>Drop-in Queue</h2>
@@ -514,7 +563,7 @@ export default {
     //Show your own bookings
     my_bookings() {
       const studentId = this.$store.state.profile ? this.$store.state.profile.id : -1
-      return this.filteredBookings.filter(booking => {
+      return this.filteredPastBookings.filter(booking => {
         return booking.students.some(student => student.id === studentId)
       })
     },
