@@ -182,6 +182,14 @@
           </div>
         </md-card>
 
+        <!-- Show a massage when there is no reservation for a student -->
+        <md-card>
+          <md-card-header>
+            <h2>Bokningsinformation</h2>
+            <h3 v-if="todaysBookings.length < 1" class="no_bookings">No bookings for today</h3>
+          </md-card-header>
+        </md-card>
+
         <!-- Display when there is a booking -->
         <md-card v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
           <md-table>
@@ -201,9 +209,6 @@
             </md-card-header>
 
             <md-card-content>
-              <!-- Display when there is no reservation for a student -->
-              <h3 v-if="filteredPastBookings.length < 1" class="no_bookings">No bookings for today</h3>
-
               <!-- Teacher's display -->
               <div v-if="this.$store.state.profile.teacher === true">
                 <md-table-row
