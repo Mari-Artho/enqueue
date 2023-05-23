@@ -328,42 +328,40 @@
             </md-card-content>
 
             <md-card-content>
-              <template v-if="view_entire_queue === true">
-                <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
-                  <!-- Namn  -->
-                  <md-table-cell v-if="user.profile.name !== null" style="white-space: nowrap; width: 10%">
-                    <div>{{ index + 1 }}. {{ user.profile.name }}</div>
-                    <br />
-                    <!-- Plats -->
-                    <div style="width: 1%; padding-left: 1rem" v-if="user.profile.name !== null"><Location :location="user.location" /></div>
-                  </md-table-cell>
+              <md-table-row v-for="(user, index) in queue.queuing" :key="user.profile.id" style="cursor: pointer" :class="[{ studentIsHandled: user.handlers.length > 0 }, { myQueueRow: $store.state.profile !== null && user.profile.id === $store.state.profile.id }]" @click="dialog_queuing = user">
+                <!-- Namn  -->
+                <md-table-cell v-if="user.profile.name !== null" style="white-space: nowrap; width: 10%">
+                  <div>{{ index + 1 }}. {{ user.profile.name }}</div>
+                  <br />
+                  <!-- Plats -->
+                  <div style="width: 1%; padding-left: 1rem" v-if="user.profile.name !== null"><Location :location="user.location" /></div>
+                </md-table-cell>
 
-                  <!-- Tid -->
-                  <md-table-cell>
-                    <div>
-                      {{ unix_to_datetime2(user.entered_at) }}
-                    </div>
-                    <br />
-                    <!-- Elapsed time -->
-                    <div>
-                      {{ formattedTime(user.entered_at) }}
-                    </div>
-                  </md-table-cell>
+                <!-- Tid -->
+                <md-table-cell>
+                  <div>
+                    {{ unix_to_datetime2(user.entered_at) }}
+                  </div>
+                  <br />
+                  <!-- Elapsed time -->
+                  <div>
+                    {{ formattedTime(user.entered_at) }}
+                  </div>
+                </md-table-cell>
 
-                  <!-- Innehåll -->
-                  <md-table-cell><md-badge v-if="user.action" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
+                <!-- Innehåll -->
+                <md-table-cell><md-badge v-if="user.action" class="md-primary md-square test" :md-content="user.action.name" /></md-table-cell>
 
-                  <!-- Kommentar -->
-                  <md-table-cell>
-                    <span v-if="user.comment">{{ user.comment }}</span>
-                  </md-table-cell>
+                <!-- Kommentar -->
+                <md-table-cell>
+                  <span v-if="user.comment">{{ user.comment }}</span>
+                </md-table-cell>
 
-                  <!-- Assisteras av-->
-                  <md-table-cell>
-                    {{ user.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
-                  </md-table-cell>
-                </md-table-row>
-              </template>
+                <!-- Assisteras av-->
+                <md-table-cell>
+                  {{ user.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
+                </md-table-cell>
+              </md-table-row>
             </md-card-content>
           </md-table>
         </md-card>
