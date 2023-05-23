@@ -170,18 +170,22 @@
           <span v-for="opening in queue.openings" :key="opening" style="background: #eeeeee; padding: 5px; margin: 0 3px"> {{ unix_to_datetime(opening) }} </span>
         </div> -->
 
-        <!-- Bokning info -->
+        <!-- No login -->
         <md-card v-if="!is_login" class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
           <h2>Bokningsinformation</h2>
+
+          <!-- There is NO bookings -->
           <div v-if="todaysBookings.length < 1">
             <h3 style="color: grey; margin-bottom: 2rem">Den här kör är tom</h3>
           </div>
+
+          <!-- There is bookings -->
           <div v-if="todaysBookings.length > 0">
             <h3 style="color: grey; margin-bottom: 2rem"><md-icon class="animate__animated animate__flash animate__repeat-3" style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
           </div>
         </md-card>
 
-        <!-- Display when there is a booking -->
+        <!-- Login and show bookings -->
         <md-card v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
           <md-table>
             <md-card-header>
@@ -201,7 +205,7 @@
 
             <md-card-content>
               <!-- Teacher's display -->
-              <div v-if="this.$store.state.profile.teacher === true">
+              <div v-if="$store.state.profile.teacher === true">
                 <md-table-row
                   v-for="booking in filteredPastBookings"
                   :key="booking.id"

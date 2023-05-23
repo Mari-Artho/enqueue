@@ -7,12 +7,12 @@
       {{ queue.name }}
     </h1>
 
-    <!-- TODO: Because of Prettier, if you don't write anything inside the p tag, you'll get an error. However, when using v-html, if something is written in the p tag, it will be overwritten, so a warning will appear. -->
-    <p style="white-space: pre-line" v-html="createLinks(queue.description)">.</p>
+    <!-- Description from MySql and create a link. -->
+    <span style="white-space: pre-line" v-html="createLinks(queue.description)" />
 
     <!-- Show all bookings when the user is a teacher -->
     <md-card v-if="$store.state.profile.teacher">
-      <md-card-header>
+      <md-card-header style="margin-top: 2rem">
         <h2><md-icon>pending_actions</md-icon> Alla bokningar</h2>
       </md-card-header>
 
