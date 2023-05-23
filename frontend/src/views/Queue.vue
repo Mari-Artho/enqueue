@@ -180,7 +180,7 @@
           </div>
 
           <!-- There is bookings -->
-          <div v-if="todaysBookings.length > 0">
+          <div v-else>
             <h3 style="color: grey; margin-bottom: 2rem"><md-icon class="animate__animated animate__flash animate__repeat-3" style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
           </div>
         </md-card>
