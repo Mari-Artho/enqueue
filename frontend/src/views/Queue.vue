@@ -595,17 +595,7 @@ export default {
 
     //Check if user are logged in
     is_login() {
-      if (this.$store.state.profile === null) {
-        return false
-      }
-
-      for (const student of this.queue.queuing) {
-        if (this.$store.state.profile.id === student.profile.id) {
-          return true
-        }
-      }
-
-      return false
+      return this.$store.state.profile != null
     },
 
     in_queue() {
