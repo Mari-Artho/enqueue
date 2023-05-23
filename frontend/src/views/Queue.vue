@@ -301,14 +301,12 @@
             <h2>Drop-in Queue</h2>
 
             <!-- No one in queue -->
-            <!-- <div v-if="queue.queuing.length < 1"> -->
             <div v-if="!in_queue">
               <h3 style="color: grey; margin-top: 0">Den här kön är tom</h3>
             </div>
           </md-card-header>
 
           <!-- Someone in queue -->
-          <!-- <md-table v-if="queue.queuing.length > 0" class="animate__animated animate__fadeInUp"> -->
           <md-table v-if="view_entire_queue === true" class="animate__animated animate__fadeInUp">
             <md-card-content>
               <!-- Drop in que/Table head -->
