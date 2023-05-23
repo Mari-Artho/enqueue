@@ -189,7 +189,8 @@
         <md-card v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
           <md-table>
             <md-card-header>
-              <h2 style="margin-top: 1rem">Dagens bokningar</h2>
+              <h2 v-if="$store.state.profile.teacher === true" style="margin-top: 1rem">Dagens bokningar</h2>
+              <h2 v-else style="margin-top: 1rem">Dagens din bokning</h2>
               <md-table-row>
                 <md-table-head style="width: 23%"> Tid </md-table-head>
 

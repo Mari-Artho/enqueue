@@ -59,7 +59,7 @@
     </md-card>
 
     <!-- Students can only see their own bookings -->
-    <md-card v-if="!$store.state.profile.teacher">
+    <md-card v-if="!$store.state.profile.teacher" style="margin-top: 2rem">
       <md-card-header>
         <h2><md-icon>pending_actions</md-icon>Din bokning</h2>
       </md-card-header>
