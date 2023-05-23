@@ -174,21 +174,21 @@
         <!-- Bokning info -->
         <md-card v-if="!is_login" class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
           <h2>Bokningsinformation</h2>
-          <div v-if="filteredBookings.length < 1">
+          <div v-if="todaysBookings.length < 1">
             <h3 style="color: grey; margin-bottom: 2rem">Den här kör är tom</h3>
           </div>
-          <div v-if="filteredBookings.length > 0">
+          <div v-if="todaysBookings.length > 0">
             <h3 style="color: grey; margin-bottom: 2rem"><md-icon class="animate__animated animate__flash animate__repeat-3" style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
           </div>
         </md-card>
 
         <!-- Show a massage when there is no reservation for a student -->
-        <md-card>
+        <!-- <md-card>
           <md-card-header>
             <h2>Bokningsinformation</h2>
             <h3 v-if="todaysBookings.length < 1" class="no_bookings">No bookings for today</h3>
           </md-card-header>
-        </md-card>
+        </md-card> -->
 
         <!-- Display when there is a booking -->
         <md-card v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
