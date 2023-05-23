@@ -187,6 +187,10 @@ export default {
 
     //Check if student is login or not
     login_student(student_id) {
+      if (this.$store.state.profile.id === student_id) {
+        return true
+      }
+      // check if student is queuing
       for (const student of this.queue.queuing) {
         if (student_id === student.profile.id) {
           return true
