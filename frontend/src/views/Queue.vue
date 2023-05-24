@@ -170,8 +170,8 @@
           <span v-for="opening in queue.openings" :key="opening" style="background: #eeeeee; padding: 5px; margin: 0 3px"> {{ unix_to_datetime(opening) }} </span>
         </div> -->
 
-        <!-- Bokningsinformation -->
-        <md-card class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
+        <!-- not login -->
+        <md-card v-if="!is_login" class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
           <h2>Bokningsinformation</h2>
 
           <!-- There is NO bookings -->
@@ -181,10 +181,17 @@
 
           <!-- There is bookings -->
           <div>
-            <div v-if="!is_login && todaysBookings.length > 0">
+            <div v-if="todaysBookings.length > 0">
               <h3 style="color: grey; margin-bottom: 2rem"><md-icon class="animate__animated animate__flash animate__repeat-3" style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
             </div>
           </div>
+        </md-card>
+
+        <!-- login & no today's bookings -->
+        <md-card v-if="is_login && todaysBookings.length < 1" class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
+          <h2>Bokningsinformation</h2>
+
+          <h3 style="color: grey; margin-bottom: 2rem">Inga bokningar för idag</h3>
         </md-card>
 
         <!-- Login and show bookings -->
