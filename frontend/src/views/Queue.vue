@@ -170,28 +170,20 @@
           <span v-for="opening in queue.openings" :key="opening" style="background: #eeeeee; padding: 5px; margin: 0 3px"> {{ unix_to_datetime(opening) }} </span>
         </div> -->
 
-        <!-- No login -->
-        <md-card v-if="!is_login" class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
-          <h2>Bokningsinformation</h2>
-
-          <!-- There is NO bookings -->
-          <div v-if="todaysBookings.length < 1">
-            <h3 style="color: grey; margin-bottom: 2rem">Den här kör är tom</h3>
-          </div>
-
-          <!-- There is bookings -->
-          <div v-else>
-            <h3 style="color: grey; margin-bottom: 2rem"><md-icon class="animate__animated animate__flash animate__repeat-3" style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
-          </div>
-        </md-card>
-
-        <!-- Login -->
-        <md-card v-else class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
+        <!-- Bokningsinformation -->
+        <md-card class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
           <h2>Bokningsinformation</h2>
 
           <!-- There is NO bookings -->
           <div v-if="todaysBookings.length < 1">
             <h3 style="color: grey; margin-bottom: 2rem">Inga bokningar för idag</h3>
+          </div>
+
+          <!-- There is bookings -->
+          <div>
+            <div v-if="!is_login && todaysBookings.length > 0">
+              <h3 style="color: grey; margin-bottom: 2rem"><md-icon class="animate__animated animate__flash animate__repeat-3" style="color: red">notification_important</md-icon> Någon har en bokning. Logga in för att se bokningen.</h3>
+            </div>
           </div>
         </md-card>
 
