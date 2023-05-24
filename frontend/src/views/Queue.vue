@@ -185,6 +185,16 @@
           </div>
         </md-card>
 
+        <!-- Login -->
+        <md-card v-else class="animate__animated animate__fadeInUp" style="padding: 0.5rem">
+          <h2>Bokningsinformation</h2>
+
+          <!-- There is NO bookings -->
+          <div v-if="todaysBookings.length < 1">
+            <h3 style="color: grey; margin-bottom: 2rem">Inga bokningar för idag</h3>
+          </div>
+        </md-card>
+
         <!-- Login and show bookings -->
         <md-card v-if="todaysBookings.length > 0 && is_login" class="animate__animated animate__fadeInUp">
           <md-table>
