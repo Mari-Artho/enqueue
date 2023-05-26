@@ -94,7 +94,7 @@
         <!-- Assisted by -->
         <template v-if="dialog_booking.handlers.length > 0">
           <strong>Assisteras av:</strong>
-          🐵{{ dialog_booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
+          {{ dialog_booking.handlers.map(x => x.name + ' (' + x.user_name + ')').join(', ') }}
         </template>
       </md-dialog-content>
 
@@ -129,7 +129,6 @@
             @click="
               booking_handle()
               showAlert()
-              modalOpen()
             "
           >
             Assistera
@@ -158,11 +157,6 @@
 
         <!-- Current time -->
         <div id="now" class="currentTime" style="margin-top: 2rem">{{ now }}</div>
-
-        <!-- Show thank you message -->
-        <div v-show="show" class="alert" v-bind:class="[alertClass]">
-          {{ ThankMessage }}
-        </div>
 
         <!-- TODO: -->
         <!-- <div v-if="queue.openings.length > 0">
@@ -543,11 +537,6 @@ export default {
     //current time
     now: null,
 
-    //show thank you to assistant
-    alertClass: '',
-    show: false,
-    ThankMessage: 'Tack för din hjälp 😃',
-
     queue: null,
     location: null,
     comment: null,
@@ -741,20 +730,6 @@ export default {
         const seconds = Math.floor(elapsedTime / 1000)
         return `${seconds} seconds ago`
       }
-    },
-
-    //Show thank you assistant 1
-    modalOpen() {
-      alert('Thank you for your help!!')
-    },
-
-    //Show thank you assistant 2
-    showAlert: function () {
-      this.alertClass = 'alert-success'
-      this.show = true
-      setTimeout(() => {
-        this.show = false
-      }, 5000)
     },
 
     // create links from URLs that are embedded in text
@@ -1117,10 +1092,6 @@ export default {
   color: white;
   font-family: 'Share Tech Mono', monospace;
 }
-
-/* .md-table-head {
-  background-color: rgba(217, 218, 220, 0.784);
-} */
 
 .md-card {
   margin-top: 0.5rem;
