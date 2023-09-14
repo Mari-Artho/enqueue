@@ -741,7 +741,10 @@ export default {
     //To put two methods in one button
     addQueAndScrollTop() {
       this.scrollToTop()
-      this.enqueue()
+      this.enqueue().catch(err => {
+        console.error(':-/')
+        this.update_own_details()
+      })
       this.update_own_details()
     },
 
@@ -766,13 +769,19 @@ export default {
           action: this.action,
           comment: this.comment,
         }),
-      }).then(res => {
-        if (res.status !== 201) {
-          res.json().then(data => {
-            alert(data.message)
-          })
-        }
       })
+        .then(res => {
+          if (res.status !== 201) {
+            res.json().then(data => {
+              alert(data.message)
+            })
+          } else {
+            res.json().catch(e => console.log('JSON error', e))
+          }
+        })
+        .catch(err => {
+          console.log('Fetch Error :-S', err)
+        })
     },
 
     //update
